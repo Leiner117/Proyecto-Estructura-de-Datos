@@ -1,39 +1,11 @@
 #include <iostream>
-
+#include "People.h"
 using namespace std;
 
 /*
 Creado:12/09/2022 Ultima mod: 12/09/2022
 Autor: Leiner Alvarado
 */
-
-
-/*
-Estructura persona
-*/
-struct People{
-
-    string name;// Nombre
-    string id;// Cedula
-    short age;// edad
-    string placeResidence;// Lugar de residencia
-    string yearIncome;// Año ingreso
-    People*next;// Siguiente
-    People*pre;// Anterior
-
-
-    People(string n,ide,ag,place,year){
-        name = n;
-        id = ide;
-        age = ag;
-        placeResidence = place;
-        yearIncome = year;
-        next = NULL;
-        pre = NULL;
-
-    }
-
-}*peopleList;//Lista de personas
 
 
 
@@ -57,7 +29,7 @@ struct Rain{
 
     }
 
-}rainList;// Lista de lluvia
+}*rainList;// Lista de lluvia
 
 /*
 Estructura de Efimeridad
@@ -88,6 +60,9 @@ struct Ephemerality{
 
 int main()
 {
+    People p1("Leiner","123",19,"bajo","2022" );
+    p1.setName("Enrique");
+    p1.print();
 
     return 0;
 }
