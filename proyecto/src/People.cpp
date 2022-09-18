@@ -1,7 +1,15 @@
 #include "People.h"
 #include <string>
 #include <iostream>
+
+/*
+ Creado: 16/09/2022 ultima mod: 16/09/2022
+ Autor: Leiner Alvarado
+ */
+
 using namespace std;
+
+//Constructor
 People::People(string n,string id,short age,string place,string year)
 {
     setName(n);
@@ -11,11 +19,10 @@ People::People(string n,string id,short age,string place,string year)
     setYearIncome(year);
 
 }
-
+//Setters
 void People::setName(string n){
     name = n;
 }
-
 
 void People::setId(string i){
     id = i;
@@ -31,6 +38,7 @@ void People::setYearIncome(string year){
     yearIncome = year;
 }
 
+//Getters
 
 string People::getId(){
     return id;
@@ -50,6 +58,7 @@ string People::getYearIncome(){
     return yearIncome;
 }
 
+// Funciones
 void People::print(){
     cout<<getName();
 }

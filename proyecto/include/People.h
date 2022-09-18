@@ -2,6 +2,11 @@
 #define PEOPLE_H
 #include <string>
 using namespace std;
+
+/*
+ Creado: 16/09/2022 ultima mod: 16/09/2022
+ Autor: Leiner Alvarado
+ */
 class People
 {
     public:
@@ -25,7 +30,8 @@ class People
         string getPlaceResidence();
         string getYearIncome();
 
-
+        People*next;
+        People*pre;
     private:
             //Atributos
             string name;// Nombre
@@ -33,6 +39,7 @@ class People
             short age;// edad
             string placeResidence;// Lugar de residencia
             string yearIncome;// Año ingreso
+
 
 
 
