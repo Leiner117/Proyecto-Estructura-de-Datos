@@ -1,87 +1,52 @@
 #include <iostream>
 #include <ctime>
+#include "TimeRegis.h"
+#include "Place.h"
+#include "Region.h"
 
-/* Iniciado: 12/09/2022 Ultima modificacion:
-    Autor: Kari Urbina
+
+
+/*
+    Autor: Karina Urbina
+    Iniciado: 12/09/2022
+    Avance1: 16/09/2022
+    Ultima modificacion:
 
 */
 
+
+
 using namespace std;
 
-//Registro del Tiempo -> SUBLISTA DEL TIEMPO
-struct TimeRegis{
 
-    string registrationDate;
-    int precipitation;
-    float maxTemperature;
-    float minTemperature;
-    int windSpeed;
-    int windDirection;
-    int humidity;
-    bool yesRained=false;
-
-    TimeRegis* next;
-
-    //Constructor de Registro Tiempo
-    TimeRegis(string dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained){
-
-    registrationDate = dateR;
-    precipitation = precip;
-    maxTemperature = maxTemp;
-    maxTemperature = minTemp;
-    windSpeed = winSpd;
-    windDirection = windDirec;
-    humidity = humidity;
-    yesRained = rained;
-
-    }
-
-
-
-} * TimeRegisList;
-
-
-//Lugar -> LISTA CIRCULAR
-struct Place {
-    string name;
-    string population;
-    float squareMeters;
-
-    Place * next;
-    //Constructor de Lugar
-    Place( string n,string p,float meters){
-    name = n ;
-    population = p;
-    squareMeters = meters;
-
-    }
-
-} * placeList;
-
-//Region -> LISTA SIMPLE
-struct Region {
-
-    string idRegion;
-    string name;
-    string location;
-
-    Region * next;
-
-    //Constructor de Region
-    Region(string id,string n, string l){
-    idRegion = id;
-    name = n;
-    location = l;
-
-    }
-
-} *regionList;
-
-
-
+Place* placeList;
 
 int main()
 {
+
+
+    string n;
+    int p;
+    float mc;
+
+    cout<<"Agregue el nombre del lugar: ";
+    getline(cin>>ws, n);
+    cout<<"\nAgregue la poblacion del lugar: ";
+    cin>>p;
+    cout<<"\nAgregue los metros cuadrados del lugar: ";
+    cin>>mc;
+
+    placeList=placeList->add(n,p,mc,placeList);
+
+    //placeList->dataLoad(placeList);
+    //cout<<placeList;
+    placeList->printPlaceList(placeList);
+
+
+
+
+    //cout<<->getName();
     cout << "ESTO ES UNA PRUEBA!" << endl;
+
     return 0;
 }
