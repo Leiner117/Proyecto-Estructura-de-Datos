@@ -56,7 +56,8 @@ int Rain::getAverageRange(){
 Funcion agregar lluvia
 Se encarga de relacionar los nodos lluvia en una lista simple
 */
-Rain*Rain::addRain(Rain*newRain,Rain*oldRain){
+Rain*Rain::addRain(string code,string n,int average,Rain*oldRain){
+    Rain*newRain = new Rain(code,n,average);
     newRain->next = oldRain;
     oldRain = newRain;
     return oldRain;
@@ -82,6 +83,12 @@ void Rain::printRainList(Rain*r){
     }
 
 }
+
+/*
+
+Funcion buscar nodo lluvia
+Se encarga de recorrer la lista de punteros y retornar el nodo buscado
+*/
 Rain*Rain::searchRain(Rain*rainList,string code){
     Rain*temp =rainList;
     while(temp != NULL){
@@ -93,10 +100,45 @@ Rain*Rain::searchRain(Rain*rainList,string code){
     }
     return NULL;
 }
+
+/*
+Funcion modificar lluvia
+Se encarga de modificar los valores de un nodo lluvia
+
+*/
 void Rain::modRainCode(Rain*rain,string newRainCode){
     rain->setRainCode(newRainCode);
 
 }
+/*
+Funcion borrar lluvia
+Se encarga de borrar el nodo lluvia seleccionado
+*/
+void Rain::deleteRain(Rain*rList,string code){
+        if(rList == NULL){
+        cout<<"\nLista vacia...";
+
+    }else{
+        if(rList->rainCode ==code){
+
+            rList = rList->next;
+        }else{
+            Rain* temp = rList;
+            Rain* previ = NULL;
+            while((temp!=NULL) && (temp->rainCode!=code)){
+                previ = temp;
+                temp = temp->next;
+            }
+            if(temp == NULL){
+                cout<<"\nNo se encontro el nodo";
+            }else{
+                previ->next = temp ->next;
+            }
+        }
+    }
+}
+
+
 
 
 

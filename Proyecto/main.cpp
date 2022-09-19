@@ -13,13 +13,11 @@ Rain*rainList;
 
 int main()
 {
-    Rain*r1 = new Rain("001","011",001);
-    Rain*r2 = new Rain("002","012",001);
-    rainList = rainList->addRain(r1,rainList);
-    rainList = rainList->addRain(r2,rainList);
+
+    rainList = rainList->addRain("001","p1",001,rainList);
+    rainList = rainList->addRain("002","p2",002,rainList);
     rainList->printRainList(rainList);
 
-    rainList->
 
     return 0;
 }

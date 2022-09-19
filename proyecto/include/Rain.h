@@ -27,10 +27,13 @@ class Rain
 
         //Funciones
 
-        Rain*addRain(Rain*,Rain*);//Agregar nodo lluvia a la lista
+        Rain*addRain(string,string,int,Rain*);//Agregar nodo lluvia a la lista
         void printRainList(Rain*);//Imprimir la lista lluvia
         Rain*searchRain(Rain*,string);// Buscar nodo lluvia en la lista
-
+        void modRainCode(Rain*,string);//Modificar atributo lluvia
+        void modName(Rain*,string);// Modificar atributo nombre
+        void modAverageRange(Rain*,string);//Modificar atributo Rango promedio
+        void deleteRain(Rain*,string);
         Rain*next;// Siguiente
     private:
         //Atributos

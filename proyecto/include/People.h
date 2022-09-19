@@ -30,6 +30,14 @@ class People
         string getPlaceResidence();
         string getYearIncome();
 
+
+        //Funciones
+        void addPeople(string,string,short,string,string);
+        void searchPeople(People*,string);
+        void printPeopleList(People*);
+        void deletePeople(People*);
+
+
         People*next;
         People*pre;
     private:
