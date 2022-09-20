@@ -33,7 +33,7 @@ class Rain
         void modRainCode(Rain*,string);//Modificar atributo lluvia
         void modName(Rain*,string);// Modificar atributo nombre
         void modAverageRange(Rain*,string);//Modificar atributo Rango promedio
-        void deleteRain(Rain*,string);
+        void deleteRain(Rain*,string);//
         Rain*next;// Siguiente
     private:
         //Atributos

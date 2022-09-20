@@ -2,8 +2,16 @@
 #define EPHEMERALITY_H
 #include <string>
 
+/*
+ Creado: 16/09/2022 ultima mod: 19/09/2022
+ Autor: Leiner Alvarado
+ */
+
 using namespace std;
 class Ephemerality
+
+
+
 {
     public:
         //Constructor
@@ -22,6 +30,13 @@ class Ephemerality
 
         Ephemerality*next;// Siguiente
         Ephemerality*pre;// Anterior
+        //Funciones
+
+        Ephemerality*addEphemerality(string,string,string,string,Ephemerality*);//Agrega un nodo a la lista
+        Ephemerality*searchEphemerality(string,Ephemerality*);// Retorna un nodo buscado
+        Ephemerality*deleteEphemerality(string,Ephemerality*);// Borra un nodo seleccionado de la lista
+        void printEphemeralityList(Ephemerality*);// imprime la lista de efimeridad
+
 
 
 

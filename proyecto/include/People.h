@@ -1,6 +1,7 @@
 #ifndef PEOPLE_H
 #define PEOPLE_H
 #include <string>
+
 using namespace std;
 
 /*
@@ -32,10 +33,11 @@ class People
 
 
         //Funciones
-        void addPeople(string,string,short,string,string);
-        void searchPeople(People*,string);
-        void printPeopleList(People*);
-        void deletePeople(People*);
+        People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
+        People* searchPeople(People*,string);//Busca un nodo especifico en la lista
+        void printPeopleList(People*);// Imprime la lista
+        People* deletePeople(People*,string);// Elimina un nodo de la lista
+
 
 
         People*next;
