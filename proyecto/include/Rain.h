@@ -3,7 +3,7 @@
 #include <string>
 
 /*
- Creado: 16/09/2022 ultima mod: 16/09/2022
+ Creado: 16/09/2022 ultima mod: 19/09/2022
  Autor: Leiner Alvarado
  */
 using namespace std;
@@ -30,9 +30,9 @@ class Rain
         Rain*addRain(string,string,int,Rain*);//Agregar nodo lluvia a la lista
         void printRainList(Rain*);//Imprimir la lista lluvia
         Rain*searchRain(Rain*,string);// Buscar nodo lluvia en la lista
-        void modRainCode(Rain*,string);//Modificar atributo lluvia
-        void modName(Rain*,string);// Modificar atributo nombre
-        void modAverageRange(Rain*,string);//Modificar atributo Rango promedio
+        void modRainCode(Rain*,string,string);//Modificar atributo lluvia
+        void modName(Rain*,string,string);// Modificar atributo nombre
+        void modAverageRange(Rain*,int,string);//Modificar atributo Rango promedio
         void deleteRain(Rain*,string);//
         Rain*next;// Siguiente
     private:

@@ -60,19 +60,28 @@ string People::getYearIncome(){
 
 // Funciones
 
+
+
+
 /*
 Funcion agregar personas
 Se encarga de agregar nodos personas a la lista doble
 */
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
+    if (searchPeople(peopleList,id)==NULL){
 
-    People*newPeople = new People(name,id,age,place,year);
 
-    newPeople-> next = peopleList;
-    if(peopleList!= NULL){
-        peopleList->pre = newPeople;
+        People*newPeople = new People(name,id,age,place,year);
+
+        newPeople-> next = peopleList;
+        if(peopleList!= NULL){
+            peopleList->pre = newPeople;
+        }
+        peopleList = newPeople;
     }
-    peopleList = newPeople;
+    else{
+        cout<< "La persona ya existe";
+    }
     return peopleList;
 }
 
@@ -156,6 +165,44 @@ People*People::deletePeople(People*pList,string id){
     cout<< "\n Se puede borrar \n";
     return pList;
 }
-
-
+/*
+Funcion modificar nombre
+Busca el nodo persona solicitado y modifica el atributo nombre
+*/
+void People::modName(string id,string newName,People*pList){
+    People*people = searchPeople(pList,id);
+    people->setName(newName);
+}
+/*
+Funcion modificar ID
+Busca el nodo persona solicitado y modifica el atributo id
+*/
+void People::modId(string id,string newId,People*pList){
+    People*people = searchPeople(pList,id);
+    people->setId(newId);
+}
+/*
+Funcion modificar edad
+Busca el nodo persona solicitado y modifica el atributo edad
+*/
+void People::modAge(string id,short newAge,People*pList){
+    People*people = searchPeople(pList,id);
+    people->setAge(newAge);
+}
+/*
+Funcion modificar lugar de residencia
+Busca el nodo persona solicitado y modifica el atributo lugar de residencia
+*/
+void People::modPlaceResidence(string id,string newPlace,People*pList){
+    People*people = searchPeople(pList,id);
+    people->setPlaceResidence(newPlace);
+}
+/*
+Funcion modificar ano de ingreso
+Busca el nodo persona solicitado y modifica el atributo ano de ingreso
+*/
+void People::modYearIncome(string id,string newYear,People*pList){
+    People*people = searchPeople(pList,id);
+    people->setYearIncome(newYear);
+}
 

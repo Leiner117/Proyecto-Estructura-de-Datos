@@ -17,14 +17,21 @@ Ephemerality*ephemeralityList;
 int main()
 {
 
+
     rainList = rainList->addRain("001","p1",001,rainList);
     rainList = rainList->addRain("002","p2",002,rainList);
     rainList->printRainList(rainList);
     peopleList = peopleList->addPeople("Leiner","2022437759",19,"Bajo","2022",peopleList);
+    peopleList = peopleList->addPeople("Leiner","2022437759",19,"Bajo","2022",peopleList);
     peopleList = peopleList->addPeople("Melanie","2023437759",17,"Criques","2022",peopleList);
 
+
+
     peopleList->printPeopleList(peopleList);
-    peopleList = peopleList->deletePeople(peopleList,"2022437759");
+    peopleList->modName("2022437759","Enrique",peopleList);
+
+
+
 
     peopleList->printPeopleList(peopleList);
     rainList->deleteRain(rainList,"001");

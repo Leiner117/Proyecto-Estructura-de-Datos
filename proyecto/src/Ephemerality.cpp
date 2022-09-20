@@ -52,13 +52,21 @@ Funcion agregar efimeridad
 Agrega nodos efimeridad a la lista doble
 */
 Ephemerality*Ephemerality::addEphemerality(string name,string date,string departureTime,string hideTime,Ephemerality*elist){
-    Ephemerality*newEphemerality = new Ephemerality(name,date,departureTime,hideTime);
 
-    newEphemerality-> next = elist;
-    if(elist!= NULL){
-        elist->pre = newEphemerality;
+    if (searchEphemerality(name,elist)==NULL){
+
+
+        Ephemerality*newEphemerality = new Ephemerality(name,date,departureTime,hideTime);
+
+        newEphemerality-> next = elist;
+        if(elist!= NULL){
+            elist->pre = newEphemerality;
+        }
+        elist = newEphemerality;
     }
-    elist = newEphemerality;
+    else{
+        cout<< "La efimeridad ya estaba registrada";
+    }
     return elist;
 }
 

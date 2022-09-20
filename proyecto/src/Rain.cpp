@@ -56,10 +56,16 @@ int Rain::getAverageRange(){
 Funcion agregar lluvia
 Se encarga de relacionar los nodos lluvia en una lista simple
 */
+
 Rain*Rain::addRain(string code,string n,int average,Rain*oldRain){
-    Rain*newRain = new Rain(code,n,average);
-    newRain->next = oldRain;
-    oldRain = newRain;
+    if (searchRain(oldRain,code)== NULL){
+        Rain*newRain = new Rain(code,n,average);
+        newRain->next = oldRain;
+        oldRain = newRain;
+    }
+    else{
+        cout<< "La lluvia ya existe";
+    }
     return oldRain;
 
 }
@@ -101,15 +107,7 @@ Rain*Rain::searchRain(Rain*rainList,string code){
     return NULL;
 }
 
-/*
-Funcion modificar lluvia
-Se encarga de modificar los valores de un nodo lluvia
 
-*/
-void Rain::modRainCode(Rain*rain,string newRainCode){
-    rain->setRainCode(newRainCode);
-
-}
 /*
 Funcion borrar lluvia
 Se encarga de borrar el nodo lluvia seleccionado
@@ -137,7 +135,19 @@ void Rain::deleteRain(Rain*rList,string code){
         }
     }
 }
+void Rain::modName(Rain*rainList,string newName,string rainCode){
+    Rain*rain = searchRain(rainList,rainCode);
+    rain->setName(newName);
+}
 
+void Rain::modRainCode(Rain*rainList,string newRainCode,string rainCode){
+    Rain*rain = searchRain(rainList,rainCode);
+    rain->setRainCode(newRainCode);
+}
+void Rain::modAverageRange(Rain*rainList,int newAverage,string rainCode){
+    Rain*rain = searchRain(rainList,rainCode);
+    rain->setAverageRange(newAverage);
+}
 
 
 

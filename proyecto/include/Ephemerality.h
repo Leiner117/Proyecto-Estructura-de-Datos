@@ -39,7 +39,6 @@ class Ephemerality
 
 
 
-
     private:
         //Atributos
         string name;// Nombre
