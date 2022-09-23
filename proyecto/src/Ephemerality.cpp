@@ -75,14 +75,14 @@ Funcion buscar efimeridad
 Retorna el nodo de efimeridad solicitado
 */
 
-Ephemerality*Ephemerality::searchEphemerality(string name,Ephemerality*eList){
+Ephemerality*Ephemerality::searchEphemerality(string date,Ephemerality*eList){
     if(eList == NULL){
         cout<< "\nlista Vacia...\n";
         return NULL;
     }
     Ephemerality*temp = eList;
     while(temp != NULL){
-        if(temp->getName() == name){
+        if(temp->getDate() == date){
 
             return temp;
         }
@@ -96,9 +96,9 @@ Ephemerality*Ephemerality::searchEphemerality(string name,Ephemerality*eList){
 Funcion borrar efimeridad
 Borra de la lista doble el nodo solicitado
 */
-Ephemerality*Ephemerality::deleteEphemerality(string name,Ephemerality*eList){
+Ephemerality*Ephemerality::deleteEphemerality(string date,Ephemerality*eList){
 
-    Ephemerality*dEphemerality = searchEphemerality(name,eList);
+    Ephemerality*dEphemerality = searchEphemerality(date,eList);
     if(dEphemerality == NULL){
         cout<< "\n No se puede borrar \n";
         return eList;
@@ -121,7 +121,48 @@ Ephemerality*Ephemerality::deleteEphemerality(string name,Ephemerality*eList){
     cout<< "\n Se puede borrar \n";
     return eList;
 }
+/*
+Funcion modificar nombre
+Se encarga de modificar el nombre de la efimeridad
+*/
+void Ephemerality::modName(Ephemerality*eList,string date,string newName){
+    if (searchEphemerality(newName,eList) == NULL){
 
+       Ephemerality*ephemerality = searchEphemerality(date,eList);
+       ephemerality->setName(newName);
+    }
+}
+/*
+Funcion modificar fecha
+Se encarga de modificar la fecha de la efimeridad
+*/
+void Ephemerality::modDate(Ephemerality*eList,string date,string newDate){
+
+    Ephemerality*ephemerality = searchEphemerality(date,eList);
+    ephemerality->setDate(newDate);
+}
+
+/*
+Funcion modificar hora de ocultamiento
+Se encarga de modificar la hora de ocultamiento de la efimeridad
+*/
+
+void Ephemerality::modHideTime(Ephemerality*eList,string date,string newHideTime){
+    Ephemerality*ephemerality = searchEphemerality(date,eList);
+    ephemerality->setHideTime(newHideTime);
+}
+
+
+/*
+Funcion modificar hora de salida
+Se encarga de modificar la hora de salida de la efimeridad
+*/
+
+void Ephemerality::modDepartureTime(Ephemerality*eList,string date,string newDepartureTime){
+    Ephemerality*ephemerality = searchEphemerality(date,eList);
+    ephemerality->setDepartureTime(newDepartureTime);
+
+}
 
 
 

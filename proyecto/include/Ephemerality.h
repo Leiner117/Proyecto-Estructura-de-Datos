@@ -37,7 +37,10 @@ class Ephemerality
         Ephemerality*deleteEphemerality(string,Ephemerality*);// Borra un nodo seleccionado de la lista
         void printEphemeralityList(Ephemerality*);// imprime la lista de efimeridad
 
-
+        void modName(Ephemerality*,string,string);// Modifica el nombre de la efimeridad
+        void modDate(Ephemerality*,string,string);// Modifica la fecha
+        void modDepartureTime(Ephemerality*,string,string);// Modifica la hora de salida del sol
+        void modHideTime(Ephemerality*,string,string);// Modifica la hora de ocultamiento del sol
 
     private:
         //Atributos

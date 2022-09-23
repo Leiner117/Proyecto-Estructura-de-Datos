@@ -141,8 +141,15 @@ void Rain::modName(Rain*rainList,string newName,string rainCode){
 }
 
 void Rain::modRainCode(Rain*rainList,string newRainCode,string rainCode){
-    Rain*rain = searchRain(rainList,rainCode);
-    rain->setRainCode(newRainCode);
+
+    if (searchRain(rainList,newRainCode)== NULL){
+        Rain*rain = searchRain(rainList,rainCode);
+        rain->setRainCode(newRainCode);
+    }
+    else{
+        cout<< "El codigo ya existe";
+    }
+
 }
 void Rain::modAverageRange(Rain*rainList,int newAverage,string rainCode){
     Rain*rain = searchRain(rainList,rainCode);
