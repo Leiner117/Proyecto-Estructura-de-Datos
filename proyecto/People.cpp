@@ -1,7 +1,7 @@
 #include "People.h"
 #include <string>
 #include <iostream>
-
+#include "TimeRegis.h"
 /*
  Creado: 16/09/2022 ultima mod: 19/09/2022
  Autor: Leiner Alvarado
@@ -17,6 +17,7 @@ People::People(string n,string id,short age,string place,string year)
     setAge(age);
     setPlaceResidence(place);
     setYearIncome(year);
+
 
 }
 //Setters
@@ -36,6 +37,9 @@ void People::setPlaceResidence(string place){
 void People::setYearIncome(string year){
 
     yearIncome = year;
+}
+void People::setTimeSublist(TimeRegis*newList){
+    timeSublist = newList;
 }
 
 //Getters
@@ -57,7 +61,9 @@ string People::getPlaceResidence(){
 string People::getYearIncome(){
     return yearIncome;
 }
-
+TimeRegis*People::getTimeSubList(){
+    return timeSublist;
+}
 // Funciones
 
 

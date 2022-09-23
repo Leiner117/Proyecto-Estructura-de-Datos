@@ -51,9 +51,9 @@ void TimeRegis::setWinDirec(int winDirec){
     windDirection=winDirec;
 }
 
-void TimeRegis::setHumidity(int humidity){
+void TimeRegis::setHumidity(int humidity1){
 
-    humidity= humidity;
+    humidity = humidity1;
 }
 
 void TimeRegis::setRained(bool rained){
@@ -80,7 +80,7 @@ float TimeRegis::getMinTemp(){
 }
 
 int TimeRegis::getWinPsd(){
-    return windDirection;
+    return windSpeed;
 }
 
 int TimeRegis::getWinDirec(){
@@ -233,7 +233,7 @@ void TimeRegis:: print(TimeRegis* timeList){
     else{
         TimeRegis*temp = timeList;
         while(temp != NULL){
-            cout<<temp->getDateR()<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | "<<temp->getRained()<<endl;
+            cout<<temp->getDateR()<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<" | "<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | "<<temp->getRained()<<endl;
             temp = temp->next;
         }
     }

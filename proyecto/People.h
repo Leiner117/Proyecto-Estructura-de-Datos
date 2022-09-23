@@ -1,7 +1,7 @@
 #ifndef PEOPLE_H
 #define PEOPLE_H
 #include <string>
-
+#include "TimeRegis.h"
 using namespace std;
 
 /*
@@ -24,12 +24,15 @@ class People
         void setAge(short);
         void setPlaceResidence(string);
         void setYearIncome(string);
+        void setTimeSublist(TimeRegis*);
          //Getters
         string getName();
         string getId();
         short getAge();
         string getPlaceResidence();
         string getYearIncome();
+        TimeRegis*getTimeSubList();
+
 
 
         //Funciones
@@ -53,7 +56,7 @@ class People
             short age;// edad
             string placeResidence;// Lugar de residencia
             string yearIncome;// Año ingreso
-
+            TimeRegis*timeSublist;//Sublista de registro del tiempo
 
 
 
