@@ -11,7 +11,6 @@ Region::Region(string id,string n, string l){
     next=NULL;
 }
 
-Region* regionList;
 
 //------------------- Metodos set-----------------------------------------
 void Region::setIdRegion(string id){
@@ -42,83 +41,128 @@ string Region::getLocation(){
 
 //************************** Funciones de la lista ******************
 
-//Agregar al Inicio
-void Region::add(string id,string n,string l){
 
-    Region* newNodo = new Region(id,n,l);
-
-    if(regionList == NULL){
-        regionList = newNodo;
-        newNodo->next = regionList;
-    }
+//Verifica si el elemento a agregar ya existe en la lista
+bool Region::validate(string id, Region* regionList){
+    if(regionList == NULL)
+        return false;
     else{
-        regionList->next = regionList;
-
-        //busca el ultimo para que apunte al nuevo nodo
-        Region* ptr = regionList;
-        while(ptr->next != regionList)
-            ptr = ptr->next;
-
-        ptr->next = newNodo;
-        regionList = newNodo;
-    }
-}
-
-void Region::modify(string key,string id,string n,string l, Region* regionList){
-
-    if(regionList== NULL)
-        cout<<"\nLa lista no tiene datos.....";
-    else{
-        Region*ptr = regionList;
-        while (ptr != NULL){
-            if(ptr->getIdRegion() == key){
-                ptr->setIdRegion(id);
-                ptr->setName(n);
-                ptr->setLocacion(l);
-                return;//me salgo de la fucnion
+        Region*temp = regionList;
+        while(temp != NULL){
+            if(temp->getIdRegion() == id){
+                return true;
             }
-            ptr = ptr->next;
+            temp = temp->next;
         }
-        cout<<"\nNO se encontro el dato.";
+        return false;
     }
 }
 
-void Region::deleteRegion(string key, Region* regionList){
+
+//Agregar al Inicio
+Region* Region::add(string id,string n,string l,Region* regionList){
+
+    bool duplicate=validate(id,regionList);
+    if(duplicate == false){
+
+        Region* newNodo = new Region(id,n,l);
+        newNodo->next = regionList;//se enlaza, conoce la direccion el inicio de la lista
+        regionList = newNodo;
+    }
+    else
+        cout<<"\n+++ Advertencia: El nombre ingresado ya esta en la lista +++\n";
+
+    return regionList;
+
+}
+
+
+//Borra UN ELEMENTO de la lista
+Region* Region::deleteRegion(string id,Region* regionList){
+
     if(regionList == NULL)
         cout<<"\nLista vacia, no se puede borrar....";
     else{
-        if(regionList->getIdRegion() == key){//es el primero de la lista
+        if(regionList->idRegion == id){//es el primero de la lista
             regionList= regionList->next;
         }
-        else{//es en medio o al final
-            Region* ptr = regionList;
-            Region*ant = NULL;
-            while((ptr!= NULL) && (ptr->getIdRegion()!=key)){
-                ant = ptr;
-                ptr = ptr->next;
+        else{
+            Region* current = regionList;
+            Region *temp = NULL;
+            while((current!= NULL) && (current->idRegion!=id)){
+                temp = current;
+                current = current->next;
+                cout<<"\nSe borro correctamente";
             }
-            if(ptr == NULL)
+            if(current == NULL)
                 cout<<"\nNo se encontro el nodo";
             else
-                ant->next = ptr->next;
+                temp->next = current->next;
         }
     }
-
-    //Region p+(p)
-    //return regionList;
+    return regionList;
 }
 
-Region* searchRegion(string id, Region*regionList){
+//Borra toda la lista
+Region* Region::deleteAllRegion(Region* regionList) {
+    if(regionList != NULL) {
+        Region *temp, *current;
+        current = regionList->next;
+        while(current != regionList) {
+            temp = current->next;
+            free(current);
+            current = temp;
+        }
+        free(regionList);
+        regionList = NULL;
+    }
+    cout<<"All nodes are deleted successfully.\n";
+    return regionList;
+}
+
+//Modifica un elemento especifico de la lista
+Region* Region::modify(string data, string id,string n, string l,Region* regionList){
+
+    bool duplicate=validate(id,regionList);
+
+    if(duplicate == false){
+          if(regionList== NULL)
+            cout<<"\nLa lista no tiene datos.....";
+        else{
+            Region*temp = regionList;
+            while (temp != NULL){
+                if(temp->getIdRegion() == data){
+
+                    temp->setIdRegion(id);
+                    temp->setName(n);
+                    temp->setLocacion(l);
+                    cout<<"\nSe modifico correctamente";
+                    return regionList;//me salgo de la fucnion
+                }
+                temp = temp->next;
+            }
+            cout<<"\nNO se encontro el dato.";
+        }
+
+    }
+    else{
+        cout<<"\n+++ Advertencia: El nombre ingresado ya existe en la lista +++\n";
+    }
+    return regionList;
+}
+
+//Buscar Nodo Region
+Region* Region::searchRegion(string id, Region* regionList){
     if(regionList == NULL)
         cout<<"\nLa lista esta vacia....";
     else{
-        Region*ptr = regionList;
-        while(ptr != NULL){
-            if(ptr->getIdRegion() == id){
+        Region*temp = regionList;
+        while(temp != NULL){
+            if(temp->name == id){
                 cout<<"\nNodo encontrado";
-                return ptr;
+                return temp;
             }
-            ptr = ptr->next;
+            temp = temp->next;
         }
         cout<<"\nNo se encontro el dato";
     }
@@ -126,35 +170,38 @@ Region* searchRegion(string id, Region*regionList){
 }
 
 
-//Cargar datos quemados
-void Region::dataLoad(){
+//Imprime la lista completa
+void Region:: print(Region* regionList){
 
-    add("C","Caribe","Limon");
-    add("C","Pacifico Central","Puntarenas");
-    add("C","Talamanca","Limon");
-    add("C","Upala y los Chiles","Alajuela");
-    add("C","Valle Central","San Jose");
-    add("C","Peninsula de Nicoya","Guanacaste");
-    add("C","Pacifico Sur","Puntarenas");
-    add("C","Norte Alta","Alajuela");
-    add("C","Cordillera de Guanacaste y Tilaran","Guanacaste");
-    add("C","Caribe Sur","Limon");
-
-}
-
-
-//Imprime la lista de punteros
-void Region::displayRegionList(){
-
-        if(regionList== NULL)
-            cout<<"\nLista simple vacia......\n";
-        else{
-            Region*ptr = regionList;
-            do{
-                cout<<ptr->getIdRegion()<<" | "<<ptr->getName()<<" | "<<ptr->getLocation()<<endl;
-                ptr= ptr->next;
-            } while(ptr!= regionList);
-
+    if(regionList == NULL)
+        cout<<"\nLa lista esta vacia ...........\n";
+    else{
+        Region*temp = regionList;
+        while(temp != NULL){
+            cout<<"\n"<<temp->idRegion<<" | "<<temp->name<<" | "<<temp->location;
+            temp = temp->next;
         }
+    }
 }
+
+//Cargar datos quemados
+Region* Region::dataLoad(Region* regionList){
+
+    //Datos preestablecidos en lista region
+    regionList=add("C","Caribe","Limon",regionList);
+    regionList=add("PC","Pacifico Central","Puntarenas",regionList);
+    regionList=add("T","Talamanca","Limon",regionList);
+    regionList=add("UC","Upala y los Chiles","Alajuela",regionList);
+    regionList=add("VC","Valle Central","San Jose",regionList);
+    regionList=add("PN","Peninsula de Nicoya","Guanacaste",regionList);
+    regionList=add("PS","Pacifico Sur","Puntarenas",regionList);
+    regionList=add("NA","Norte Alta","Alajuela",regionList);
+    regionList=add("CGT","Cordillera de Guanacaste y Tilaran","Guanacaste",regionList);
+    regionList=add("CS","Caribe Sur","Limon",regionList);
+    //regionList=add("C","Caribe","Limon",regionList);
+
+    cout<<"\n--- Se cargaron los datos correctamente ---\n";
+    return regionList;
+}
+
 

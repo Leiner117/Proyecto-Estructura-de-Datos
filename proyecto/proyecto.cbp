@@ -32,6 +32,12 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Place.cpp" />
+		<Unit filename="Place.h" />
+		<Unit filename="Region.cpp" />
+		<Unit filename="Region.h" />
+		<Unit filename="TimeRegis.cpp" />
+		<Unit filename="TimeRegis.h" />
 		<Unit filename="main.cpp" />
 		<Extensions />
 	</Project>

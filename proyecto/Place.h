@@ -22,12 +22,15 @@ class Place
         float getSquareMeters();
 
         //Metodos
-        Place* add(string,int,float,Place* );
-        Place* deletePlace(string,Place* );
-        Place* modify(string,string,int,float,Place* );
-        void searchPlace(string,Place*);
-        Place* dataLoad(Place* );
-        void printPlaceList(Place*);
+        bool validate(string,Place*);
+        Place* add(string,int,float,Place*);
+        Place* modify(string,string,int,float,Place*);
+        Place* deletePlace(string,Place*);
+        Place* deleteAllPlace(Place*);
+        Place* searchPlace(string, Place*);
+        void print(Place*);
+        void askData();
+        Place* dataLoad(Place*);
 
         //Puntero
         Place * next;

@@ -33,12 +33,14 @@ class TimeRegis
         bool getRained();
 
         //Metodos
-        void add(string, int, float, float, int , int, int, bool);
-        TimeRegis* deleteRegis(string,TimeRegis* regisList);
-        void modify(string,string, int, float, float, int , int, int, bool,TimeRegis* regisList);
-        TimeRegis* searchRegis(string, TimeRegis* regisList);
-        void dataLoad();
-        void displayTimeRegis(TimeRegis* regisList);
+        bool validate(string , TimeRegis* );
+        TimeRegis* add(string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* deleteTime(string ,TimeRegis* );
+        TimeRegis* deleteAllTime(TimeRegis* );
+        TimeRegis* modify(string,string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* searchTime(string , TimeRegis* );
+        void print(TimeRegis* );
+        TimeRegis* dataLoad(TimeRegis* );
 
         //Puntero
         TimeRegis* next;

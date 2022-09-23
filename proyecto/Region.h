@@ -22,12 +22,14 @@ class Region
         string getLocation();
 
         //Metodos
-        void add(string,string,string);
-        void deleteRegion(string,Region* regionList);
-        void modify(string,string,string,string,Region* regionList);
-        Region* searchRegion(string,Region* regionList);
-        void dataLoad();
-        void displayRegionList();
+        bool validate(string,Region*);
+        Region* add(string,string,string,Region*);
+        Region* deleteRegion(string,Region*);
+        Region* deleteAllRegion(Region*);
+        Region* modify(string,string,string, string,Region*);
+        Region* searchRegion(string,Region*);
+        void print(Region*);
+        Region* dataLoad(Region*);
 
         //Puntero
         Region * next;

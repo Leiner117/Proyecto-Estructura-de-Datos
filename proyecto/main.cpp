@@ -20,32 +20,27 @@ using namespace std;
 
 
 Place* placeList;
+Region* regionList;
+TimeRegis* timeList;
 
 int main()
 {
+    cout << "-------LISTA LUGARES--------" << endl;
+    placeList=placeList->dataLoad(placeList);
+    placeList->print(placeList);
 
+    cout << "\n-------LISTA REGION--------" << endl;
+    regionList=regionList->dataLoad(regionList);
+    regionList->print(regionList);
+    cout << "\n------------------------------" << endl;
+    regionList= regionList->modify("C","T","Tamarindo","LIMONADA",regionList);
+    regionList->print(regionList);
 
-    string n;
-    int p;
-    float mc;
+    cout << "\n-------LISTA TIEMPO--------" << endl;
+    timeList=timeList->dataLoad(timeList);
+    timeList->print(timeList);
 
-    cout<<"Agregue el nombre del lugar: ";
-    getline(cin>>ws, n);
-    cout<<"\nAgregue la poblacion del lugar: ";
-    cin>>p;
-    cout<<"\nAgregue los metros cuadrados del lugar: ";
-    cin>>mc;
-
-    placeList=placeList->add(n,p,mc,placeList);
-
-    //placeList->dataLoad(placeList);
-    //cout<<placeList;
-    placeList->printPlaceList(placeList);
-
-
-
-
-    //cout<<->getName();
+    cout<<->getName();
     cout << "ESTO ES UNA PRUEBA!" << endl;
 
     return 0;
