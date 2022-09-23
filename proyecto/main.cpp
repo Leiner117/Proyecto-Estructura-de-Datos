@@ -3,6 +3,10 @@
 #include "TimeRegis.h"
 #include "Place.h"
 #include "Region.h"
+#include "Ephemerality.h"
+#include "People.h"
+#include "Rain.h"
+
 
 
 
@@ -22,6 +26,9 @@ using namespace std;
 Place* placeList;
 Region* regionList;
 TimeRegis* timeList;
+Rain* rainList;
+People* peopleList;
+Ephemerality* ephemeralityList;
 
 int main()
 {
@@ -40,7 +47,7 @@ int main()
     timeList=timeList->dataLoad(timeList);
     timeList->print(timeList);
 
-    cout<<->getName();
+
     cout << "ESTO ES UNA PRUEBA!" << endl;
 
     return 0;
