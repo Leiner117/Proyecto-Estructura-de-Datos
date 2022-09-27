@@ -91,7 +91,6 @@ Retorna el nodo de efimeridad solicitado
 
 Ephemerality*Ephemerality::searchEphemerality(long int date,Ephemerality*eList){
     if(eList == NULL){
-        cout<< "\nlista Vacia...\n";
         return NULL;
     }
     Ephemerality*temp = eList;
@@ -102,7 +101,6 @@ Ephemerality*Ephemerality::searchEphemerality(long int date,Ephemerality*eList){
         }
         temp = temp->next;
     }
-    cout<< "\nNo encontrado en la lista doble";
     return NULL;
 }
 
@@ -188,6 +186,8 @@ Ephemerality* Ephemerality::dataload(Ephemerality*eList){
     eList = eList->addEphemerality("Sol",1662098400,20700,62100,eList);
 
     eList = eList->addEphemerality("Sol",1662184800,21300,66300,eList);
+    eList = eList->addEphemerality("Sol",1658815200,21300,66300,eList);
+    eList = eList->addEphemerality("Sol",1627279200,21300,66300,eList);
 
     return eList;
 
@@ -195,34 +195,8 @@ Ephemerality* Ephemerality::dataload(Ephemerality*eList){
 /*
     retorna el año de la fecha
 */
-int Ephemerality::unixDateToYear(long int seconds){
-    int daysTillNow,year,flag;
-    year = 1970;
-    daysTillNow = seconds / (24 * 60 * 60);
-    year = 1970;
-    // Calculating current year
-	while (daysTillNow >= 365) {
-		if (year % 400 == 0
-			|| (year % 4 == 0
-				&& year % 100 != 0)) {
-			daysTillNow -= 366;
-		}
-		else {
-			daysTillNow -= 365;
-		}
-		year += 1;
-	}
 
-
-
-	if (year % 400 == 0
-		|| (year % 4 == 0
-			&& year % 100 != 0))
-		flag = 1;
-    return year;
-
-}
-string Ephemerality::unixDateToDate(long int seconds){
+tm* Ephemerality::unixDateToDate(long int seconds){
     // Save the time in Human
 	// readable format
 	string ans = "";
@@ -233,7 +207,7 @@ string Ephemerality::unixDateToDate(long int seconds){
 						31, 31, 30, 31, 30, 31 };
 
 	long int currYear, daysTillNow, extraTime,
-		extraDays, index, date, month,flag = 0;
+		extraDays, index, date, month,flag = 0,hours,minutes,secondss;
 
 	// Calculate total days unix time T
 
@@ -316,8 +290,20 @@ string Ephemerality::unixDateToDate(long int seconds){
 			date = daysOfMonth[month - 1];
 		}
 	}
-
-
+    hours = extraTime / 3600;
+	minutes = (extraTime % 3600) / 60;
+	secondss = (extraTime % 3600) % 60;
+    time_t rawtime;
+    struct tm*timeinfo;
+    long int unixtime;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    timeinfo->tm_year = currYear;
+    timeinfo->tm_mon = month;
+    timeinfo->tm_mday = date;
+    timeinfo->tm_hour = hours;
+    timeinfo->tm_min = minutes;
+    timeinfo->tm_sec = secondss;
 	ans += to_string(date);
 	ans += "/";
 	ans += to_string(month);
@@ -326,7 +312,7 @@ string Ephemerality::unixDateToDate(long int seconds){
 
 
 	// Return the time
-	return ans;
+	return timeinfo;
 
 
 }
@@ -344,7 +330,9 @@ void Ephemerality::printEphemeralityList(Ephemerality*eList){
         cout<<"*******************************"<<endl;
         while(temp != NULL){
             cout<<temp->getName()<<endl;
-            cout<<unixDateToDate(temp->getDate())<<endl;
+            struct tm*date = unixDateToDate(temp->getDate());
+            string ans = dateToString(date);
+            cout<<ans<<endl;
             cout<<temp->secondsToTime(temp->getDepartureTime())<<endl;
             cout<<temp->secondsToTime(temp->getHideTime())<<endl;
             cout<<"*******************************"<<endl;
@@ -354,6 +342,15 @@ void Ephemerality::printEphemeralityList(Ephemerality*eList){
 
     }
 
+}
+string Ephemerality::dateToString(tm*date){
+    string ans = "";
+    ans += to_string(date->tm_mday);
+    ans += "/";
+    ans += to_string(date->tm_mon);
+    ans += "/";
+    ans += to_string(date->tm_year);
+    return ans;
 }
 /*
 Convierte la fecha a UnixDate(segundos totales)
@@ -399,5 +396,97 @@ string Ephemerality::secondsToTime(int seconds){
     return time;
 
 }
+/*
+Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del sol
+*/
+ void Ephemerality::diffDepartureTime(int year,Ephemerality*eList){
+
+
+    int diff,diff2;
+    struct tm*date;
+    string finalDate2;
+    string finalDate;
+    short flag = 2;
+    if (eList != NULL){
+        while (flag != 0){
+            Ephemerality*temp = eList;
+            while(temp !=NULL){
+                date = temp->unixDateToDate(temp->getDate());
+                int localDiff;
+                if (date->tm_year == year){
+
+                    localDiff = (temp->getHideTime()-temp->getDepartureTime())/60;
+                }
+                if (flag == 2){
+
+
+                    if (localDiff > diff){
+                        diff = localDiff;
+                        finalDate = dateToString(date);
+
+                    }
+
+                }
+                else{
+                    if ((localDiff > diff2 )&& (localDiff != diff)){
+                        diff2 = localDiff;
+                        finalDate2 = dateToString(date);
+                    }
+                }
+            temp = temp->next;
+            }
+            flag = flag-1;
+
+        }
+        cout<<"Las fechas con mayor diferencia son: "<<finalDate<<" con "<<diff<<" minutos"<<" , "<<finalDate2<<" con "<<diff2<<" minutos"<<endl;
+
+    }
+
+
+ }
+ /*
+ Reporte de efimeridad por año
+ */
+ void Ephemerality::timeReportYear(Ephemerality*eList,int year){
+
+
+    short flag = 1;
+    bool flag2 = false;
+    struct tm*date;
+    int month;
+    Ephemerality*temp = eList;
+
+
+    cout<<"*******************************"<<endl;
+    while (temp != NULL){
+
+        date = unixDateToDate(temp->getDate());
+        if (date->tm_year == year){
+
+
+            if (month != date->tm_mon){
+                cout<<"Mes: "<<date->tm_mon<<endl;
+                cout<<"*******************************"<<endl;
+                month = date->tm_mon;
+
+            }
+
+            cout<<"Hora de salida: "<<secondsToTime(temp->getDepartureTime())<<endl;
+            cout<< "Hora de ocultamiento: "<<secondsToTime(temp->getHideTime())<<endl;
+            cout<<"*******************************"<<endl;
+
+            }
+            temp = temp->next;
+        }
+
+
+
+ }
+
+
+
+
+
+
 
 

@@ -1,7 +1,7 @@
 #ifndef EPHEMERALITY_H
 #define EPHEMERALITY_H
 #include <string>
-
+#include <time.h>
 /*
  Creado: 16/09/2022 ultima mod: 26/09/2022
  Autor: Leiner Alvarado
@@ -42,11 +42,13 @@ class Ephemerality
         void modDepartureTime(Ephemerality*,long int,int);// Modifica la hora de salida del sol
         void modHideTime(Ephemerality*,long int,int);// Modifica la hora de ocultamiento del sol
         Ephemerality*dataload(Ephemerality*);// Cargar datos predeterminados
-        string unixDateToDate(long int);// Convierte de formado Unix timestamps a fecha
+        tm* unixDateToDate(long int);// Convierte de formado Unix timestamps a fecha
         long int dateToUnixDate(int,short,short);// Convierte la fecha en formato Unix timestamps
-        int unixDateToYear(long int);
+        void diffDepartureTime(int,Ephemerality*);// Diferencia entre las horas de salida
         int timeToSeconds(short,short);// Convierte la hora en segundos
-        string secondsToTime(int);
+        string secondsToTime(int);// convierte los segundos en formato de horas y minutos para imprimir
+        string dateToString(tm*); // Convierte la fecha en string para imprimir
+        void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por años
     private:
         //Atributos
         string name;// Nombre

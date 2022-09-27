@@ -139,7 +139,6 @@ Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo re
 People*People::searchPeople(People*pList,string id){
 
     if(pList == NULL){
-        cout<< "\nlista Vacia...\n";
         return NULL;
     }
     People*temp = pList;
@@ -150,7 +149,6 @@ People*People::searchPeople(People*pList,string id){
         }
         temp = temp->next;
     }
-    cout<< "\nNo encontrado en la lista doble";
     return NULL;
 }
 
@@ -223,4 +221,12 @@ void People::modYearIncome(string id,string newYear,People*pList){
     People*people = searchPeople(pList,id);
     people->setYearIncome(newYear);
 }
-
+People*People::dataLoad(People*pList){
+    pList = pList->addPeople("TANIA","2022440044",19,"Bajo","2022",pList);
+    pList = pList->addPeople("TANIA","2022440045",19,"Bajo","2022",pList);
+    pList = pList->addPeople("MELANIE","202307080",19,"Bajo","2022",pList);
+    pList = pList->addPeople("KARINA","2022456780",19,"Bajo","2022",pList);
+    pList = pList->addPeople("LEINER","2022437759",19,"Bajo","2022",pList);
+    pList = pList->addPeople("LEIDY","2022437759",19,"Bajo","2022",pList);
+    return pList;
+}

@@ -17,7 +17,8 @@ class People
         People(string,string,short,string,string);
 
         //Funciones
-        void print();
+
+
          //Setters
         void setName(string);
         void setId(string);
@@ -36,6 +37,7 @@ class People
 
 
         //Funciones
+        People*dataLoad(People*);
         People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
         People* searchPeople(People*,string);//Busca un nodo especifico en la lista
         void printPeopleList(People*);// Imprime la lista
