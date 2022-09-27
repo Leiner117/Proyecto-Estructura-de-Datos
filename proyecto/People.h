@@ -47,7 +47,7 @@ class People
         People* deletePeople(People*,string);// Elimina un nodo de la lista
 
 
-        People*next;//Siguiente
+        People*next = NULL;//Siguiente
         People*pre;//Anterior
     private:
             //Atributos

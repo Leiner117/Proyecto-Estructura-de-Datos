@@ -74,19 +74,31 @@ Funcion agregar personas
 Se encarga de agregar nodos personas a la lista doble
 */
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
-    if (searchPeople(peopleList,id)==NULL){
+  if (searchPeople(peopleList,id) == NULL){
 
 
-        People*newPeople = new People(name,id,age,place,year);
-
-        newPeople-> next = peopleList;
-        if(peopleList!= NULL){
+      People*newPeople = new People(name,id,age,place,year);
+        if(peopleList == NULL)
+            peopleList = newPeople;
+        else if(name <= peopleList->getName()){//inserta al inicio
+            newPeople->next = peopleList;
             peopleList->pre = newPeople;
+            peopleList = newPeople;
         }
-        peopleList = newPeople;
-    }
-    else{
-        cout<< "La persona ya existe";
+        else{//es en medio o al final de la lista
+            People* temp = peopleList;
+            People*previ;
+            while((temp!= NULL) &&(name>temp->getName())){
+                previ = temp;
+                temp = temp->next;
+
+            }
+            previ->next = newPeople;
+            newPeople->pre = temp;
+            if(temp != NULL)
+                newPeople->next = temp;
+
+        }
     }
     return peopleList;
 }
@@ -95,6 +107,7 @@ People*People::addPeople(string name,string id,short age,string place,string yea
 Funcion imprimir lista personas
 Recorre la lista y imprime la informacion de cada personas
 */
+
 
 void People::printPeopleList(People*pList){
 
@@ -119,7 +132,6 @@ void People::printPeopleList(People*pList){
 
     }
 }
-
 /*
 Funcion buscar personas
 Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo retorna
