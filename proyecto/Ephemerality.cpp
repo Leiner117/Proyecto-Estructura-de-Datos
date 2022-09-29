@@ -193,7 +193,7 @@ Ephemerality* Ephemerality::dataload(Ephemerality*eList){
 
 }
 /*
-    retorna el año de la fecha
+    retorna el aï¿½o de la fecha
 */
 
 tm* Ephemerality::unixDateToDate(long int seconds){
@@ -445,10 +445,10 @@ Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del s
 
  }
  /*
- Reporte de efimeridad por año
+ Reporte de efimeridad por aï¿½o
  */
  void Ephemerality::timeReportYear(Ephemerality*eList,int year){
-
+    string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
 
     short flag = 1;
     bool flag2 = false;
@@ -465,7 +465,7 @@ Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del s
 
 
             if (month != date->tm_mon){
-                cout<<"Mes: "<<date->tm_mon<<endl;
+                cout<<"Mes: "<<months[(date->tm_mon)-1]<<endl;
                 cout<<"*******************************"<<endl;
                 month = date->tm_mon;
 
@@ -482,6 +482,50 @@ Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del s
 
 
  }
+/*
+ * Se encarga de imprimir el dia que el sol salio mas temprano y el dia que se oculto mas tarde
+ * */
+ void Ephemerality::earlyDeparLateHide(Ephemerality*elist){
+     Ephemerality*temp = elist;
+    int departureTime = 0,hideTime = 0;
+    Ephemerality*selectTemp;
+    Ephemerality*selectTemp2;
+     while (temp != NULL){
+        if (temp->getDepartureTime()<=departureTime || departureTime == 0) {
+
+            departureTime = temp->getDepartureTime();
+            selectTemp = temp;
+
+            if (temp->getHideTime() >= hideTime) {
+                hideTime = temp->getHideTime();
+                selectTemp2 = temp;
+            }
+
+        }
+        temp = temp->next;
+     }
+     Ephemerality*tempList = elist;
+    Ephemerality*tempList2 = elist;
+    cout<<"Los dias con la salida del Sol mas temprana son: "<<endl;
+     while(tempList != NULL){
+         if (tempList->getDepartureTime() == selectTemp->getDepartureTime()){
+             cout<<dateToString(unixDateToDate(tempList->getDate()))<<endl;
+         }
+
+         tempList = tempList->next;
+     }
+     cout<<"Los dias con el ocultamiento del Sol mas tarde son: "<<endl;
+     while (tempList2 != NULL){
+         if (tempList2->getHideTime() == selectTemp2->getHideTime()){
+             cout<<dateToString(unixDateToDate(tempList2->getDate()))<<endl;
+         }
+         tempList2 = tempList2->next;
+     }
+
+
+
+ }
+
 
 
 

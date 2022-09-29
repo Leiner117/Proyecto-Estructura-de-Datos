@@ -48,7 +48,9 @@ class Ephemerality
         int timeToSeconds(short,short);// Convierte la hora en segundos
         string secondsToTime(int);// convierte los segundos en formato de horas y minutos para imprimir
         string dateToString(tm*); // Convierte la fecha en string para imprimir
-        void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por años
+        void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por anos
+        void earlyDeparLateHide(Ephemerality*);// Consulta de la Hora de salida mas temprana y ocultamiento mas tardio
+
     private:
         //Atributos
         string name;// Nombre
