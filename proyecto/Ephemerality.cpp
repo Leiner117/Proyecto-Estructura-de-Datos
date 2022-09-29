@@ -164,5 +164,29 @@ void Ephemerality::modDepartureTime(Ephemerality*eList,string date,string newDep
 
 }
 
+//Cargar datos quemados
+Ephemerality* Ephemerality::dataLoad(Ephemerality* ephemeralityList){
+
+    //Datos preestablecidos en lista lugar
+    ephemeralityList=addEphemerality("Sol","15/09/2022","5:54","16:00",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","15/09/2022","5:17","16:39",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","17/09/2022","5:56","17:17",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","18/09/2022","6:00","16:11",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","19/09/2022","5:59","15:32",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","20/09/2022","4:24","16:10",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","21/09/2022","5:21","17:00",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","22/09/2022","5:30","16:15",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","23/09/2022","6:01","15:22",ephemeralityList);
+    ephemeralityList=addEphemerality("Sol","24/09/2022","4:54","16:27",ephemeralityList);
+
+
+
+    cout<<"\n---Se cargaron los datos correctamente---\n";
+
+
+    return ephemeralityList;
+
+}
+
 
 

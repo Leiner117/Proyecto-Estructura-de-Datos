@@ -41,6 +41,8 @@ class Ephemerality
         void modDate(Ephemerality*,string,string);// Modifica la fecha
         void modDepartureTime(Ephemerality*,string,string);// Modifica la hora de salida del sol
         void modHideTime(Ephemerality*,string,string);// Modifica la hora de ocultamiento del sol
+        Ephemerality* dataLoad(Ephemerality*);
+
 
     private:
         //Atributos

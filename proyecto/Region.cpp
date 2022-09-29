@@ -1,4 +1,5 @@
 #include "Region.h"
+#include "Place.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -9,8 +10,9 @@ Region::Region(string id,string n, string l){
     setName(n);
     setLocacion(l);
     next=NULL;
-}
+    placeSublist=NULL;
 
+}
 
 //------------------- Metodos set-----------------------------------------
 void Region::setIdRegion(string id){
@@ -38,7 +40,6 @@ string Region::getLocation(){
     return location;
 }
 
-
 //************************** Funciones de la lista ******************
 
 
@@ -62,8 +63,8 @@ bool Region::validate(string id, Region* regionList){
 //Agregar al Inicio
 Region* Region::add(string id,string n,string l,Region* regionList){
 
-    bool duplicate=validate(id,regionList);
-    if(duplicate == false){
+   // bool duplicate=validate(id,regionList);
+    if(searchRegion(id,regionList)==NULL){
 
         Region* newNodo = new Region(id,n,l);
         newNodo->next = regionList;//se enlaza, conoce la direccion el inicio de la lista
@@ -116,16 +117,16 @@ Region* Region::deleteAllRegion(Region* regionList) {
         free(regionList);
         regionList = NULL;
     }
-    cout<<"All nodes are deleted successfully.\n";
+    cout<<"Todos los nodos han sido borrados exitosamente\n";
     return regionList;
 }
 
 //Modifica un elemento especifico de la lista
 Region* Region::modify(string data, string id,string n, string l,Region* regionList){
 
-    bool duplicate=validate(id,regionList);
+    //bool duplicate=validate(id,regionList);
 
-    if(duplicate == false){
+    if(searchRegion(id,regionList)==NULL){
           if(regionList== NULL)
             cout<<"\nLa lista no tiene datos.....";
         else{
@@ -152,19 +153,14 @@ Region* Region::modify(string data, string id,string n, string l,Region* regionL
 }
 
 //Buscar Nodo Region
-Region* Region::searchRegion(string id, Region* regionList){
-    if(regionList == NULL)
-        cout<<"\nLa lista esta vacia....";
-    else{
-        Region*temp = regionList;
-        while(temp != NULL){
-            if(temp->name == id){
-                cout<<"\nNodo encontrado";
-                return temp;
-            }
-            temp = temp->next;
+Region*Region::searchRegion(string id,Region*regionList){
+    Region*temp =regionList;
+    while(temp != NULL){
+
+        if (temp->getIdRegion()==id){
+            return temp;
         }
-        cout<<"\nNo se encontro el dato";
+        temp = temp->next;
     }
     return NULL;
 }
@@ -203,5 +199,58 @@ Region* Region::dataLoad(Region* regionList){
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
     return regionList;
 }
+//---------------------------------SUBLISTA DE LUGARES----------------------------
+
+NodoSubPlace* Region::linkendPlaceRegion(string idRegion, string namePlace,Place* placeList,Region* regionList){
+
+    Region* reg = reg->searchRegion(idRegion,regionList);
+    Place* plc = plc->searchPlace(namePlace,placeList);
+
+    if(plc == NULL){
+        cout<<"\nNo existe el lugar";
+        return NULL;
+    }
+    if(reg == NULL){
+        cout<<"\nNo existe la region";
+        return NULL;
+    }
+    NodoSubPlace* newNodo = new NodoSubPlace();
+    newNodo->linkPlace = plc;// se enlaza con el curso
+    newNodo->next = reg->placeSublist;
+    reg->placeSublist = newNodo;
+    return reg->placeSublist;
+
+}
+
+
+void Region::printSublistPlace(string id,Region* regionList){
+    Region * reg =reg->searchRegion(id,regionList);
+    if(reg == NULL){
+        cout<<"\nNo existe el lugar";
+        return;
+    }
+    //Grafica de  los resultados a imprimir
+    system("cls");
+    cout<<"\n\t   =========================================\n";
+    cout<<"\t   ||   Lugares de la Region "<<reg->getName()<<"   ||\n";
+    cout<<"\t   =========================================\n";
+    NodoSubPlace* temSub = reg->placeSublist;
+
+    do{
+        cout<<"\n\t________________________________________________\n";
+        cout<<"\n\tNOMBRE: "<<temSub->linkPlace->getName();
+        cout<<"\n\tPOBLACION: "<<temSub->linkPlace->getPopulation();
+        cout<<"\n\tSUPERFICIE: "<<temSub->linkPlace->getSquareMeters();
+
+
+        temSub = temSub->next;
+
+    }while(temSub != NULL);
+    cout<<"\n\t________________________________________________\n";
+
+}
+
+
+
 
 

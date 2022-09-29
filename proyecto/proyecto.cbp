@@ -32,8 +32,14 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Ephemerality.cpp" />
+		<Unit filename="Ephemerality.h" />
+		<Unit filename="People.cpp" />
+		<Unit filename="People.h" />
 		<Unit filename="Place.cpp" />
 		<Unit filename="Place.h" />
+		<Unit filename="Rain.cpp" />
+		<Unit filename="Rain.h" />
 		<Unit filename="Region.cpp" />
 		<Unit filename="Region.h" />
 		<Unit filename="TimeRegis.cpp" />

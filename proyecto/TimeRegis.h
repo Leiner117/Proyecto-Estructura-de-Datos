@@ -1,6 +1,7 @@
 #ifndef TIMEREGIS_H
 #define TIMEREGIS_H
 #include <string>
+#include "Rain.h"
 using namespace std;
 
 // Aquí se declaran las variables,constantes y las funciones
@@ -21,6 +22,7 @@ class TimeRegis
         void setWinDirec(int);
         void setHumidity(int);
         void setRained(bool);
+        void setRainList(Rain*);
 
         //Getters
         string getDateR();
@@ -31,6 +33,7 @@ class TimeRegis
         int getWinDirec();
         int getHumidity();
         bool getRained();
+        class NodoSubRain* getRainList();
 
         //Metodos
         bool validate(string , TimeRegis* );
@@ -42,8 +45,15 @@ class TimeRegis
         void print(TimeRegis* );
         TimeRegis* dataLoad(TimeRegis* );
 
+        //Metodos de sublista
+
+        NodoSubRain* linkendRainTime(string, string,Rain*,TimeRegis*);
+        void printSubRain(string,TimeRegis*);
+
+
         //Puntero
         TimeRegis* next;
+        class NodoSubRain* rainSublist;
 
     private:
 
@@ -55,10 +65,15 @@ class TimeRegis
         int windDirection;
         int humidity;
         bool yesRained=false;
+        int contRegis;
 
 };
 
-
+class NodoSubRain{
+    public:
+        NodoSubRain* next;
+        Rain* linkRain;
+};
 
 
 

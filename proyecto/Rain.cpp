@@ -156,6 +156,29 @@ void Rain::modAverageRange(Rain*rainList,int newAverage,string rainCode){
     rain->setAverageRange(newAverage);
 }
 
+//Cargar datos quemados
+Rain* Rain::dataLoad(Rain* rainList){
+
+    //Datos preestablecidos en lista lugar
+    rainList=addRain("1","Extremo lluvioso",3347,rainList);
+    rainList=addRain("2","Seco",1581,rainList);
+    rainList=addRain("3","Normal",1266,rainList);
+    rainList=addRain("4","Extremo lluvioso",2326,rainList);
+    rainList=addRain("5","Lluvioso",3806,rainList);
+    rainList=addRain("6","Normal",3449,rainList);
+    rainList=addRain("7","Extremo Seco",52,rainList);
+    rainList=addRain("8","Extremo lluvioso",326,rainList);
+    rainList=addRain("9","Extremo lluvioso",2154,rainList);
+    rainList=addRain("10","Seco",502,rainList);
+    rainList=addRain("11","Lluvioso",1567,rainList);
+
+    cout<<"\n---Se cargaron los datos correctamente---\n";
+
+    return rainList;
+
+}
+
+
 
 
 
