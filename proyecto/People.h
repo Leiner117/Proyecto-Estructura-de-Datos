@@ -18,14 +18,17 @@ class People
         People(string,string,short,string,string);
 
         //Funciones
-        void print();
+
+
          //Setters
         void setName(string);
         void setId(string);
         void setAge(short);
         void setPlaceResidence(string);
         void setYearIncome(string);
+
         void setPeolpleList(TimeRegis*);
+
 
          //Getters
         string getName();
@@ -33,10 +36,16 @@ class People
         short getAge();
         string getPlaceResidence();
         string getYearIncome();
+
         class NodoSubTime* getPeopleList();
+
+        TimeRegis*getTimeSubList();
+
+
 
 
         //Funciones
+        People*dataLoad(People*);
         People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
         People* searchPeople(People*,string);//Busca un nodo especifico en la lista
         void printPeopleList(People*);// Imprime la lista
@@ -53,8 +62,9 @@ class People
         NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);
         void printSublistTime(string,People*);
 
-        //Puntero
-        People*next;//Siguiente
+
+        People*next = NULL;//Siguiente
+
         People*pre;//Anterior
         class NodoSubTime* timeSublist;
 
@@ -65,9 +75,10 @@ class People
             string id;// Cedula
             short age;// edad
             string placeResidence;// Lugar de residencia
-            string yearIncome;// Año ingreso
+            string yearIncome;// AÃ±o ingreso
 
 };
+
 
 class NodoSubTime{
     public:
