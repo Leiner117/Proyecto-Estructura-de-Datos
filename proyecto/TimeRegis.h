@@ -1,19 +1,20 @@
 #ifndef TIMEREGIS_H
 #define TIMEREGIS_H
 #include <string>
+#include "time.h"
 using namespace std;
 
-// Aquí se declaran las variables,constantes y las funciones
+// Aqui se declaran las variables,constantes y las funciones
 
 class TimeRegis
 {
     public:
 
         //Constructor
-        TimeRegis(string, int, float, float, int , int, int, bool);
+        TimeRegis(long int, int, float, float, int , int, int, bool);
 
         //Setters
-        void setDateR(string);
+        void setDateR(long int);
         void setPrecip(int);
         void setMaxTemp(float);
         void setMinTemp(float);
@@ -23,7 +24,7 @@ class TimeRegis
         void setRained(bool);
 
         //Getters
-        string getDateR();
+        long int getDateR();
         int getPrecip();
         float getMaxTemp();
         float getMinTemp();
@@ -33,21 +34,23 @@ class TimeRegis
         bool getRained();
 
         //Metodos
-        bool validate(string , TimeRegis* );
-        TimeRegis* add(string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
-        TimeRegis* deleteTime(string ,TimeRegis* );
+        bool validate(long int , TimeRegis* );
+        TimeRegis* add(long int ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* deleteTime(long int  ,TimeRegis* );
         TimeRegis* deleteAllTime(TimeRegis* );
-        TimeRegis* modify(string,string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
-        TimeRegis* searchTime(string , TimeRegis* );
+        TimeRegis* modify(long int,long int ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* searchTime(long int , TimeRegis* );
         void print(TimeRegis* );
         TimeRegis* dataLoad(TimeRegis* );
-
+        long int dateToUnixDate(int ,short ,short);// Convierte la fecha a UnixDate(segundos totales)
+        string dateToString(tm*);// Convierte de formato fecha a string para imprimir
+        tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
         //Puntero
         TimeRegis* next;
 
     private:
 
-        string registrationDate;
+        long int registrationDate;
         int precipitation;
         float maxTemperature;
         float minTemperature;

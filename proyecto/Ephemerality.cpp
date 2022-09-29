@@ -193,7 +193,7 @@ Ephemerality* Ephemerality::dataload(Ephemerality*eList){
 
 }
 /*
-    retorna el a�o de la fecha
+    retorna el ano de la fecha
 */
 
 tm* Ephemerality::unixDateToDate(long int seconds){
@@ -304,11 +304,7 @@ tm* Ephemerality::unixDateToDate(long int seconds){
     timeinfo->tm_hour = hours;
     timeinfo->tm_min = minutes;
     timeinfo->tm_sec = secondss;
-	ans += to_string(date);
-	ans += "/";
-	ans += to_string(month);
-	ans += "/";
-	ans += to_string(currYear);
+
 
 
 	// Return the time
