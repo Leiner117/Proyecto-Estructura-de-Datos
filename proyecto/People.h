@@ -1,7 +1,7 @@
 #ifndef PEOPLE_H
 #define PEOPLE_H
 #include <string>
-
+#include "TimeRegis.h"
 using namespace std;
 
 /*
@@ -17,22 +17,27 @@ class People
         People(string,string,short,string,string);
 
         //Funciones
-        void print();
+
+
          //Setters
         void setName(string);
         void setId(string);
         void setAge(short);
         void setPlaceResidence(string);
         void setYearIncome(string);
+        void setTimeSublist(TimeRegis*);
          //Getters
         string getName();
         string getId();
         short getAge();
         string getPlaceResidence();
         string getYearIncome();
+        TimeRegis*getTimeSubList();
+
 
 
         //Funciones
+        People*dataLoad(People*);
         People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
         People* searchPeople(People*,string);//Busca un nodo especifico en la lista
         void printPeopleList(People*);// Imprime la lista
@@ -44,7 +49,7 @@ class People
         People* deletePeople(People*,string);// Elimina un nodo de la lista
 
 
-        People*next;//Siguiente
+        People*next = NULL;//Siguiente
         People*pre;//Anterior
     private:
             //Atributos
@@ -53,7 +58,7 @@ class People
             short age;// edad
             string placeResidence;// Lugar de residencia
             string yearIncome;// Año ingreso
-
+            TimeRegis*timeSublist;//Sublista de registro del tiempo
 
 
 

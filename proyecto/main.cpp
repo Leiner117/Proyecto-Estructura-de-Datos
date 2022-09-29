@@ -23,12 +23,13 @@
 using namespace std;
 
 
-Place* placeList;
-Region* regionList;
-TimeRegis* timeList;
-Rain* rainList;
-People* peopleList;
-Ephemerality* ephemeralityList;
+Place* placeList;// Lista Lugares
+Region* regionList;// Lista region
+TimeRegis* timeList;// Lista registro del tiempo
+Rain* rainList;// lista LLuvia
+People* peopleList;// Lista Personas
+Ephemerality* ephemeralityList;//Lista efimeridad
+
 
 int main()
 {
@@ -44,11 +45,21 @@ int main()
     regionList->print(regionList);
 
     cout << "\n-------LISTA TIEMPO--------" << endl;
-    timeList=timeList->dataLoad(timeList);
-    timeList->print(timeList);
 
 
     cout << "ESTO ES UNA PRUEBA!" << endl;
+    peopleList = peopleList->dataLoad(peopleList);
+    People*persona = peopleList->searchPeople(peopleList,"2022437759");
+    peopleList->printPeopleList(peopleList);
+    ephemeralityList = ephemeralityList->dataload(ephemeralityList);
+    ephemeralityList->printEphemeralityList(ephemeralityList);
+
+    ephemeralityList->diffDepartureTime(2022,ephemeralityList);
+    ephemeralityList->timeReportYear(ephemeralityList,2022);
+    ephemeralityList->earlyDeparLateHide(ephemeralityList);
+    //persona->setTimeSublist(timeList->add("2022/09/23",001,12.11,12.12,20,23,22,false,persona->getTimeSubList()));
+    //persona->setTimeSublist(timeList->add("2022/09/24",001,0.11,14.12,20,23,22,true,persona->getTimeSubList()));
+    //timeList->print(persona->getTimeSubList());
 
     return 0;
 }

@@ -1,7 +1,7 @@
 #include "People.h"
 #include <string>
 #include <iostream>
-
+#include "TimeRegis.h"
 /*
  Creado: 16/09/2022 ultima mod: 19/09/2022
  Autor: Leiner Alvarado
@@ -17,6 +17,7 @@ People::People(string n,string id,short age,string place,string year)
     setAge(age);
     setPlaceResidence(place);
     setYearIncome(year);
+
 
 }
 //Setters
@@ -36,6 +37,9 @@ void People::setPlaceResidence(string place){
 void People::setYearIncome(string year){
 
     yearIncome = year;
+}
+void People::setTimeSublist(TimeRegis*newList){
+    timeSublist = newList;
 }
 
 //Getters
@@ -57,7 +61,9 @@ string People::getPlaceResidence(){
 string People::getYearIncome(){
     return yearIncome;
 }
-
+TimeRegis*People::getTimeSubList(){
+    return timeSublist;
+}
 // Funciones
 
 
@@ -68,19 +74,31 @@ Funcion agregar personas
 Se encarga de agregar nodos personas a la lista doble
 */
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
-    if (searchPeople(peopleList,id)==NULL){
+  if (searchPeople(peopleList,id) == NULL){
 
 
-        People*newPeople = new People(name,id,age,place,year);
-
-        newPeople-> next = peopleList;
-        if(peopleList!= NULL){
+      People*newPeople = new People(name,id,age,place,year);
+        if(peopleList == NULL)
+            peopleList = newPeople;
+        else if(name <= peopleList->getName()){//inserta al inicio
+            newPeople->next = peopleList;
             peopleList->pre = newPeople;
+            peopleList = newPeople;
         }
-        peopleList = newPeople;
-    }
-    else{
-        cout<< "La persona ya existe";
+        else{//es en medio o al final de la lista
+            People* temp = peopleList;
+            People*previ;
+            while((temp!= NULL) &&(name>temp->getName())){
+                previ = temp;
+                temp = temp->next;
+
+            }
+            previ->next = newPeople;
+            newPeople->pre = temp;
+            if(temp != NULL)
+                newPeople->next = temp;
+
+        }
     }
     return peopleList;
 }
@@ -89,6 +107,7 @@ People*People::addPeople(string name,string id,short age,string place,string yea
 Funcion imprimir lista personas
 Recorre la lista y imprime la informacion de cada personas
 */
+
 
 void People::printPeopleList(People*pList){
 
@@ -113,7 +132,6 @@ void People::printPeopleList(People*pList){
 
     }
 }
-
 /*
 Funcion buscar personas
 Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo retorna
@@ -121,7 +139,6 @@ Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo re
 People*People::searchPeople(People*pList,string id){
 
     if(pList == NULL){
-        cout<< "\nlista Vacia...\n";
         return NULL;
     }
     People*temp = pList;
@@ -132,7 +149,6 @@ People*People::searchPeople(People*pList,string id){
         }
         temp = temp->next;
     }
-    cout<< "\nNo encontrado en la lista doble";
     return NULL;
 }
 
@@ -205,4 +221,12 @@ void People::modYearIncome(string id,string newYear,People*pList){
     People*people = searchPeople(pList,id);
     people->setYearIncome(newYear);
 }
-
+People*People::dataLoad(People*pList){
+    pList = pList->addPeople("TANIA","2022440044",19,"Bajo","2022",pList);
+    pList = pList->addPeople("TANIA","2022440045",19,"Bajo","2022",pList);
+    pList = pList->addPeople("MELANIE","202307080",19,"Bajo","2022",pList);
+    pList = pList->addPeople("KARINA","2022456780",19,"Bajo","2022",pList);
+    pList = pList->addPeople("LEINER","2022437759",19,"Bajo","2022",pList);
+    pList = pList->addPeople("LEIDY","2022437759",19,"Bajo","2022",pList);
+    return pList;
+}
