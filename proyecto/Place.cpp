@@ -1,4 +1,5 @@
 #include "Place.h"
+#include "TimeRegis.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -25,6 +26,11 @@ void Place::setPopulation(int p){
 void Place::setSquareMeters(float meters){
     squareMeters= meters;
 }
+/*void Place::setTimeRegis(TimeRegis*newList){
+    timeRegSublist = newList;
+}*/
+
+
 
 //------------------- Metodos get-----------------------------------------
 string Place::getName(){
@@ -38,6 +44,11 @@ int Place::getPopulation(){
 float Place::getSquareMeters(){
     return squareMeters;
 }
+
+/*TimeRegis* Place::getTimeRegis(){
+    return timeRegSublist;
+}*/
+
 
 
 
@@ -70,7 +81,7 @@ Place* Place::add(string n,int p,float meters,Place* placeList){
 
     bool duplicate= validate(n,placeList);
 
-    if(duplicate==false){
+    if(duplicate==NULL){
 
         Place* newNodo = new Place(n,p,meters);
 
@@ -102,7 +113,7 @@ Place* Place::modify(string data, string n,int p, float m,Place*placeList){
 
     bool duplicate= validate(n,placeList);
 
-     if(duplicate == false){
+     if(duplicate==NULL){
         if(placeList== NULL)
             cout<<"\nLa lista no tiene datos.....";
         else{
@@ -169,22 +180,33 @@ Place* deleteAllPlace(Place* placeList) {
 
 
 //Buscar Nodo Place
-Place* searchPlace(string n, Place* placeList){
-    if(placeList == NULL)
-        cout<<"\nLa lista esta vacia....";
-    else{
-        Place*temp = placeList;
-        while(temp != NULL){
-            if(temp->getName() == n){
-                cout<<"\nNodo encontrado";
-                return temp;
-            }
-            temp = temp->next;
-        }
-        cout<<"\nNo se encontro el dato";
-    }
-    return NULL;
+
+
+Place* Place::searchPlace(string n, Place* placeList){
+     Place *temp;
+     if(placeList !=NULL){
+          temp = placeList;
+
+          do
+          {
+               if(temp->getName() == n)
+               {
+                   return temp;
+               }
+               else
+               {
+                   temp = temp->next;
+               }
+          }while(temp!=placeList);
+
+          //cout<<"\n\n\Lugar no encontrado..!"<<endl;
+
+     }
+     else
+        return NULL;
+         cout<<"\n\n\tLista vacia...!"<<endl;
 }
+
 
 //Imprime la lista completa
 void Place:: print(Place* placeList){
@@ -239,7 +261,65 @@ Place* Place::dataLoad(Place* placeList){
 
 }
 
+//---------------------------------SUBLISTA DE REGISTROS DEL TIEMPO----------------------------
 
+NodoSubTime* Place::linkendTimePlace(string namePlace, string date,TimeRegis* timeList,Place* placeList){
+
+    Place* plc = plc->searchPlace(namePlace,placeList);
+    TimeRegis* timeR = timeR->searchTime(date,timeList);
+
+    if(plc == NULL){
+        cout<<"\nNo existe el lugar";
+        return NULL;
+    }
+    if(timeR == NULL){
+        cout<<"\nNo existe el registro del tiempo";
+        return NULL;
+    }
+
+    NodoSubTime* newNodo = new NodoSubTime();
+    newNodo->linkTime = timeR;// se enlaza con el curso
+    newNodo->next = plc->timeRegiSublist;
+    plc->timeRegiSublist = newNodo;
+
+    return plc->timeRegiSublist;
+
+}
+
+
+
+
+void Place::printSubTimePlace(string n,Place* placeList){
+    Place * plc = plc->searchPlace(n,placeList);
+    if(plc == NULL){
+        cout<<"\nNo existe el lugar";
+        return;
+    }
+    //Grafica de  los resultados a imprimir
+    system("cls");
+    cout<<"\n\t   =========================================\n";
+    cout<<"\t   ||   Registros del tiempo en el Lugar "<<plc->getName()<<"   ||\n";
+    cout<<"\t   =========================================\n";
+    NodoSubTime* temSub = plc->timeRegiSublist;
+
+    do{
+        cout<<"\n\t________________________________________________\n";
+        cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
+        cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
+        cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
+        cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
+        cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
+        cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
+        cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
+        cout<<"\n\tLLUVIA: "<<temSub->linkTime->getRained();
+
+
+        temSub = temSub->next;
+
+    }while(temSub != NULL);
+    cout<<"\n\t________________________________________________\n";
+
+}
 
 
 

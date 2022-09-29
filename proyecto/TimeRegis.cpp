@@ -53,9 +53,10 @@ void TimeRegis::setWinDirec(int winDirec){
     windDirection=winDirec;
 }
 
-void TimeRegis::setHumidity(int humidity1){
 
-    humidity = humidity1;
+void TimeRegis::setHumidity(int hum){
+
+    humidity= hum;
 }
 
 void TimeRegis::setRained(bool rained){
@@ -99,6 +100,7 @@ bool TimeRegis::getRained(){
 
 
 
+
 //************************** Funciones de la lista ******************
 
 
@@ -122,7 +124,7 @@ bool TimeRegis::validate(long int date, TimeRegis* timeList){
 TimeRegis* TimeRegis::add(long int dateR,int precip,float maxTemp,float minTemp,int winSpd, int winDirec,int humidity,bool rained, TimeRegis* timeList){
 
     bool duplicate=validate(dateR,timeList);
-    if(duplicate == false){
+    if(duplicate==NULL){
 
         TimeRegis* newNodo = new TimeRegis(dateR,precip,maxTemp,minTemp,winSpd,winDirec,humidity,rained);
         newNodo->next = timeList;//se enlaza, conoce la direccion el inicio de la lista
@@ -138,7 +140,7 @@ TimeRegis* TimeRegis::add(long int dateR,int precip,float maxTemp,float minTemp,
 TimeRegis* TimeRegis::modify(long int date,long int dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained, TimeRegis* timeList){
 
     bool duplicate=validate(dateR,timeList);
-    if(duplicate == false){
+    if(duplicate==NULL){
         if(timeList== NULL)
             cout<<"\nLa lista no tiene datos.....";
         else{
@@ -217,12 +219,11 @@ TimeRegis* TimeRegis::searchTime(long int date, TimeRegis* timeList){
         TimeRegis*temp = timeList;
         while(temp != NULL){
             if(temp->getDateR() == date){
-                cout<<"\nNodo encontrado";
                 return temp;
             }
             temp = temp->next;
         }
-        cout<<"\nNo se encontro el dato";
+        //cout<<"\nNo se encontro el dato";
     }
     return NULL;
 }
@@ -416,6 +417,59 @@ void TimeRegis::extremeMonthRain(TimeRegis*timeList,int year,int month){
     }
 }
 
+
+
+
+//---------------------------------SUBLISTA DE LLUVIA----------------------------
+
+NodoSubRain* TimeRegis::linkendRainTime(string idRain, string date,Rain* rainList,TimeRegis* timeList){
+
+    TimeRegis* time = time->searchTime(date,timeList);
+    Rain* rain = rain->searchRain(rainList,idRain);
+
+    if(time == NULL){
+        cout<<"\nNo existe el registro del tiempo";
+        return NULL;
+    }
+    if(rain == NULL){
+        cout<<"\nNo existe el registrod e lluvia";
+        return NULL;
+    }
+    NodoSubRain* newNodo = new NodoSubRain();
+    newNodo->linkRain = rain;// se enlaza con el curso
+    newNodo->next = time->rainSublist;
+    time->rainSublist = newNodo;
+    return time->rainSublist;
+
+}
+
+
+void TimeRegis::printSubRain(string date,TimeRegis* timeList){
+    TimeRegis * time =time->searchTime(date,time);
+    if(time == NULL){
+        cout<<"\nNo existe esa fecha de registro";
+        return;
+    }
+    //Grafica de  los resultados a imprimir
+    system("cls");
+    cout<<"\n\t   =========================================\n";
+    cout<<"\t   ||   Historial de lluvias en "<<time->getDateR()<<"   ||\n";
+    cout<<"\t   =========================================\n";
+    NodoSubRain* temSub = time->rainSublist;
+
+    do{
+        cout<<"\n\t________________________________________________\n";
+        cout<<"\n\tCODIGO: "<<temSub->linkRain->getRainCode();
+        cout<<"\n\tNOMBRE: "<<temSub->linkRain->getName();
+        cout<<"\n\tRANGO PROMEDIO: "<<temSub->linkRain->getAverageRange();
+
+
+        temSub = temSub->next;
+
+    }while(temSub != NULL);
+    cout<<"\n\t________________________________________________\n";
+
+}
 
 
 
