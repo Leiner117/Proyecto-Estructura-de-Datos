@@ -1,9 +1,9 @@
 #ifndef EPHEMERALITY_H
 #define EPHEMERALITY_H
 #include <string>
-
+#include <time.h>
 /*
- Creado: 16/09/2022 ultima mod: 19/09/2022
+ Creado: 16/09/2022 ultima mod: 26/09/2022
  Autor: Leiner Alvarado
  */
 
@@ -15,41 +15,48 @@ class Ephemerality
 {
     public:
         //Constructor
-        Ephemerality(string,string,string,string);
+        Ephemerality(string,long int,int,int);
 
         //Setters
         void setName(string);
-        void setDate(string);
-        void setDepartureTime(string);
-        void setHideTime(string);
+        void setDate(long int);
+        void setDepartureTime(int);
+        void setHideTime(int);
         //Getters
         string getName();
-        string getDate();
-        string getDepartureTime();
-        string getHideTime();
+        long int getDate();
+        long int getDepartureTime();
+        long int getHideTime();
 
-        Ephemerality*next;// Siguiente
-        Ephemerality*pre;// Anterior
+        Ephemerality*next = NULL;// Siguiente
+        Ephemerality*pre = NULL;// Anterior
         //Funciones
 
-        Ephemerality*addEphemerality(string,string,string,string,Ephemerality*);//Agrega un nodo a la lista
-        Ephemerality*searchEphemerality(string,Ephemerality*);// Retorna un nodo buscado
-        Ephemerality*deleteEphemerality(string,Ephemerality*);// Borra un nodo seleccionado de la lista
+        Ephemerality*addEphemerality(string,long int,int,int,Ephemerality*);//Agrega un nodo a la lista
+        Ephemerality*searchEphemerality(long int,Ephemerality*);// Retorna un nodo buscado
+        Ephemerality*deleteEphemerality(long int,Ephemerality*);// Borra un nodo seleccionado de la lista
         void printEphemeralityList(Ephemerality*);// imprime la lista de efimeridad
 
-        void modName(Ephemerality*,string,string);// Modifica el nombre de la efimeridad
-        void modDate(Ephemerality*,string,string);// Modifica la fecha
-        void modDepartureTime(Ephemerality*,string,string);// Modifica la hora de salida del sol
-        void modHideTime(Ephemerality*,string,string);// Modifica la hora de ocultamiento del sol
-        Ephemerality* dataLoad(Ephemerality*);
-
+        void modName(Ephemerality*,long int,string);// Modifica el nombre de la efimeridad
+        void modDate(Ephemerality*,long int,int);// Modifica la fecha
+        void modDepartureTime(Ephemerality*,long int,int);// Modifica la hora de salida del sol
+        void modHideTime(Ephemerality*,long int,int);// Modifica la hora de ocultamiento del sol
+        Ephemerality*dataload(Ephemerality*);// Cargar datos predeterminados
+        tm* unixDateToDate(long int);// Convierte de formado Unix timestamps a fecha
+        long int dateToUnixDate(int,short,short);// Convierte la fecha en formato Unix timestamps
+        void diffDepartureTime(int,Ephemerality*);// Diferencia entre las horas de salida
+        int timeToSeconds(short,short);// Convierte la hora en segundos
+        string secondsToTime(int);// convierte los segundos en formato de horas y minutos para imprimir
+        string dateToString(tm*); // Convierte la fecha en string para imprimir
+        void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por anos
+        void earlyDeparLateHide(Ephemerality*);// Consulta de la Hora de salida mas temprana y ocultamiento mas tardio
 
     private:
         //Atributos
         string name;// Nombre
-        string date;// Fecha
-        string departureTime;// Hora de Salida
-        string hideTime;// Hora de ocultamiento
+        long int date;// Fecha
+        long int departureTime;// Hora de Salida
+        long int hideTime;// Hora de ocultamiento
 
 };
 
