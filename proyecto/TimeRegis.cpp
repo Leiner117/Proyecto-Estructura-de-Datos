@@ -235,7 +235,13 @@ void TimeRegis:: print(TimeRegis* timeList){
     else{
         TimeRegis*temp = timeList;
         while(temp != NULL){
-            cout<<temp->getDateR()<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | "<<temp->getRained()<<endl;
+            cout<<temp->getDateR()<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | ";
+            if (temp->getRained()==true){
+                cout<<"Si llovio"<<endl;
+            }
+            else{
+                cout<<"No llovio"<<endl;
+            }
             temp = temp->next;
         }
     }
@@ -449,16 +455,14 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
     cout<<"\t   =========================================\n";
     NodoSubRain* temSub = time->rainSublist;
 
-    do{
+    while(temSub != NULL){
         cout<<"\n\t________________________________________________\n";
         cout<<"\n\tCODIGO: "<<temSub->linkRain->getRainCode();
         cout<<"\n\tNOMBRE: "<<temSub->linkRain->getName();
         cout<<"\n\tRANGO PROMEDIO: "<<temSub->linkRain->getAverageRange();
-
-
         temSub = temSub->next;
 
-    }while(temSub != NULL);
+    }
     cout<<"\n\t________________________________________________\n";
 
 }

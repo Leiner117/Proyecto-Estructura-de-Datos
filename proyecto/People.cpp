@@ -20,7 +20,7 @@ People::People(string n,string id,short age,string place,string year)
     setYearIncome(year);
     next=NULL;
     timeSublist=NULL;
-
+    numRegist=0;
 }
 //Setters
 void People::setName(string n){
@@ -249,7 +249,7 @@ People* People::dataLoad(People* peopleList){
 
 NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis* timeList,People* peopleList){
 
-    People* pers = pers->searchPeople(peopleList,id);
+    People* pers = pers->searchPeople(peopleList,idPerson);
     TimeRegis* timeR = timeR->searchTime(dateR,timeList);
 
     if(pers == NULL){
@@ -260,13 +260,42 @@ NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis
         cout<<"\nNo hay registro en esa fecha";
         return NULL ;
     }
+
     NodoSubTime* newNodo = new NodoSubTime();
     newNodo->linkTime = timeR;// se enlaza con el curso
     newNodo->next = pers->timeSublist;
     pers->timeSublist = newNodo;
-
     return pers->timeSublist;
+
 }
+
+//NEW CODE SIN TERMINAR
+int People::getSize(NodoSubTime* a)
+{
+    int sz = 0;
+    while (a != NULL) {
+        a = a->next;
+        sz++;
+    }
+    return sz;
+}
+
+//NEW CODE SIN TERMINAR
+int People::getSizeSublist(People* peopleList){
+
+    People * pers= peopleList;
+    //People * pers2 = peopleList;
+
+    NodoSubTime* temSub = pers->timeSublist;
+    int cont1,cont2=0;
+    while(temSub != NULL){
+        cont1=getSize(temSub);
+        cout<<cont1;
+        temSub = temSub->next;
+    }
+
+}
+
 
 
 void People::printSublistTime(string id,People* peopleList){
@@ -278,14 +307,14 @@ void People::printSublistTime(string id,People* peopleList){
         return;
     }
     //Grafica de  los resultados a imprimir
-    system("cls");
+    //system("cls");
     cout<<"\n\t   =========================================\n";
     cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
     cout<<"\t   =========================================\n";
-    cout<<pers->timeSublist;
+
     NodoSubTime* temSub = pers->timeSublist;
 
-    do{
+    while(temSub != NULL){
         cout<<"\n\t________________________________________________\n";
         cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
         cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
@@ -294,11 +323,16 @@ void People::printSublistTime(string id,People* peopleList){
         cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
         cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
         cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
-        cout<<"\n\LLUVIA: "<<temSub->linkTime->getRained();
+        if (temSub->linkTime->getRained()==true){
+            cout<<"\n\tLLUVIA: SI";
+        }
+        else{
+            cout<<"\n\tLLUVIA: NO";
+        }
 
         temSub = temSub->next;
 
-    }while(temSub != NULL);
+    }
     cout<<"\n\t________________________________________________\n";
 
 }

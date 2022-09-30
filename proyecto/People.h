@@ -48,6 +48,8 @@ class People
         People* deletePeople(People*,string);// Elimina un nodo de la lista
         People* dataLoad(People*);
 
+        int getSizeSublist(People*);
+        int getSize(NodoSubTime*);
 
         //Sublista
         NodoSubTime* linkendTimePeople(string,long int,TimeRegis*,People*);
@@ -57,6 +59,7 @@ class People
         People*next;//Siguiente
         People*pre;//Anterior
         class NodoSubTime* timeSublist;
+        int numRegist;
 
 
     private:
@@ -66,6 +69,7 @@ class People
             short age;// edad
             string placeResidence;// Lugar de residencia
             string yearIncome;// Año ingreso
+
 
 };
 

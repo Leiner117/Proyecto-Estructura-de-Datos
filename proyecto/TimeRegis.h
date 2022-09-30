@@ -67,7 +67,6 @@ class TimeRegis
         int windDirection;
         int humidity;
         bool yesRained=false;
-        int contRegis;
 
 };
 

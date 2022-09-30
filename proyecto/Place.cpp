@@ -303,21 +303,27 @@ void Place::printSubTimePlace(string n,Place* placeList){
     cout<<"\t   =========================================\n";
     NodoSubTime* temSub = plc->timeRegiSublist;
 
-    do{
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
-        cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
-        cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
-        cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
-        cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
-        cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
-        cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
-        cout<<"\n\tLLUVIA: "<<temSub->linkTime->getRained();
+    while(temSub != NULL){
 
-
-        temSub = temSub->next;
-
-    }while(temSub != NULL);
+        if(temSub->linkTime->getDateR()!=0){
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
+            cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
+            cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
+            cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
+            cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
+            cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
+            cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
+            if (temSub->linkTime->getRained()==true)
+                cout<<"\n\tLLUVIA: SI";
+            else
+                cout<<"\n\tLLUVIA: NO";
+            temSub = temSub->next;
+        }
+        else{
+            break;
+        }
+    };
     cout<<"\n\t________________________________________________\n";
 
 }

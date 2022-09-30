@@ -77,7 +77,6 @@ void dataLoadSublist(Place* placeList,Region* regionList,People* peopleList,Time
     regionList->linkendPlaceRegion("NA","Naranjo",placeList,regionList);
     regionList->linkendPlaceRegion("NA","Guatuso",placeList,regionList);
 
-
     //Datos quemados en SUBLISTA PERSONA-TIEMPO
     peopleList->linkendTimePeople("202204",1662012000,timeList,peopleList);//Leiner
     peopleList->linkendTimePeople("202204",1662098400,timeList,peopleList);
@@ -105,15 +104,6 @@ void dataLoadSublist(Place* placeList,Region* regionList,People* peopleList,Time
     timeList->linkendRainTime("1",1662357600,rainList,timeList);
 }
 
-/*
-void calcPersonMostRegis(People* peopleList){
-
-
-
-
-}
-*/
-
 
 
 
@@ -138,16 +128,18 @@ int main()
     peopleList=peopleList->dataLoad(peopleList);
     //peopleList->printPeopleList(peopleList);
 
-
-
-
     //CARGAR DATOS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
 
-    //regionList->printSublistPlace("NA",regionList);
-    peopleList->printSublistTime("202204",peopleList); //revisar
 
-    //placeList->printSubTimePlace("San Carlos",placeList); //revisar(error raro)
+    //PRUEBAS
+    cout<<"\nCalculando persona con mas registro\n";
+    //cout<<getCount(peopleList->timeSublist);
+
+    //regionList->printSublistPlace("NA",regionList);
+    //peopleList->printSublistTime("202204",peopleList);
+
+    //placeList->printSubTimePlace("San Carlos",placeList);
     //timeList->linkendRainTime("1",1662703200,rainList,timeList);
 
 
