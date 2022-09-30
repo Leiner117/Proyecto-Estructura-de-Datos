@@ -67,37 +67,21 @@ string People::getYearIncome(){
 Funcion agregar personas
 Se encarga de agregar nodos personas a la lista doble
 */
-/*
-Funcion agregar personas
-Se encarga de agregar nodos personas a la lista doble
-*/
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
 
-  if (searchPeople(peopleList,id) == NULL){
+    if (searchPeople(peopleList,id)==NULL){
 
 
-      People*newPeople = new People(name,id,age,place,year);
-        if(peopleList == NULL)
-            peopleList = newPeople;
-        else if(name <= peopleList->getName()){//inserta al inicio
-            newPeople->next = peopleList;
+        People*newPeople = new People(name,id,age,place,year);
+
+        newPeople-> next = peopleList;
+        if(peopleList!= NULL){
             peopleList->pre = newPeople;
-            peopleList = newPeople;
         }
-        else{//es en medio o al final de la lista
-            People* temp = peopleList;
-            People*previ;
-            while((temp!= NULL) &&(name>temp->getName())){
-                previ = temp;
-                temp = temp->next;
-
-            }
-            previ->next = newPeople;
-            newPeople->pre = temp;
-            if(temp != NULL)
-                newPeople->next = temp;
-
-        }
+        peopleList = newPeople;
+    }
+    else{
+        cout<< "La persona ya existe";
     }
     return peopleList;
 }
@@ -138,7 +122,7 @@ Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo re
 People*People::searchPeople(People*pList,string id){
 
     if(pList == NULL){
-
+        cout<< "\nlista Vacia...\n";
         return NULL;
     }
     People*temp = pList;
@@ -149,6 +133,7 @@ People*People::searchPeople(People*pList,string id){
         }
         temp = temp->next;
     }
+    cout<< "\nNo encontrado en la lista doble";
     return NULL;
 }
 
@@ -247,7 +232,7 @@ People* People::dataLoad(People* peopleList){
 
 //---------------------------------SUBLISTA DE LUGARES----------------------------
 
-NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis* timeList,People* peopleList){
+NodoSubTime* People::linkendTimePeople(string idPerson, string dateR,TimeRegis* timeList,People* peopleList){
 
     People* pers = pers->searchPeople(peopleList,id);
     TimeRegis* timeR = timeR->searchTime(dateR,timeList);
@@ -270,9 +255,7 @@ NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis
 
 
 void People::printSublistTime(string id,People* peopleList){
-
-    People * pers = pers->searchPeople(peopleList,id);
-
+    People * pers =pers->searchPeople(peopleList,id);
     if(pers == NULL){
         cout<<"\nNo existe la persona";
         return;
@@ -282,9 +265,8 @@ void People::printSublistTime(string id,People* peopleList){
     cout<<"\n\t   =========================================\n";
     cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
     cout<<"\t   =========================================\n";
-    cout<<pers->timeSublist;
-    NodoSubTime* temSub = pers->timeSublist;
 
+    NodoSubTime* temSub = pers->timeSublist;
     do{
         cout<<"\n\t________________________________________________\n";
         cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();

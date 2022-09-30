@@ -1,14 +1,12 @@
 #include "TimeRegis.h"
-#include "Ephemerality.h"
 #include <string>
 #include <iostream>
-#include <time.h>
 using namespace std;
 
 //Aqui se implementan los metodos y se utilizan las variables del archivo .h
 
 //Constructor con paramentros
-TimeRegis::TimeRegis(long int dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained){
+TimeRegis::TimeRegis(string dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained){
 
     setDateR(dateR);
     setPrecip(precip);
@@ -23,7 +21,7 @@ TimeRegis::TimeRegis(long int dateR,int precip,float maxTemp, float minTemp,int 
 }
 
 //------------------- Metodos set-----------------------------------------
-void TimeRegis::setDateR(long int dateR){
+void TimeRegis::setDateR(string dateR){
 
     registrationDate=dateR;
 }
@@ -64,7 +62,7 @@ void TimeRegis::setRained(bool rained){
 }
 
 //------------------- Metodos get-----------------------------------------
-long int TimeRegis::getDateR(){
+string TimeRegis::getDateR(){
     return registrationDate;
 }
 
@@ -104,7 +102,7 @@ bool TimeRegis::getRained(){
 
 
 //Verifica si el elemento a agregar ya existe en la lista
-bool TimeRegis::validate(long int date, TimeRegis* timeList){
+bool TimeRegis::validate(string date, TimeRegis* timeList){
     if(timeList == NULL)
         return false;
     else{
@@ -120,7 +118,7 @@ bool TimeRegis::validate(long int date, TimeRegis* timeList){
 }
 
 //Agregar al Inicio
-TimeRegis* TimeRegis::add(long int dateR,int precip,float maxTemp,float minTemp,int winSpd, int winDirec,int humidity,bool rained, TimeRegis* timeList){
+TimeRegis* TimeRegis::add(string dateR,int precip,float maxTemp,float minTemp,int winSpd, int winDirec,int humidity,bool rained, TimeRegis* timeList){
 
     bool duplicate=validate(dateR,timeList);
     if(duplicate==NULL){
@@ -136,7 +134,7 @@ TimeRegis* TimeRegis::add(long int dateR,int precip,float maxTemp,float minTemp,
 
 }
 
-TimeRegis* TimeRegis::modify(long int date,long int dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained, TimeRegis* timeList){
+TimeRegis* TimeRegis::modify(string date,string dateR,int precip,float maxTemp, float minTemp,int winSpd, int windDirec,int humidity,bool rained, TimeRegis* timeList){
 
     bool duplicate=validate(dateR,timeList);
     if(duplicate==NULL){
@@ -169,7 +167,7 @@ TimeRegis* TimeRegis::modify(long int date,long int dateR,int precip,float maxTe
     return timeList;
 }
 
-TimeRegis*TimeRegis::deleteTime(long int date, TimeRegis* timeList){
+TimeRegis*TimeRegis::deleteTime(string date, TimeRegis* timeList){
     if(timeList == NULL)
         cout<<"\nLista vacia, no se puede borrar....";
     else{
@@ -211,7 +209,7 @@ TimeRegis* TimeRegis::deleteAllTime(TimeRegis* timeList) {
 }
 
 
-TimeRegis* TimeRegis::searchTime(long int date, TimeRegis* timeList){
+TimeRegis* TimeRegis::searchTime(string date, TimeRegis* timeList){
     if(timeList == NULL)
         cout<<"\nLa lista esta vacia....";
     else{
@@ -245,16 +243,16 @@ void TimeRegis:: print(TimeRegis* timeList){
 //Cargar datos quemados
 TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
 
-    timeList=add(1662012000,1245,21.4,10.4,24,89,25,true,timeList);
-    timeList=add(1662098400,5345,25.0,11.4,29,73,26,false,timeList);
-    timeList=add(1662184800,5571,15.9,5.6,31,69,29,true,timeList);
-    timeList=add(1662271200,5486,12.4,6.9,6,83,21,true,timeList);
-    timeList=add(1662357600,4911,8.8,3.8,34,70,20,false,timeList);
-    timeList=add(1662444000,2688,17.3,11.0,27,93,19,true,timeList);
-    timeList=add(1662530400,9875,31.5,15.3,19,60,34,false,timeList);
-    timeList=add(1662616800,1135,20.1,14.1,13,80,2,false,timeList);
-    timeList=add(1662703200,887,27.0,12.9,28,25,36,false,timeList);
-    timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add("01/09/2022",1245,21.4,10.4,24,89,25,true,timeList);
+    timeList=add("02/09/2022",5345,25.0,11.4,29,73,26,false,timeList);
+    timeList=add("03/09/2022",5571,15.9,5.6,31,69,29,true,timeList);
+    timeList=add("04/09/2022",5486,12.4,6.9,6,83,21,true,timeList);
+    timeList=add("05/09/2022",4911,8.8,3.8,34,70,20,false,timeList);
+    timeList=add("06/09/2022",2688,17.3,11.0,27,93,19,true,timeList);
+    timeList=add("07/09/2022",9875,31.5,15.3,19,60,34,false,timeList);
+    timeList=add("08/09/2022",1135,20.1,14.1,13,80,2,false,timeList);
+    timeList=add("09/09/2022",887,27.0,12.9,28,25,36,false,timeList);
+    timeList=add("10/09/2022",235,23.3,16.5,25,60,32,true,timeList);
 
 
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
@@ -262,159 +260,10 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
 
 }
 
-/*
-Convierte la fecha a UnixDate(segundos totales)
-*/
-long int TimeRegis::dateToUnixDate(int year,short month,short day){
-    time_t rawtime;
-    struct tm*timeinfo;
-    long int unixtime;
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    timeinfo->tm_year = year - 1900;
-    timeinfo->tm_mon = month - 1;
-    timeinfo->tm_mday = day;
-    timeinfo->tm_hour = 0;
-    timeinfo->tm_min = 0;
-    timeinfo->tm_sec = 0;
-
-    unixtime = mktime(timeinfo);
-    return unixtime;
-}
-// Convierte de formato fecha a string para imprimir
-string TimeRegis::dateToString(tm*date){
-    string ans = "";
-    ans += to_string(date->tm_mday);
-    ans += "/";
-    ans += to_string(date->tm_mon);
-    ans += "/";
-    ans += to_string(date->tm_year);
-    return ans;
-}
-/*Convierte de formato UnixDate a estructura date
- * */
-tm* TimeRegis::unixDateToDate(long int seconds){
-    // Save the time in Human
-    // readable format
-    string ans = "";
-
-    // Number of days in month
-    // in normal year
-    int daysOfMonth[] = { 31, 28, 31, 30, 31, 30,
-                          31, 31, 30, 31, 30, 31 };
-
-    long int currYear, daysTillNow, extraTime,
-            extraDays, index, date, month,flag = 0,hours,minutes,secondss;
-
-    // Calculate total days unix time T
-
-    // Calculate total days unix time T
-    daysTillNow = seconds / (24 * 60 * 60);
-    extraTime = seconds % (24 * 60 * 60);
-    currYear = 1970;
-
-    // Calculating current year
-    while (daysTillNow >= 365) {
-        if (currYear % 400 == 0
-            || (currYear % 4 == 0
-                && currYear % 100 != 0)) {
-            daysTillNow -= 366;
-        }
-        else {
-            daysTillNow -= 365;
-        }
-        currYear += 1;
-    }
-
-    // Updating extradays because it
-    // will give days till previous day
-    // and we have include current day
-    extraDays = daysTillNow + 1;
-
-    if (currYear % 400 == 0
-        || (currYear % 4 == 0
-            && currYear % 100 != 0))
-        flag = 1;
-
-
-
-    // Calculating MONTH and DATE
-    month = 0, index = 0;
-    if (flag == 1) {
-        while (true) {
-
-            if (index == 1) {
-                if (extraDays - 29 < 0)
-                    break;
-                month += 1;
-                extraDays -= 29;
-            }
-            else {
-                if (extraDays
-                    - daysOfMonth[index]
-                    < 0) {
-                    break;
-                }
-                month += 1;
-                extraDays -= daysOfMonth[index];
-            }
-            index += 1;
-        }
-    }
-    else {
-        while (true) {
-
-            if (extraDays
-                - daysOfMonth[index]
-                < 0) {
-                break;
-            }
-            month += 1;
-            extraDays -= daysOfMonth[index];
-            index += 1;
-        }
-    }
-
-    // Current Month
-    if (extraDays > 0) {
-        month += 1;
-        date = extraDays;
-    }
-    else {
-        if (month == 2 && flag == 1)
-            date = 29;
-        else {
-            date = daysOfMonth[month - 1];
-        }
-    }
-    hours = extraTime / 3600;
-    minutes = (extraTime % 3600) / 60;
-    secondss = (extraTime % 3600) % 60;
-    time_t rawtime;
-    struct tm*timeinfo;
-    time ( &rawtime );
-    timeinfo = localtime ( &rawtime );
-    timeinfo->tm_year = currYear;
-    timeinfo->tm_mon = month;
-    timeinfo->tm_mday = date;
-    timeinfo->tm_hour = hours;
-    timeinfo->tm_min = minutes;
-    timeinfo->tm_sec = secondss;
-
-
-
-    // Return the time
-    return timeinfo;
-
-
-}
-
-
-
 
 //---------------------------------SUBLISTA DE LLUVIA----------------------------
 
-NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainList,TimeRegis* timeList){
+NodoSubRain* TimeRegis::linkendRainTime(string idRain, string date,Rain* rainList,TimeRegis* timeList){
 
     TimeRegis* time = time->searchTime(date,timeList);
     Rain* rain = rain->searchRain(rainList,idRain);
@@ -436,7 +285,7 @@ NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainL
 }
 
 
-void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
+void TimeRegis::printSubRain(string date,TimeRegis* timeList){
     TimeRegis * time =time->searchTime(date,time);
     if(time == NULL){
         cout<<"\nNo existe esa fecha de registro";

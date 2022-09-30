@@ -77,32 +77,31 @@ void dataLoadSublist(Place* placeList,Region* regionList,People* peopleList,Time
     regionList->linkendPlaceRegion("NA","Naranjo",placeList,regionList);
     regionList->linkendPlaceRegion("NA","Guatuso",placeList,regionList);
 
-
     //Datos quemados en SUBLISTA PERSONA-TIEMPO
-    peopleList->linkendTimePeople("202204",1662012000,timeList,peopleList);//Leiner
-    peopleList->linkendTimePeople("202204",1662098400,timeList,peopleList);
-    peopleList->linkendTimePeople("202204",1662357600,timeList,peopleList);
-    peopleList->linkendTimePeople("202204",1662616800,timeList,peopleList);
+    peopleList->linkendTimePeople("202204","01/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202204","02/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202204","03/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202204","04/09/2022",timeList,peopleList);
 
-    peopleList->linkendTimePeople("202207",1662703200,timeList,peopleList);
-    peopleList->linkendTimePeople("202207",1662789600,timeList,peopleList);
-    peopleList->linkendTimePeople("202207",1662012000,timeList,peopleList);
+    peopleList->linkendTimePeople("202207","05/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202207","06/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202207","07/09/2022",timeList,peopleList);
 
 
     //Datos quemados en SUBLISTA LUGAR-REGISTRO TIEMPO
-    placeList->linkendTimePlace("San Carlos",1662012000,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662098400,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662184800,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662271200,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662357600,timeList,placeList);
+    placeList->linkendTimePlace("San Carlos","03/09/2022",timeList,placeList);
+    placeList->linkendTimePlace("San Carlos","04/09/2022",timeList,placeList);
+    placeList->linkendTimePlace("San Carlos","05/09/2022",timeList,placeList);
+    placeList->linkendTimePlace("San Carlos","06/09/2022",timeList,placeList);
+    placeList->linkendTimePlace("San Carlos","07/09/2022",timeList,placeList);
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1",1662789600,rainList,timeList);
-    timeList->linkendRainTime("1",1662444000,rainList,timeList);
-    timeList->linkendRainTime("1",1662703200,rainList,timeList);
-    timeList->linkendRainTime("1",1662098400,rainList,timeList);
-    timeList->linkendRainTime("1",1662271200,rainList,timeList);
-    timeList->linkendRainTime("1",1662357600,rainList,timeList);
+    timeList->linkendRainTime("1","03/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1","04/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1","05/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1","06/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1","07/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1","08/09/2022",rainList,timeList);
 }
 
 /*
@@ -120,35 +119,32 @@ void calcPersonMostRegis(People* peopleList){
 int main()
 {
     // CARGAR DATOS LISTAS
-   placeList=placeList->dataLoad(placeList);
-    //placeList->print(placeList);
+    placeList=placeList->dataLoad(placeList);
+    placeList->print(placeList);
 
-   regionList=regionList->dataLoad(regionList);
-   // regionList->print(regionList);
+    regionList=regionList->dataLoad(regionList);
+    regionList->print(regionList);
 
     timeList=timeList->dataLoad(timeList);
-   // timeList->print(timeList);
+    timeList->print(timeList);// revisar
 
     rainList=rainList->dataLoad(rainList);
-   // rainList->printRainList(rainList);
+    rainList->printRainList(rainList);
 
-    //ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
+
+    ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);
     //ephemeralityList->printEphemeralityList(ephemeralityList);
 
     peopleList=peopleList->dataLoad(peopleList);
-    //peopleList->printPeopleList(peopleList);
-
-
-
+    peopleList->printPeopleList(peopleList);
 
     //CARGAR DATOS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
 
     //regionList->printSublistPlace("NA",regionList);
-    peopleList->printSublistTime("202204",peopleList); //revisar
-
+    //peopleList->printSublistTime("202204",peopleList); //revisar
     //placeList->printSubTimePlace("San Carlos",placeList); //revisar(error raro)
-    //timeList->linkendRainTime("1",1662703200,rainList,timeList);
+    timeList->linkendRainTime("1","05/09/2022",rainList,timeList);
 
 
 

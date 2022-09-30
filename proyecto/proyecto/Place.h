@@ -37,7 +37,7 @@ class Place
         Place* dataLoad(Place*);
 
         //Metodos de sublista
-        NodoSubTime* linkendTimePlace(string, long int,TimeRegis*,Place*);
+        NodoSubTime* linkendTimePlace(string, string,TimeRegis*,Place*);
         void printSubTimePlace(string ,Place*);
 
         //NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);

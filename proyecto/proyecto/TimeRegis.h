@@ -11,10 +11,10 @@ class TimeRegis
     public:
 
         //Constructor
-        TimeRegis(long int, int, float, float, int , int, int, bool);
+        TimeRegis(string, int, float, float, int , int, int, bool);
 
         //Setters
-        void setDateR(long int);
+        void setDateR(string);
         void setPrecip(int);
         void setMaxTemp(float);
         void setMinTemp(float);
@@ -25,7 +25,7 @@ class TimeRegis
         void setRainList(Rain*);
 
         //Getters
-        long int getDateR();
+        string getDateR();
         int getPrecip();
         float getMaxTemp();
         float getMinTemp();
@@ -36,22 +36,20 @@ class TimeRegis
         class NodoSubRain* getRainList();
 
         //Metodos
-        bool validate(long int , TimeRegis* );
-        TimeRegis* add(long int  ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
-        TimeRegis* deleteTime(long  ,TimeRegis* );
+        bool validate(string , TimeRegis* );
+        TimeRegis* add(string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* deleteTime(string ,TimeRegis* );
         TimeRegis* deleteAllTime(TimeRegis* );
-        TimeRegis* modify(long int ,long int ,int,float ,float ,int , int ,int ,bool , TimeRegis* );
-        TimeRegis* searchTime(long int , TimeRegis* );
+        TimeRegis* modify(string,string ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* searchTime(string , TimeRegis* );
         void print(TimeRegis* );
         TimeRegis* dataLoad(TimeRegis* );
-        long int dateToUnixDate(int ,short ,short);// Convierte la fecha a UnixDate(segundos totales)
-        string dateToString(tm*);// Convierte de formato fecha a string para imprimir
-        tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
 
         //Metodos de sublista
 
-        NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
-        void printSubRain(long int,TimeRegis*);
+        NodoSubRain* linkendRainTime(string, string,Rain*,TimeRegis*);
+        void printSubRain(string,TimeRegis*);
+
 
         //Puntero
         TimeRegis* next;
@@ -59,7 +57,7 @@ class TimeRegis
 
     private:
 
-        long int registrationDate;
+        string registrationDate;
         int precipitation;
         float maxTemperature;
         float minTemperature;

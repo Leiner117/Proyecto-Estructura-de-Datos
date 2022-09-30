@@ -50,7 +50,7 @@ class People
 
 
         //Sublista
-        NodoSubTime* linkendTimePeople(string,long int,TimeRegis*,People*);
+        NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);
         void printSublistTime(string,People*);
 
         //Puntero

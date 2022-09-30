@@ -176,15 +176,11 @@ void Ephemerality::modDepartureTime(Ephemerality*eList,long int date,int newDepa
 
 }
 
-Ephemerality* Ephemerality::dataload(Ephemerality*eList){
+Ephemerality* Ephemerality::dataLoad(Ephemerality*eList){
     eList = eList->addEphemerality("Sol",1663999200,18900,65700,eList);
-
     eList = eList->addEphemerality("Sol",1664344800,19200,63900,eList);
-
     eList = eList->addEphemerality("Sol",1662012000,19800,65640,eList);
-
     eList = eList->addEphemerality("Sol",1662098400,20700,62100,eList);
-
     eList = eList->addEphemerality("Sol",1662184800,21300,66300,eList);
     eList = eList->addEphemerality("Sol",1658815200,21300,66300,eList);
     eList = eList->addEphemerality("Sol",1627279200,21300,66300,eList);

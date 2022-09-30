@@ -41,7 +41,7 @@ class Ephemerality
         void modDate(Ephemerality*,long int,int);// Modifica la fecha
         void modDepartureTime(Ephemerality*,long int,int);// Modifica la hora de salida del sol
         void modHideTime(Ephemerality*,long int,int);// Modifica la hora de ocultamiento del sol
-        Ephemerality*dataload(Ephemerality*);// Cargar datos predeterminados
+        Ephemerality*dataLoad(Ephemerality*);// Cargar datos predeterminados
         tm* unixDateToDate(long int);// Convierte de formado Unix timestamps a fecha
         long int dateToUnixDate(int,short,short);// Convierte la fecha en formato Unix timestamps
         void diffDepartureTime(int,Ephemerality*);// Diferencia entre las horas de salida

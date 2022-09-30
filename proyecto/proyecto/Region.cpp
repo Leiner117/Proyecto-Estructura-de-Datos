@@ -224,9 +224,7 @@ NodoSubPlace* Region::linkendPlaceRegion(string idRegion, string namePlace,Place
 
 
 void Region::printSublistPlace(string id,Region* regionList){
-
     Region * reg =reg->searchRegion(id,regionList);
-
     if(reg == NULL){
         cout<<"\nNo existe el lugar";
         return;

@@ -11,7 +11,6 @@ Place::Place(string n,int p,float meters){
     setPopulation(p);
     setSquareMeters(meters);
     next= NULL;
-
 }
 
 
@@ -264,7 +263,7 @@ Place* Place::dataLoad(Place* placeList){
 
 //---------------------------------SUBLISTA DE REGISTROS DEL TIEMPO----------------------------
 
-NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* timeList,Place* placeList){
+NodoSubTime* Place::linkendTimePlace(string namePlace, string date,TimeRegis* timeList,Place* placeList){
 
     Place* plc = plc->searchPlace(namePlace,placeList);
     TimeRegis* timeR = timeR->searchTime(date,timeList);
