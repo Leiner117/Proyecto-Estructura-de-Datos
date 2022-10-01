@@ -2,6 +2,7 @@
 #include "Place.h"
 #include <string>
 #include <iostream>
+#include "TimeRegis.h"
 using namespace std;
 
 Region::Region(string id,string n, string l){
@@ -249,6 +250,46 @@ void Region::printSublistPlace(string id,Region* regionList){
 
     }while(temSub != NULL);
     cout<<"\n\t________________________________________________\n";
+
+}
+void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
+    float promPreci, promMaxTemp,promMinTemp,promDayRain;
+    //int contPreci,contMaxTemp,contMinTemp,contDayRain,contDays;
+    int cont = 0;
+
+    Region*reg = searchRegion(idReg, listReg);
+    NodoSubPlace*subList =reg->placeSublist;
+    while (subList != NULL){
+        if (subList->linkPlace->timeRegiSublist != NULL){
+            NodoSubTime* timeList= subList->linkPlace->timeRegiSublist;
+            string name = subList->linkPlace->getName();
+            while(timeList != NULL){
+                if (timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year >= year1 && timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year <= year2){
+
+                    promPreci = promPreci+ timeList->linkTime->getPrecip();
+                    promMaxTemp = promMaxTemp + timeList->linkTime->getMaxTemp();
+                    promMinTemp = promMinTemp + timeList->linkTime->getMinTemp();
+                    if (timeList->linkTime->getRained() == true){
+                        promDayRain++;
+                    }
+                    cont++;
+                }
+                timeList = timeList->next;
+            }
+
+        }
+        subList = subList->next;
+
+    }
+    cout<<"*******************************"<<endl;
+    cout<< "Promedio de las variables climatologicas en la region "<<reg->getName()<<endl;
+    cout<< "En el periodo de "<<year1<<" a "<<year2<<"\n"<<endl;
+
+    cout<< "Promedio de precipitacion: "<<promPreci/cont<<endl;
+    cout<< "Promedio de Maxima temperatura: "<<promMaxTemp/cont<<endl;
+    cout<< "Promedio de Minima temperatura: "<<promMinTemp/cont<<endl;
+    cout<< "Promedio de dias de lluvia: "<< (float)cont/promDayRain<<endl;
+    cout<<"*******************************"<<endl;
 
 }
 

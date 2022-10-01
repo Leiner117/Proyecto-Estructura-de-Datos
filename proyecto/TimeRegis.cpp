@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <time.h>
+
 using namespace std;
 
 //Aqui se implementan los metodos y se utilizan las variables del archivo .h
@@ -18,6 +19,7 @@ TimeRegis::TimeRegis(long int dateR,int precip,float maxTemp, float minTemp,int 
     setWinPsd(winSpd);
     setHumidity(humidity);
     setRained( rained);
+
 
     next=NULL;
 }
@@ -261,7 +263,7 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1662616800,1135,20.1,14.1,13,80,2,false,timeList);
     timeList=add(1662703200,887,27.0,12.9,28,25,36,false,timeList);
     timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
-
+    timeList=add(1568095200,235,23.3,16.5,25,60,32,true,timeList);
 
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
     return timeList;
@@ -420,7 +422,7 @@ tm* TimeRegis::unixDateToDate(long int seconds){
 
 //---------------------------------SUBLISTA DE LLUVIA----------------------------
 
-NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainList,TimeRegis* timeList){
+NodoSubRain*TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainList,TimeRegis* timeList){
 
     TimeRegis* time = time->searchTime(date,timeList);
     Rain* rain = rain->searchRain(rainList,idRain);
@@ -442,7 +444,7 @@ NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainL
 }
 
 
-void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
+void TimeRegis::printSubRain(long date,TimeRegis* timeList){
     TimeRegis * time =time->searchTime(date,time);
     if(time == NULL){
         cout<<"\nNo existe esa fecha de registro";
@@ -466,7 +468,6 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
     cout<<"\n\t________________________________________________\n";
 
 }
-
 
 
 
