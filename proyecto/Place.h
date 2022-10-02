@@ -37,7 +37,7 @@ class Place
         Place* dataLoad(Place*);
         void extremeRainMonth(TimeRegis *, int, string ,Place*);
 
-
+        void printPercentageRain(int ,string ,Place*);
         //Metodos de sublista
         NodoSubTime* linkendTimePlace(string, long int,TimeRegis*,Place*);
         void printSubTimePlace(string ,Place*);

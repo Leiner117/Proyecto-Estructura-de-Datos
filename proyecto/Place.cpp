@@ -327,6 +327,65 @@ void Place::printSubTimePlace(string n,Place* placeList){
     cout<<"\n\t________________________________________________\n";
 
 }
+// Nuevo codigo
+
+//void printVarWeather()
+
+void Place::printPercentageRain(int year,string namePlace,Place*pList){
+    int month =0;
+    int cont = 0;
+    float promExtremeRain = 0, promRainy = 0,promNormal = 0,promDry = 0,promExtremeDry = 0;
+    Place*place = pList->searchPlace(namePlace,pList);
+    NodoSubTime*timeList = place->timeRegiSublist;
+    while (timeList !=  NULL){
+        if (timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year == year){
+            if (timeList->linkTime->getRained()){
+                if (month == 0){
+                    month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
+                }
+                else if ((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next == NULL){
+                    cout<<"Mes: "<<month<<endl;
+                    cout<<"Extremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
+                    cout<<"Lluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
+                    cout<<"Normal: "<<(promNormal*100)/cont<<"%"<<endl;
+                    cout<<"Seco: "<<(promDry*100)/cont<<"%"<<endl;
+                    cout<<"Extremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
+                    month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
+                    cont = 0;
+                    promExtremeDry = 0;
+                    promDry = 0;
+                    promNormal = 0;
+                    promRainy = 0;
+                    promExtremeRain = 0;
+                }
+
+                NodoSubRain*rainList= timeList->linkTime->rainSublist;
+                if (rainList != NULL){
+                    cont++;
+                    if (rainList->linkRain->getName() == "Extremo lluvioso"){
+                        promExtremeRain++;
+                    }
+                    else if (rainList->linkRain->getName() == "Extremo seco"){
+                        promExtremeDry++;
+                    }
+                    else if (rainList->linkRain->getName() == "Seco"){
+                        promDry++;
+                    }
+                    else if (rainList->linkRain->getName() == "Normal"){
+                        promNormal++;
+                    }
+                    else if (rainList->linkRain->getName() == "Lluvioso"){
+                        promRainy++;
+                    }
+                }
+
+
+            }
+        }
+        timeList = timeList->next;
+    }
+
+}
 
 
 

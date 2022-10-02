@@ -252,6 +252,10 @@ void Region::printSublistPlace(string id,Region* regionList){
     cout<<"\n\t________________________________________________\n";
 
 }
+//*************NUEVO CODIGO**************
+/*Se encarga de imprimir el promedio de las variables meteorologicas en un periodo especifico
+ *
+ * */
 void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
     float promPreci, promMaxTemp,promMinTemp,promDayRain;
     //int contPreci,contMaxTemp,contMinTemp,contDayRain,contDays;
