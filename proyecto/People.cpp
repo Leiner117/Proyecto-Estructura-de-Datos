@@ -116,19 +116,24 @@ void People::printPeopleList(People*pList){
     }
     else{
         People*temp = pList;
-        cout<< "Lista de Personas"<<endl;
-        cout<<"*******************************"<<endl;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||          Lista de Personas          ||\n";
+        cout<<"\t   =========================================\n";
+        //cout<< "Lista de Personas"<<endl;
+        //cout<<"*******************************"<<endl;
         while(temp != NULL){
-            cout<<temp->getName()<<endl;
-            cout<<temp->getId()<<endl;
-            cout<<temp->getPlaceResidence()<<endl;
-            cout<<temp->getYearIncome()<<endl;
-            cout<<"*******************************"<<endl;
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
+            cout<<"\n\tCEDULA: "<<temp->getId()<<endl;
+            cout<<"\n\tRESIDENCIA: "<<temp->getPlaceResidence()<<endl;
+            cout<<"\n\tYEAR DE INGRESO: "<<temp->getYearIncome()<<endl;
             temp = temp->next;
         }
-
-
     }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 }
 
 /*
@@ -226,16 +231,16 @@ void People::modYearIncome(string id,string newYear,People*pList){
 People* People::dataLoad(People* peopleList){
 
     //Datos preestablecidos en lista lugar
-    peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
-    peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
-    peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
+    //peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
+    //peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
+    //peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
     peopleList=addPeople("Leiner","202204",20,"Bajo Rodriguez","2022",peopleList);
-    peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
-    peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
+    //peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
+    //peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
     peopleList=addPeople("Karina","202207",18,"Los Angeles","2022",peopleList);
-    peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
-    peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
-    peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
+    //peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
+    //peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
+    //peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
 
     cout<<"\n---Se cargaron los datos correctamente---\n";
 
@@ -269,7 +274,8 @@ NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis
 
 }
 
-//NEW CODE SIN TERMINAR
+//NEW CODE
+//Calcula cuantos nodos tiene una lista
 int People::getSize(NodoSubTime* a)
 {
     int sz = 0;
@@ -280,20 +286,32 @@ int People::getSize(NodoSubTime* a)
     return sz;
 }
 
-//NEW CODE SIN TERMINAR
-int People::getSizeSublist(People* peopleList){
+//Calcula cual persona tiene mas registros del tiempo
+void* People::getSizeSublist(People* peopleList){
 
     People * pers= peopleList;
-    //People * pers2 = peopleList;
+    People * cont= pers;
+    NodoSubTime* temp1 = NULL;//pers->timeSublist;
+    NodoSubTime* temp2 = NULL;//pers->next->timeSublist;
 
-    NodoSubTime* temSub = pers->timeSublist;
-    int cont1,cont2=0;
-    while(temSub != NULL){
-        cont1=getSize(temSub);
-        cout<<cont1;
-        temSub = temSub->next;
+    int a, b = 0;
+    while((pers!= NULL)&&(pers->next!= NULL)){
+
+        temp1=cont->timeSublist;
+        temp2=pers->next->timeSublist;
+
+        a=getSize(temp1);
+        b=getSize(temp2);
+
+        if(a>b){ // A > B
+           pers=pers->next;
+        }
+        else{ //B > A
+            pers=pers->next;
+            cont=pers;
+        }
     }
-
+    cout<<"\n\t\t"<<cont->getName()<<" es la persona con mas registros del tiempo";;
 }
 
 

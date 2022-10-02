@@ -213,13 +213,14 @@ NodoSubPlace* Region::linkendPlaceRegion(string idRegion, string namePlace,Place
     if(reg == NULL){
         cout<<"\nNo existe la region";
         return NULL;
-    }
+
     NodoSubPlace* newNodo = new NodoSubPlace();
     newNodo->linkPlace = plc;// se enlaza con el curso
     newNodo->next = reg->placeSublist;
     reg->placeSublist = newNodo;
     return reg->placeSublist;
 
+}
 }
 
 

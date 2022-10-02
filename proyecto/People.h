@@ -48,7 +48,7 @@ class People
         People* deletePeople(People*,string);// Elimina un nodo de la lista
         People* dataLoad(People*);
 
-        int getSizeSublist(People*);
+        void* getSizeSublist(People*);
         int getSize(NodoSubTime*);
 
         //Sublista

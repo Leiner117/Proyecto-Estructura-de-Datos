@@ -329,5 +329,26 @@ void Place::printSubTimePlace(string n,Place* placeList){
 }
 
 
+//New code
+
+//Reporte imprimir la precipitación mensual promedio de cada lugar en un año X.
+/*
+void Place::MonthlyRain(Place* placeList){
+    Place * plc = placeList;
+
+    int totalPrecip=0;
+
+    while(plc->regist)
+
+
+
+
+
+
+
+
+}
+*/
+
 
 
