@@ -39,6 +39,8 @@ class Region
         void printSublistPlace(string,Region*);
         //void dataLoadSublist(Region*);
 
+        void MonthlyRain(int ,Region* );
+
         //Puntero
         Region * next;
         class NodoSubPlace* placeSublist;

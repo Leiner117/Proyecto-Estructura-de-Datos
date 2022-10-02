@@ -442,28 +442,44 @@ NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainL
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
-    TimeRegis * time =time->searchTime(date,time);
+
+    TimeRegis * time =time->searchTime(date,timeList);
     if(time == NULL){
-        cout<<"\nNo existe esa fecha de registro";
+        cout<<"\n\tNo existe esta fecha en el registro\n";
         return;
     }
-    //Grafica de  los resultados a imprimir
-    system("cls");
-    cout<<"\n\t   =========================================\n";
-    cout<<"\t   ||   Historial de lluvias en "<<time->getDateR()<<"   ||\n";
-    cout<<"\t   =========================================\n";
-    NodoSubRain* temSub = time->rainSublist;
-
-    while(temSub != NULL){
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tCODIGO: "<<temSub->linkRain->getRainCode();
-        cout<<"\n\tNOMBRE: "<<temSub->linkRain->getName();
-        cout<<"\n\tRANGO PROMEDIO: "<<temSub->linkRain->getAverageRange();
-        temSub = temSub->next;
-
+    else{
+        NodoSubRain* temSub = time->rainSublist;
+        if(temSub==NULL){
+            cout<<"\n\tEn esta fecha no hay registros de lluvias.\n";
+        }
+        else{
+            cout<<"\n\t   =========================================\n";
+            cout<<"\t   ||   Historial de lluvias en "<<time->getDateR()<<"   ||\n";
+            cout<<"\t   =========================================\n";
+            while(temSub != NULL){
+                cout<<"\n\t________________________________________________\n";
+                cout<<"\n\tCODIGO: "<<temSub->linkRain->getRainCode();
+                cout<<"\n\tNOMBRE: "<<temSub->linkRain->getName();
+                cout<<"\n\tRANGO PROMEDIO: "<<temSub->linkRain->getAverageRange();
+                temSub = temSub->next;
+            }
+            cout<<"\n\t________________________________________________\n";
+        }
     }
-    cout<<"\n\t________________________________________________\n";
 
 }
 

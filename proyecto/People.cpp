@@ -236,7 +236,7 @@ People* People::dataLoad(People* peopleList){
     //peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
     peopleList=addPeople("Leiner","202204",20,"Bajo Rodriguez","2022",peopleList);
     //peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
-    //peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
+    peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
     peopleList=addPeople("Karina","202207",18,"Los Angeles","2022",peopleList);
     //peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
     //peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
@@ -324,35 +324,38 @@ void People::printSublistTime(string id,People* peopleList){
         cout<<"\nNo existe la persona";
         return;
     }
-    //Grafica de  los resultados a imprimir
-    //system("cls");
-    cout<<"\n\t   =========================================\n";
-    cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
-    cout<<"\t   =========================================\n";
-
-    NodoSubTime* temSub = pers->timeSublist;
-
-    while(temSub != NULL){
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
-        cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
-        cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
-        cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
-        cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
-        cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
-        cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
-        if (temSub->linkTime->getRained()==true){
-            cout<<"\n\tLLUVIA: SI";
+    else{
+        NodoSubTime* temSub = pers->timeSublist;
+        if(temSub==NULL){
+            cout<<"\n\t"<<pers->getName()<<" no tiene registros del tiempo\n";
         }
         else{
-            cout<<"\n\tLLUVIA: NO";
+            cout<<"\n\t   =========================================\n";
+            cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
+            cout<<"\t   =========================================\n";
+            while(temSub != NULL){
+                cout<<"\n\t________________________________________________\n";
+                cout<<"\n\tFECHA: "<<temSub->linkTime->dateToString(temSub->linkTime->unixDateToDate(temSub->linkTime->getDateR()));
+                cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
+                cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
+                cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
+                cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
+                cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
+                cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
+                if (temSub->linkTime->getRained()==true){
+                    cout<<"\n\tLLUVIA: SI";
+                }
+                else{
+                    cout<<"\n\tLLUVIA: NO";
+                }
+
+                temSub = temSub->next;
+
+            }
+            cout<<"\n\t________________________________________________\n";
         }
 
-        temSub = temSub->next;
-
     }
-    cout<<"\n\t________________________________________________\n";
-
 }
 
 

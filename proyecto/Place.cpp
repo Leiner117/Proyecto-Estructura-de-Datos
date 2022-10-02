@@ -11,6 +11,7 @@ Place::Place(string n,int p,float meters){
     setPopulation(p);
     setSquareMeters(meters);
     next= NULL;
+    timeRegiSublist=NULL;
 
 }
 
@@ -247,7 +248,7 @@ Place* Place::dataLoad(Place* placeList){
     placeList=add("San Carlos",163745,3347.98,placeList);
     placeList=add("Upala",43953,1.581,placeList);
     placeList=add("Naranjo",42713,126.6,placeList);
-    placeList=add("Naranjo",4548,23265.6,placeList);
+    placeList=add("Liberia",4548,23265.6,placeList);
     placeList=add("Palmares",34716,38.06,placeList);
     placeList=add("Escazu",56509,34.49,placeList);
     placeList=add("Los Chiles",23735,504.2,placeList);
@@ -284,71 +285,97 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
     plc->timeRegiSublist = newNodo;
 
     return plc->timeRegiSublist;
-
 }
 
 
 
+void Place::printSubTimePlace(string namePlace,Place* placeList){
 
-void Place::printSubTimePlace(string n,Place* placeList){
-    Place * plc = plc->searchPlace(n,placeList);
+    Place * plc = plc->searchPlace(namePlace,placeList);
+
     if(plc == NULL){
         cout<<"\nNo existe el lugar";
         return;
     }
-    //Grafica de  los resultados a imprimir
-    system("cls");
-    cout<<"\n\t   =========================================\n";
-    cout<<"\t   ||   Registros del tiempo en el Lugar "<<plc->getName()<<"   ||\n";
-    cout<<"\t   =========================================\n";
-    NodoSubTime* temSub = plc->timeRegiSublist;
-
-    while(temSub != NULL){
-
-        if(temSub->linkTime->getDateR()!=0){
-            cout<<"\n\t________________________________________________\n";
-            cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
-            cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
-            cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
-            cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
-            cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
-            cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
-            cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
-            if (temSub->linkTime->getRained()==true)
-                cout<<"\n\tLLUVIA: SI";
-            else
-                cout<<"\n\tLLUVIA: NO";
-            temSub = temSub->next;
+    else{
+        NodoSubTime* temSub = plc->timeRegiSublist;
+        if(temSub==NULL){
+            cout<<"\n\t"<<plc->getName()<<" no tiene registros del tiempo\n";
         }
         else{
-            break;
-        }
-    };
-    cout<<"\n\t________________________________________________\n";
+            cout<<"\n\t   =========================================\n";
+            cout<<"\t   ||   Registros del timepo en "<<plc->getName()<<"   ||\n";
+            cout<<"\t   =========================================\n";
+            while(temSub != NULL){
+                cout<<"\n\t________________________________________________\n";
+                cout<<"\n\tFECHA: "<<temSub->linkTime->dateToString(temSub->linkTime->unixDateToDate(temSub->linkTime->getDateR()));
+                cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
+                cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
+                cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
+                cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
+                cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
+                cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
+                if (temSub->linkTime->getRained()==true){
+                    cout<<"\n\tLLUVIA: SI";
+                }
+                else{
+                    cout<<"\n\tLLUVIA: NO";
+                }
 
+                temSub = temSub->next;
+
+            }
+            cout<<"\n\t________________________________________________\n";
+        }
+
+    }
 }
 
 
 //New code
 
 //Reporte imprimir la precipitación mensual promedio de cada lugar en un año X.
-/*
-void Place::MonthlyRain(Place* placeList){
+
+void Place::MonthlyRain(int year,Place* placeList){
+    system("cls");
     Place * plc = placeList;
 
-    int totalPrecip=0;
+    int totalPrecip;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
+        cout<<"\t   ||                 "<<year<<"                ||\n";
+        cout<<"\t   =========================================\n";
+    do{
+        //system("cls");
 
-    while(plc->regist)
+        //cout<<"\n\t   =========================================\n";
+        //cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
+        //cout<<"\t   ||                 "<<year<<"                ||\n";
+        //cout<<"\t   =========================================\n";
+        if(plc->timeRegiSublist==NULL){
+            cout<<"\n\t   "<<plc->getName()<<" no tiene registros del tiempo\n";
+        }
+        else{
+            while(plc->timeRegiSublist->linkTime!=NULL){
+                if(year==plc->timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_year){
+                    totalPrecip=totalPrecip+plc->timeRegiSublist->linkTime->getPrecip();
+                }
+                plc->timeRegiSublist->linkTime=plc->timeRegiSublist->linkTime->next;
+            }
 
-
-
-
-
-
+            cout<<"\t   LUGAR: "<<plc->getName()<<"\n\t   PRECIPITACION TOTAL: "<<totalPrecip<<endl;
+        }
+        cout<<"\t   _________________________________________\n";
+        totalPrecip=0;
+        plc = plc->next;
+        //cout<<"\n\t   Presione cualquier tecla para continuar...";
+       // cin.ignore();
+        //cin.get();
+    }while(plc!=placeList);
 
 
 }
-*/
+
 
 
 

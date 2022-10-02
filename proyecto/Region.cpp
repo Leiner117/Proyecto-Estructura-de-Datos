@@ -213,6 +213,7 @@ NodoSubPlace* Region::linkendPlaceRegion(string idRegion, string namePlace,Place
     if(reg == NULL){
         cout<<"\nNo existe la region";
         return NULL;
+    }
 
     NodoSubPlace* newNodo = new NodoSubPlace();
     newNodo->linkPlace = plc;// se enlaza con el curso
@@ -220,7 +221,6 @@ NodoSubPlace* Region::linkendPlaceRegion(string idRegion, string namePlace,Place
     reg->placeSublist = newNodo;
     return reg->placeSublist;
 
-}
 }
 
 
@@ -232,28 +232,77 @@ void Region::printSublistPlace(string id,Region* regionList){
         cout<<"\nNo existe el lugar";
         return;
     }
-    //Grafica de  los resultados a imprimir
-    system("cls");
-    cout<<"\n\t   =========================================\n";
-    cout<<"\t   ||   Lugares de la Region "<<reg->getName()<<"   ||\n";
-    cout<<"\t   =========================================\n";
-    NodoSubPlace* temSub = reg->placeSublist;
+    else{
+        NodoSubPlace* temSub = reg->placeSublist;
+        if(temSub==NULL){
+            cout<<"\n\t"<<reg->getName()<<" no tiene lugares registrados\n";
+        }
+        else{
+            cout<<"\n\t   =========================================\n";
+            cout<<"\t   ||   Lugares de la Region "<<reg->getName()<<"   ||\n";
+            cout<<"\t   =========================================\n";
+            NodoSubPlace* temSub = reg->placeSublist;
 
-    do{
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tNOMBRE: "<<temSub->linkPlace->getName();
-        cout<<"\n\tPOBLACION: "<<temSub->linkPlace->getPopulation();
-        cout<<"\n\tSUPERFICIE: "<<temSub->linkPlace->getSquareMeters();
+            while(temSub != NULL){
+                cout<<"\n\t________________________________________________\n";
+                cout<<"\n\tNOMBRE: "<<temSub->linkPlace->getName();
+                cout<<"\n\tPOBLACION: "<<temSub->linkPlace->getPopulation();
+                cout<<"\n\tSUPERFICIE: "<<temSub->linkPlace->getSquareMeters();
+                temSub = temSub->next;
 
-
-        temSub = temSub->next;
-
-    }while(temSub != NULL);
-    cout<<"\n\t________________________________________________\n";
+            }
+            cout<<"\n\t________________________________________________\n";
+        }
+    }
 
 }
 
 
+//New code
+
+//Reporte imprimir la precipitación mensual promedio de cada region en un año X.
+
+void Region::MonthlyRain(int year,Region* regionList){
+    system("cls");
+    Region * reg = regionList;
+
+    int totalPrecip;
+       /* cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
+        cout<<"\t   ||                 "<<year<<"                ||\n";
+        cout<<"\t   =========================================\n";
+        */
+    while(reg!=NULL){
+        system("cls");
+
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
+        cout<<"\t   ||                 "<<year<<"                ||\n";
+        cout<<"\t   =========================================\n";
+        if(reg->placeSublist==NULL){
+            cout<<"\n\t   "<<reg->getName()<<" no tiene registros del tiempo\n";
+        }
+        else{
+            //cout<<reg->placeSublist->linkPlace->timeRegiSublist;
+            while(reg->placeSublist->linkPlace->timeRegiSublist!=NULL){
+                if(year== reg->placeSublist->linkPlace->timeRegiSublist->linkTime->unixDateToDate(reg->placeSublist->linkPlace->timeRegiSublist->linkTime->getDateR())->tm_year){
+                    totalPrecip=totalPrecip+reg->placeSublist->linkPlace->timeRegiSublist->linkTime->getPrecip();
+                }
+                reg->placeSublist->linkPlace->timeRegiSublist=reg->placeSublist->linkPlace->timeRegiSublist->next;
+
+            }
+
+            cout<<"\t   REGION: "<<reg->getName()<<"\n\t   PRECIPITACION TOTAL: "<<totalPrecip<<endl;
+        }
+        cout<<"\t   _________________________________________\n";
+        totalPrecip=0;
+        reg = reg->next;
+        //cout<<reg->getName();
+
+        cout<<"\n\t   Presione cualquier tecla para continuar...";
+        cin.ignore();
+        cin.get();
+    }
 
 
-
+}
