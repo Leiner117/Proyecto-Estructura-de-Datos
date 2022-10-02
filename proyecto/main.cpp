@@ -94,14 +94,23 @@ void dataLoadSublist(Place* placeList,Region* regionList,People* peopleList,Time
     placeList->linkendTimePlace("San Carlos",1662184800,timeList,placeList);
     placeList->linkendTimePlace("San Carlos",1662271200,timeList,placeList);
     placeList->linkendTimePlace("San Carlos",1662357600,timeList,placeList);
+    placeList->linkendTimePlace("San Carlos",1657432800,timeList,placeList);
+
+    placeList->linkendTimePlace("Guatuso",1662444000,timeList,placeList);
+    placeList->linkendTimePlace("Guatuso",1662789600,timeList,placeList);
+    placeList->linkendTimePlace("Guatuso",1662530400,timeList,placeList);
+    placeList->linkendTimePlace("Guatuso",1662616800,timeList,placeList);
+    placeList->linkendTimePlace("Guatuso",1662703200,timeList,placeList);
+
+    placeList->linkendTimePlace("Naranjo",1568095200,timeList,placeList);
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1",1662789600,rainList,timeList);
-    timeList->linkendRainTime("1",1662444000,rainList,timeList);
-    timeList->linkendRainTime("1",1662703200,rainList,timeList);
     timeList->linkendRainTime("1",1662098400,rainList,timeList);
-    timeList->linkendRainTime("1",1662271200,rainList,timeList);
-    timeList->linkendRainTime("1",1662357600,rainList,timeList);
+    timeList->linkendRainTime("3",1657432800,rainList,timeList);
+    timeList->linkendRainTime("1",1662703200,rainList,timeList);
+    timeList->linkendRainTime("5",1662271200,rainList,timeList);
+    timeList->linkendRainTime("10",1662012000,rainList,timeList);
+    timeList->linkendRainTime("2",1662357600,rainList,timeList);
 }
 
 
@@ -131,7 +140,8 @@ int main()
     //CARGAR DATOS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
 
-
+    regionList->printVarWeather("NA",2020,2022,regionList);
+    placeList->printPercentageRain(2022,"San Carlos",placeList);
     //PRUEBAS
     cout<<"\nCalculando persona con mas registro\n";
     //cout<<getCount(peopleList->timeSublist);

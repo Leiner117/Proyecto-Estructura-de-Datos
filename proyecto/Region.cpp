@@ -285,15 +285,22 @@ void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
         subList = subList->next;
 
     }
-    cout<<"*******************************"<<endl;
-    cout<< "Promedio de las variables climatologicas en la region "<<reg->getName()<<endl;
-    cout<< "En el periodo de "<<year1<<" a "<<year2<<"\n"<<endl;
-
-    cout<< "Promedio de precipitacion: "<<promPreci/cont<<endl;
-    cout<< "Promedio de Maxima temperatura: "<<promMaxTemp/cont<<endl;
-    cout<< "Promedio de Minima temperatura: "<<promMinTemp/cont<<endl;
-    cout<< "Promedio de dias de lluvia: "<< (float)cont/promDayRain<<endl;
-    cout<<"*******************************"<<endl;
+    //cout<<"*******************************"<<endl;
+    cout<<"\n\t   =========================================================================\n";
+    cout<<"\t   ||    Promedio de las variables climatologicas en la region "<<reg->getName()<<" ||\n";
+    cout<< "           ||                    En el periodo de "<<year1<<" a "<<year2<<"                     ||\n";
+    cout<<"\t   =========================================================================\n";
+    //cout<< "Promedio de las variables climatologicas en la region "<<reg->getName()<<endl;
+    //cout<< "En el periodo de "<<year1<<" a "<<year2<<"\n"<<endl;
+    cout<<"\n\t________________________________________________\n";
+    cout<< "\n\tPromedio de precipitacion: "<<promPreci/cont<<endl;
+    cout<< "\n\tPromedio de Maxima temperatura: "<<promMaxTemp/cont<<endl;
+    cout<< "\n\tPromedio de Minima temperatura: "<<promMinTemp/cont<<endl;
+    cout<< "\n\tPromedio de dias de lluvia: "<< (float)cont/promDayRain<<endl;
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 
 }
 

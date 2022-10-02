@@ -332,11 +332,15 @@ void Place::printSubTimePlace(string n,Place* placeList){
 //void printVarWeather()
 
 void Place::printPercentageRain(int year,string namePlace,Place*pList){
+    string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
     int cont = 0;
     float promExtremeRain = 0, promRainy = 0,promNormal = 0,promDry = 0,promExtremeDry = 0;
     Place*place = pList->searchPlace(namePlace,pList);
     NodoSubTime*timeList = place->timeRegiSublist;
+    cout<<"\n\t   =============================================\n";
+    cout<<"\t   || Clasificacion de lluvia para "<<place->getName()+" ||\n";
+    cout<<"\t   =============================================\n";
     while (timeList !=  NULL){
         if (timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year == year){
             if (timeList->linkTime->getRained()){
@@ -344,12 +348,13 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
                     month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
                 }
                 else if ((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next == NULL){
-                    cout<<"Mes: "<<month<<endl;
-                    cout<<"Extremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
-                    cout<<"Lluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
-                    cout<<"Normal: "<<(promNormal*100)/cont<<"%"<<endl;
-                    cout<<"Seco: "<<(promDry*100)/cont<<"%"<<endl;
-                    cout<<"Extremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
+                    cout<<"\n\t________________________________________________\n";
+                    cout<<"\n\tMes: "<<months[month-1]<<endl;
+                    cout<<"\n\tExtremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
+                    cout<<"\n\tLluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
+                    cout<<"\n\tNormal: "<<(promNormal*100)/cont<<"%"<<endl;
+                    cout<<"\n\tSeco: "<<(promDry*100)/cont<<"%"<<endl;
+                    cout<<"\n\tExtremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
                     month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
                     cont = 0;
                     promExtremeDry = 0;
@@ -384,7 +389,10 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
         }
         timeList = timeList->next;
     }
-
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 }
 
 

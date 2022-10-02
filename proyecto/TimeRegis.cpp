@@ -264,6 +264,7 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1662703200,887,27.0,12.9,28,25,36,true,timeList);
     timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1568095200,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1657432800,4567,25.3,12.5,23,0,32,true,timeList);
 
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
     return timeList;
