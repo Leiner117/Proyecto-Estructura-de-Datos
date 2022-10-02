@@ -1,0 +1,3 @@
+C:/Users/Karina/Desktop/Estructura de Datos/PROYECTO/Proyecto-Estructura-de-Datos/proyecto/cmake-build-debug/CMakeFiles/proyecto.dir
+C:/Users/Karina/Desktop/Estructura de Datos/PROYECTO/Proyecto-Estructura-de-Datos/proyecto/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Karina/Desktop/Estructura de Datos/PROYECTO/Proyecto-Estructura-de-Datos/proyecto/cmake-build-debug/CMakeFiles/rebuild_cache.dir
