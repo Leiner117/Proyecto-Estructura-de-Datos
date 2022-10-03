@@ -35,6 +35,7 @@ class Place
         void print(Place*);
         void askData();
         Place* dataLoad(Place*);
+        void printRainyDays(int ,string,Place*);
 
         //Metodos de sublista
         NodoSubTime* linkendTimePlace(string, long int,TimeRegis*,Place*);

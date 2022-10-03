@@ -262,6 +262,29 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1662703200,887,27.0,12.9,28,25,36,false,timeList);
     timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
 
+    timeList=add(1577836800,5345,25.0,11.4,29,73,26,true,timeList);
+    timeList=add(1578009600,887,27.0,12.9,28,25,36,false,timeList);
+    timeList=add(1581292800,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1580688000,5571,15.9,5.6,31,69,29,true,timeList);
+    timeList=add(1583366400,5486,12.4,6.9,6,83,21,true,timeList);
+    timeList=add(1586217600,4911,8.8,3.8,34,70,20,true,timeList);
+    timeList=add(1588982400,2688,17.3,11.0,27,93,19,true,timeList);
+    timeList=add(1591833600,9875,31.5,15.3,19,60,34,true,timeList);
+    timeList=add(1594598400,1135,20.1,14.1,13,80,2,true,timeList);
+    timeList=add(1597449600,887,27.0,12.9,28,25,36,true,timeList);
+    timeList=add(1603065600,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1605916800,887,27.0,12.9,28,25,36,true,timeList);
+    timeList=add(1608681600,235,23.3,16.5,25,60,32,true,timeList);
+
+
+    timeList=add(1584403200 ,887,27.0,12.9,28,25,36,false,timeList);
+    timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
+
+
+
+
+
+
 
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
     return timeList;
@@ -468,7 +491,7 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
         }
         else{
             cout<<"\n\t   =========================================\n";
-            cout<<"\t   ||   Historial de lluvias en "<<time->getDateR()<<"   ||\n";
+            cout<<"\t   ||   Historial de lluvias en "<<time->unixDateToDate(getDateR())->tm_year<<"   ||\n";
             cout<<"\t   =========================================\n";
             while(temSub != NULL){
                 cout<<"\n\t________________________________________________\n";
@@ -482,9 +505,40 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
     }
 
 }
+/*
+void calcMonthRain(int year, string place,TimeRegis* timeList){
+
+    TimeRegis* time = timeList;
+
+    int contA,contB;
+
+    while(time!=NULL){
+
+            if ()
+
+            if(time->unixDateToDate(time->getDateR())->tm_year==year){
+
+
+            }
 
 
 
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+}
+*/
 
 
 

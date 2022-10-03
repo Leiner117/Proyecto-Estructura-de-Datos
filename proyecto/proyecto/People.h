@@ -35,7 +35,6 @@ class People
         string getYearIncome();
         class NodoSubTime* getPeopleList();
 
-
         //Funciones
         People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
         People* searchPeople(People*,string);//Busca un nodo especifico en la lista
@@ -57,7 +56,6 @@ class People
         People*next;//Siguiente
         People*pre;//Anterior
         class NodoSubTime* timeSublist;
-
 
     private:
             //Atributos

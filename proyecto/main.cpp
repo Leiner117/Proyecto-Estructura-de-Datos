@@ -362,16 +362,42 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
 
 
     //Datos quemados en SUBLISTA LUGAR-REGISTRO TIEMPO
-    placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
+    //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
     placeList->linkendTimePlace("Palmares",1662098400,time,place); // 5345
     placeList->linkendTimePlace("Upala",1662184800,time,place); //5571
     placeList->linkendTimePlace("Naranjo",1662271200,time,place); //5486
     placeList->linkendTimePlace("Liberia",1662357600,time,place); //4911
-    placeList->linkendTimePlace("San Carlos",1662444000,time,place);//2688
+    //placeList->linkendTimePlace("San Carlos",1662444000,time,place);//2688
     placeList->linkendTimePlace("Palmares",1662530400,time,place); //9875
     placeList->linkendTimePlace("Los Chiles",1662616800,time,place);//1135
     placeList->linkendTimePlace("Guatuso",1662703200,time,place); // 887
     placeList->linkendTimePlace("Talamanca",1662789600,time,place);// 235
+
+    placeList->linkendTimePlace("San Carlos",1577836800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1578009600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1581292800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1580688000,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1583366400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1584403200,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1587686400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1586217600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1588982400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1591833600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1594598400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1597449600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1600300800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
+
+
+
+
+
+
+
+
+
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
     timeList->linkendRainTime("1",1662789600,rain,time);
@@ -407,10 +433,13 @@ int main()
     //peopleList->getSizeSublist(peopleList);
     //peopleList->printSublistTime("202206",peopleList);
    // regionList->printSublistPlace("T",regionList);
-   //timeList->printSubRain(1662789680,timeList);
+    //timeList->printSubRain(1662789600,timeList);
    //placeList->printSubTimePlace("San Carlos",placeList);
     //placeList->MonthlyRain(2021,placeList);
-    regionList->MonthlyRain(2022,regionList);
+    //regionList->MonthlyRain(2022,regionList);
+    //rainList->printRainList(rainList);
+    //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
+    placeList->printRainyDays(2020,"San Carlos",placeList);
 
 
 
