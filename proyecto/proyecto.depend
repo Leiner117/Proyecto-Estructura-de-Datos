@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1664670993 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.cpp
+	"Ephemerality.h"
+	<string>
+	<iostream>
+	<time.h>
+
+1664508134 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.h
+	<string>
+	<time.h>
+
+1664672441 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.cpp
+	"Rain.h"
+	<string>
+	<iostream>
+
+1664222202 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.h
+	<string>
+
+1664702428 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\main.cpp
+	<iostream>
+	<ctime>
+	<fstream>
+	"TimeRegis.h"
+	"Place.h"
+	"Region.h"
+	"Ephemerality.h"
+	"People.h"
+	"Rain.h"
+	<windows.h>
+
+1664518493 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.h
+	<string>
+	"Rain.h"
+
+1664692170 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.h
+	<string>
+	"TimeRegis.h"
+	"People.h"
+
+1664699593 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.h
+	<string>
+	"Place.h"
+
+1664665643 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.h
+	<string>
+	"TimeRegis.h"
+
+1664699636 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.cpp
+	"Place.h"
+	"TimeRegis.h"
+	<string>
+	<iostream>
+
+1664702537 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.cpp
+	"Region.h"
+	"Place.h"
+	<string>
+	<iostream>
+
+1664690937 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.cpp
+	"TimeRegis.h"
+	"Ephemerality.h"
+	<string>
+	<iostream>
+	<time.h>
+
+1664689144 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.cpp
+	"People.h"
+	"TimeRegis.h"
+	<string>
+	<iostream>
+

@@ -1,4 +1,5 @@
 
+
 proyecto/.idea/inspectionProfiles/Project_Default.xml
 proyecto/.idea/misc.xml
 *.xml
@@ -21,3 +22,7 @@ proyecto/cmake-build-debug/CMakeFiles/cmake.check_cache
 *.o
 *.o
 proyecto/obj/Debug/People.o
+
+proyecto/proyecto/obj/Debug/Region.o
+proyecto/.idea/modules.xml
+
