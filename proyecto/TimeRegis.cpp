@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <time.h>
+
 using namespace std;
 
 //Aqui se implementan los metodos y se utilizan las variables del archivo .h
@@ -18,6 +19,7 @@ TimeRegis::TimeRegis(long int dateR,int precip,float maxTemp, float minTemp,int 
     setWinPsd(winSpd);
     setHumidity(humidity);
     setRained( rained);
+
 
     next=NULL;
 }
@@ -252,16 +254,17 @@ void TimeRegis:: print(TimeRegis* timeList){
 TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
 
     timeList=add(1662012000,1245,21.4,10.4,24,89,25,true,timeList);
-    timeList=add(1662098400,5345,25.0,11.4,29,73,26,false,timeList);
+    timeList=add(1662098400,5345,25.0,11.4,29,73,26, true,timeList);
     timeList=add(1662184800,5571,15.9,5.6,31,69,29,true,timeList);
     timeList=add(1662271200,5486,12.4,6.9,6,83,21,true,timeList);
-    timeList=add(1662357600,4911,8.8,3.8,34,70,20,false,timeList);
+    timeList=add(1662357600,4911,8.8,3.8,34,70,20, true,timeList);
     timeList=add(1662444000,2688,17.3,11.0,27,93,19,true,timeList);
     timeList=add(1662530400,9875,31.5,15.3,19,60,34,false,timeList);
     timeList=add(1662616800,1135,20.1,14.1,13,80,2,false,timeList);
-    timeList=add(1662703200,887,27.0,12.9,28,25,36,false,timeList);
+    timeList=add(1662703200,887,27.0,12.9,28,25,36,true,timeList);
     timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
-
+    timeList=add(1568095200,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1657432800,4567,25.3,12.5,23,0,32,true,timeList);
     timeList=add(1577836800,5345,25.0,11.4,29,73,26,true,timeList);
     timeList=add(1578009600,887,27.0,12.9,28,25,36,false,timeList);
     timeList=add(1581292800,235,23.3,16.5,25,60,32,true,timeList);
@@ -275,10 +278,9 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1603065600,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1605916800,887,27.0,12.9,28,25,36,true,timeList);
     timeList=add(1608681600,235,23.3,16.5,25,60,32,true,timeList);
-
-
     timeList=add(1584403200 ,887,27.0,12.9,28,25,36,false,timeList);
     timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
+
 
 
 
@@ -443,7 +445,7 @@ tm* TimeRegis::unixDateToDate(long int seconds){
 
 //---------------------------------SUBLISTA DE LLUVIA----------------------------
 
-NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainList,TimeRegis* timeList){
+NodoSubRain*TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainList,TimeRegis* timeList){
 
     TimeRegis* time = time->searchTime(date,timeList);
     Rain* rain = rain->searchRain(rainList,idRain);
@@ -466,20 +468,10 @@ NodoSubRain* TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainL
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
 
     TimeRegis * time =time->searchTime(date,timeList);
+
     if(time == NULL){
         cout<<"\n\tNo existe esta fecha en el registro\n";
         return;
@@ -539,7 +531,6 @@ void calcMonthRain(int year, string place,TimeRegis* timeList){
 
 }
 */
-
 
 
 

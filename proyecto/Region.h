@@ -33,7 +33,7 @@ class Region
         Region* searchRegion(string,Region*);
         void print(Region*);
         Region* dataLoad(Region*);
-
+        void printVarWeather(string ,int , int ,Region*);
         //Metodos de sublista
         NodoSubPlace* linkendPlaceRegion(string,string,Place*,Region*);
         void printSublistPlace(string,Region*);
@@ -42,8 +42,8 @@ class Region
         void MonthlyRain(int ,Region* );
 
         //Puntero
-        Region * next;
-        class NodoSubPlace* placeSublist;
+        Region * next = NULL;
+        class NodoSubPlace* placeSublist = NULL;
 
     private:
 
@@ -54,8 +54,8 @@ class Region
 
 class NodoSubPlace{ //sublista de lugares para una region
     public:
-        NodoSubPlace* next;
-        Place* linkPlace;
+        NodoSubPlace* next = NULL;
+        Place* linkPlace = NULL;
 };
 
 #endif // REGION_H

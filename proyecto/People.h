@@ -59,7 +59,7 @@ class People
         People*next;//Siguiente
         People*pre;//Anterior
         class NodoSubTime* timeSublist;
-        int numRegist;
+
 
 
     private:
@@ -68,7 +68,7 @@ class People
             string id;// Cedula
             short age;// edad
             string placeResidence;// Lugar de residencia
-            string yearIncome;// Año ingreso
+            string yearIncome;// Aï¿½o ingreso
 
 
 };

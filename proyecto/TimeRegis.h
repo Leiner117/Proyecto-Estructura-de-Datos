@@ -2,9 +2,10 @@
 #define TIMEREGIS_H
 #include <string>
 #include "Rain.h"
+
 using namespace std;
 
-// Aquí se declaran las variables,constantes y las funciones
+// Aquï¿½ se declaran las variables,constantes y las funciones
 
 class TimeRegis
 {
@@ -47,15 +48,17 @@ class TimeRegis
         long int dateToUnixDate(int ,short ,short);// Convierte la fecha a UnixDate(segundos totales)
         string dateToString(tm*);// Convierte de formato fecha a string para imprimir
         tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
-
+        //void extremeRainMonth(TimeRegis *, int , string ,Place*);
         //Metodos de sublista
 
-        NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
-        void printSubRain(long int,TimeRegis*);
+        //NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
+        //void printSubRain(long int,TimeRegis*);
 
+
+        NodoSubRain *linkendRainTime(string , long , Rain *, TimeRegis *);
         //Puntero
         TimeRegis* next;
-        class NodoSubRain* rainSublist;
+        class NodoSubRain* rainSublist = NULL;
 
     private:
 
@@ -67,13 +70,16 @@ class TimeRegis
         int windDirection;
         int humidity;
         bool yesRained=false;
+        void printSubRain(long date, TimeRegis *timeList);
+
+
 
 };
 
 class NodoSubRain{
     public:
-        NodoSubRain* next;
-        Rain* linkRain;
+        NodoSubRain* next = NULL;
+        Rain* linkRain = NULL;
 };
 
 

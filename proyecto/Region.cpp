@@ -2,6 +2,7 @@
 #include "Place.h"
 #include <string>
 #include <iostream>
+#include "TimeRegis.h"
 using namespace std;
 
 Region::Region(string id,string n, string l){
@@ -254,6 +255,57 @@ void Region::printSublistPlace(string id,Region* regionList){
             cout<<"\n\t________________________________________________\n";
         }
     }
+
+}
+//*************NUEVO CODIGO**************
+/*Se encarga de imprimir el promedio de las variables meteorologicas en un periodo especifico
+ *
+ * */
+void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
+    float promPreci, promMaxTemp,promMinTemp,promDayRain;
+    //int contPreci,contMaxTemp,contMinTemp,contDayRain,contDays;
+    int cont = 0;
+
+    Region*reg = searchRegion(idReg, listReg);
+    NodoSubPlace*subList =reg->placeSublist;
+    while (subList != NULL){
+        if (subList->linkPlace->timeRegiSublist != NULL){
+            NodoSubTime* timeList= subList->linkPlace->timeRegiSublist;
+            string name = subList->linkPlace->getName();
+            while(timeList != NULL){
+                if (timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year >= year1 && timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_year <= year2){
+
+                    promPreci = promPreci+ timeList->linkTime->getPrecip();
+                    promMaxTemp = promMaxTemp + timeList->linkTime->getMaxTemp();
+                    promMinTemp = promMinTemp + timeList->linkTime->getMinTemp();
+                    if (timeList->linkTime->getRained() == true){
+                        promDayRain++;
+                    }
+                    cont++;
+                }
+                timeList = timeList->next;
+            }
+
+        }
+        subList = subList->next;
+
+    }
+    //cout<<"*******************************"<<endl;
+    cout<<"\n\t   =========================================================================\n";
+    cout<<"\t   ||    Promedio de las variables climatologicas en la region "<<reg->getName()<<" ||\n";
+    cout<< "           ||                    En el periodo de "<<year1<<" a "<<year2<<"                     ||\n";
+    cout<<"\t   =========================================================================\n";
+    //cout<< "Promedio de las variables climatologicas en la region "<<reg->getName()<<endl;
+    //cout<< "En el periodo de "<<year1<<" a "<<year2<<"\n"<<endl;
+    cout<<"\n\t________________________________________________\n";
+    cout<< "\n\tPromedio de precipitacion: "<<promPreci/cont<<endl;
+    cout<< "\n\tPromedio de Maxima temperatura: "<<promMaxTemp/cont<<endl;
+    cout<< "\n\tPromedio de Minima temperatura: "<<promMinTemp/cont<<endl;
+    cout<< "\n\tPromedio de dias de lluvia: "<< (float)cont/promDayRain<<endl;
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 
 }
 

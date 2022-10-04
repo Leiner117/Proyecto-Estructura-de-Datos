@@ -20,7 +20,7 @@ People::People(string n,string id,short age,string place,string year)
     setYearIncome(year);
     next=NULL;
     timeSublist=NULL;
-    numRegist=0;
+
 }
 //Setters
 void People::setName(string n){
