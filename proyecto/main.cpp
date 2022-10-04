@@ -32,10 +32,11 @@ Ephemerality* ephemeralityList;
 
 //new code
 
-//REGISTRO DE UNA PERSONA
+
 bool valDate(int day,int month,int year){
     bool flag = true;
     if (day > 31 || day <1){
+
         flag = false;
     }
     if (month > 12 || month < 1){
@@ -45,6 +46,9 @@ bool valDate(int day,int month,int year){
     if (year < 2000){
         flag = false;
 
+    }
+    if (!flag){
+        cout<<"Formato de fecha incorrecto!."<<endl;
     }
     return flag;
 }
@@ -175,32 +179,35 @@ void ephemeralityLogin(){
 
     cout << "\n\t\tINGRESE LA FECHA DE LA EFEMERIADAD";
 
-    cout << "\n\t\tDIA: ";
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
-    if (!valDate(day, month, year)){
-        cout<<"Ingreso un formato de fecha incorrecto!."<<endl;
-    }
+    do{
+        cout << "\n\t\tDIA: ";
+
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
     date=ephemeralityList->dateToUnixDate(year,month,day);
+    do{
+        cout << "\n\t\tINGRESE LA HORA DE SALIDA";
 
-    cout << "\n\t\tINGRESE LA HORA DE SALIDA";
+        cout << "\n\t\tHORA: ";
+        cin>>hourDeparture;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesDeparture;
+        cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
+        cout << "\n\t\tHORA: ";
+        cin>>hourHide;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesHide;
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourDeparture;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesDeparture;
+    }while(ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
+
 
     departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
 
-    cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourHide;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesHide;
 
     hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
 
@@ -224,14 +231,16 @@ void timeLogin(){
     bool yesRained=NULL;
 
     cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
+    do{
+        cout << "\n\t\tDIA: ";
 
-    cout << "\n\t\tDIA: ";
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
 
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
 
     registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
 
@@ -466,6 +475,7 @@ int main()
     rainList=rainList->dataLoad(rainList);
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
+
     //timeList->print(timeList);
     //SE CARGAN DATOS A LAS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
@@ -480,11 +490,12 @@ int main()
     //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
     //placeList->printRainyDays(2020,"San Carlos",placeList);
     //placeList->printPercentageRain(2022,"San Carlos",placeList);
-    placeList->print(placeList);
-    Region*r = regionList->searchRegion("NA",regionList);
-    r->placeSublist->linkPlace->modify("San Carlos","Santa Clara",2500,456.07,placeList);
-    placeList->print(placeList);
+    regionList->printVarWeather("NA",2021,2022,regionList);
 
+    //placeList->printPercentageRain(2020,"San Carlos",placeList);
+
+    //placeList->printSubTimePlace("San Carlos",placeList);
+    placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
 
 
 

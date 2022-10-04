@@ -50,7 +50,7 @@ class Ephemerality
         string dateToString(tm*); // Convierte la fecha en string para imprimir
         void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por anos
         void earlyDeparLateHide(Ephemerality*);// Consulta de la Hora de salida mas temprana y ocultamiento mas tardio
-
+        bool valTime(int,int,int,int);
     private:
         //Atributos
         string name;// Nombre

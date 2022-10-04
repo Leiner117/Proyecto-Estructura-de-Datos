@@ -508,42 +508,36 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
     }
 
 }
-/*
-void calcMonthRain(int year, string place,TimeRegis* timeList){
 
-    TimeRegis* time = timeList;
+void TimeRegis::periodInYear(int year, TimeRegis*timeList){
+    TimeRegis*tempList = timeList;
+    int cont = 0;
+    int day = 0;
+    string rain = "";
+    while(tempList !=NULL){
+        tm*date = tempList->unixDateToDate(tempList->getDateR());
+        if(date->tm_year == year){
+            if (tempList->getRained()){
+                if(day == 0){
+                    day = date->tm_mday;
+                    rain = tempList->rainSublist->linkRain->getName();
+                }
+                else if((day == date->tm_mday-1)&& (rain == tempList->rainSublist->linkRain->getName())){
 
-    int contA,contB;
-
-    while(time!=NULL){
-
-            if ()
-
-            if(time->unixDateToDate(time->getDateR())->tm_year==year){
+                    cont++;
+                    day = date->tm_mday;
 
 
+                }
+                else{
+                    rain = "";
+                    cont = 0;
+                }
             }
-
-
-
-
-
-
-
-
-
-
+        }
+        tempList = tempList->next;
     }
-
-
-
-
-
-
 }
-*/
-
-
 
 
 

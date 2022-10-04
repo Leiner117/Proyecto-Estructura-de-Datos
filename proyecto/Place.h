@@ -37,6 +37,7 @@ class Place
         Place* dataLoad(Place*);
         void printRainyDays(int ,string,Place*);
         void printPercentageRain(int ,string ,Place*);
+        void monthlyRainfallExtremes(string ,int ,Place*);
         //Metodos de sublista
         NodoSubTime* linkendTimePlace(string, long int,TimeRegis*,Place*);
         void printSubTimePlace(string ,Place*);
@@ -50,6 +51,7 @@ class Place
 
         Place * next  = NULL;
         class NodoSubTime* timeRegiSublist = NULL;
+
 
 
 
