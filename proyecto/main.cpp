@@ -366,83 +366,86 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     //regionList->linkendPlaceRegion("NA","Guatuso",place,region);
 
     //Datos quemados en SUBLISTA PERSONA-TIEMPO
-    peopleList->linkendTimePeople("202204",1662012000,time,people);//LEINER tiene 4 REGISTROS DEL TIEMPO
-    peopleList->linkendTimePeople("202204",1662098400,time,people);
-    peopleList->linkendTimePeople("202204",1662357600,time,people);
-    peopleList->linkendTimePeople("202204",1662616800,time,people);
 
-    //peopleList->linkendTimePeople("202205",1662616800,time,people);//SARA tiene 2 REGISTROS DEL TIEMPO
-    //peopleList->linkendTimePeople("202205",1662616800,time,people);
+    //LEINER tiene 4 REGISTROS DEL TIEMPO
+    peopleList->linkendTimePeople("202204",1662012000,time,people); // 01 / 09 / 2022
+    peopleList->linkendTimePeople("202204",1662098400,time,people); //02 / 09 / 2022
+    peopleList->linkendTimePeople("202204",1662357600,time,people); //05 / 09 / 2022
+    peopleList->linkendTimePeople("202204",1662616800,time,people); // 08 / 09 / 2022
 
-    //peopleList->linkendTimePeople("202206",1662616800,time,people);//TOMMY tiene 1 REGISTROS DEL TIEMPO
+    //SARA tiene 2 REGISTROS DEL TIEMPO
+    //peopleList->linkendTimePeople("202205",1662616800,time,people); // 08 / 09 / 2022
+    //peopleList->linkendTimePeople("202205",1662616800,time,people); // 08 / 09 / 2022
 
-    peopleList->linkendTimePeople("202207",1662703200,time,people); //KARINA tiene 3 REGISTROS DEL TIEMPO
-    peopleList->linkendTimePeople("202207",1662789600,time,people);
-    peopleList->linkendTimePeople("202207",1662012000,time,people);
+    //TOMMY tiene 1 REGISTROS DEL TIEMPO
+    //peopleList->linkendTimePeople("202206",1662616800,time,people); //08 / 09 / 2022
+    //KARINA tiene 3 REGISTROS DEL TIEMPO
+    peopleList->linkendTimePeople("202207",1662703200,time,people); // 09 / 09 / 2022
+    peopleList->linkendTimePeople("202207",1662789600,time,people); // 10 / 09 / 2022
+    peopleList->linkendTimePeople("202207",1662012000,time,people); // 01 / 09 / 2022
 
 
     //Datos quemados en SUBLISTA LUGAR-REGISTRO TIEMPO
 
-    placeList->linkendTimePlace("San Carlos",1662012000,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662098400,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662184800,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662271200,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1662357600,timeList,placeList);
-    placeList->linkendTimePlace("San Carlos",1657432800,timeList,placeList);
+    placeList->linkendTimePlace("San Carlos",1662012000,timeList,placeList); // 01 / 09 / 2022
+    placeList->linkendTimePlace("San Carlos",1662098400,timeList,placeList); // 02 / 09 / 2022
+    placeList->linkendTimePlace("San Carlos",1662184800,timeList,placeList); // 03 / 09 / 2022
+    placeList->linkendTimePlace("San Carlos",1662271200,timeList,placeList); //04 / 09 / 2022
+    placeList->linkendTimePlace("San Carlos",1662357600,timeList,placeList); //05 / 09 / 2022
+    placeList->linkendTimePlace("San Carlos",1657432800,timeList,placeList); // 10 / 07 / 2022
 
-    placeList->linkendTimePlace("Guatuso",1662444000,timeList,placeList);
-    placeList->linkendTimePlace("Guatuso",1662789600,timeList,placeList);
-    placeList->linkendTimePlace("Guatuso",1662530400,timeList,placeList);
-    placeList->linkendTimePlace("Guatuso",1662616800,timeList,placeList);
-    placeList->linkendTimePlace("Guatuso",1662703200,timeList,placeList);
+    placeList->linkendTimePlace("Guatuso",1662444000,timeList,placeList); //06 / 09 / 2022
+    placeList->linkendTimePlace("Guatuso",1662789600,timeList,placeList); //10 / 09 / 2022
+    placeList->linkendTimePlace("Guatuso",1662530400,timeList,placeList); //07 / 09 / 2022
+    placeList->linkendTimePlace("Guatuso",1662616800,timeList,placeList); //08 / 09 / 2022
+    placeList->linkendTimePlace("Guatuso",1662703200,timeList,placeList); //09 / 09 / 2022
 
-    placeList->linkendTimePlace("Naranjo",1568095200,timeList,placeList);
-
-    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1",1662098400,rainList,timeList);
-    timeList->linkendRainTime("3",1657432800,rainList,timeList);
-    timeList->linkendRainTime("1",1662703200,rainList,timeList);
-    timeList->linkendRainTime("5",1662271200,rainList,timeList);
-    timeList->linkendRainTime("10",1662012000,rainList,timeList);
-    timeList->linkendRainTime("2",1662357600,rainList,timeList);
-
-
-    //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
-    placeList->linkendTimePlace("Palmares",1662098400,time,place); // 5345
-    placeList->linkendTimePlace("Upala",1662184800,time,place); //5571
-    placeList->linkendTimePlace("Naranjo",1662271200,time,place); //5486
-    placeList->linkendTimePlace("Liberia",1662357600,time,place); //4911
-    //placeList->linkendTimePlace("San Carlos",1662444000,time,place);//2688
-    placeList->linkendTimePlace("Palmares",1662530400,time,place); //9875
-    placeList->linkendTimePlace("Los Chiles",1662616800,time,place);//1135
-    placeList->linkendTimePlace("Guatuso",1662703200,time,place); // 887
-    placeList->linkendTimePlace("Talamanca",1662789600,time,place);// 235
-
-    placeList->linkendTimePlace("San Carlos",1577836800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1578009600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1581292800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1580688000,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1583366400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1584403200,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1587686400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1586217600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1588982400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1591833600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1594598400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1597449600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1600300800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
-
+    placeList->linkendTimePlace("Naranjo",1568095200,timeList,placeList); //10 / 09 / 2019
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1",1662789600,rain,time);
-    timeList->linkendRainTime("1",1662444000,rain,time);
-    timeList->linkendRainTime("1",1662703200,rain,time);
-    timeList->linkendRainTime("1",1662098400,rain,time);
-    timeList->linkendRainTime("1",1662271200,rain,time);
-    timeList->linkendRainTime("1",1662357600,rain,time);
+    timeList->linkendRainTime("1",1662098400,rainList,timeList); // 02 / 09 / 2022
+    timeList->linkendRainTime("3",1657432800,rainList,timeList); // 10 / 07 / 2022
+    timeList->linkendRainTime("1",1662703200,rainList,timeList); //09 / 09 / 2022
+    timeList->linkendRainTime("5",1662271200,rainList,timeList); //04 / 09 / 2022
+    timeList->linkendRainTime("10",1662012000,rainList,timeList); //01 / 09 / 2022
+    timeList->linkendRainTime("2",1662357600,rainList,timeList); // 05 / 09 / 2022
+
+    //placeList->linkendTimePlace("San Carlos",1662012000,time,place);// 01 / 09 / 2022
+    placeList->linkendTimePlace("Palmares",1662098400,time,place);  //02 / 09 / 2022
+    placeList->linkendTimePlace("Upala",1662184800,time,place);     // 03 / 09 / 2022
+    placeList->linkendTimePlace("Naranjo",1662271200,time,place);   //  04 / 09 / 2022
+    placeList->linkendTimePlace("Liberia",1662357600,time,place);   // 05 / 09 / 2022
+    //placeList->linkendTimePlace("San Carlos",1662444000,time,place);// 06 / 09 / 2022
+    placeList->linkendTimePlace("Palmares",1662530400,time,place);  // 07 / 09 / 2022
+    placeList->linkendTimePlace("Los Chiles",1662616800,time,place);// 08 / 09 / 2022
+    placeList->linkendTimePlace("Guatuso",1662703200,time,place);   // 09 / 09 / 2022
+    placeList->linkendTimePlace("Talamanca",1662789600,time,place); // 10 / 09 / 2022
+
+    placeList->linkendTimePlace("San Carlos",1577772000,time,place); // 31 / 12 / 2019
+    placeList->linkendTimePlace("San Carlos",1577944800,time,place); // 02 / 01 / 2020
+    placeList->linkendTimePlace("San Carlos",1581228000,time,place); // 09 / 02 / 2020
+    placeList->linkendTimePlace("San Carlos",1580623200,time,place); // 02 / 02 / 2020
+    placeList->linkendTimePlace("San Carlos",1583301600,time,place); // 04 / 03 / 2020
+    placeList->linkendTimePlace("San Carlos",1584338400,time,place); // 16 / 03 / 2020
+    placeList->linkendTimePlace("San Carlos",1587621600,time,place); // 23 / 04 / 2020
+    placeList->linkendTimePlace("San Carlos",1586152800,time,place); // 06 / 04 / 2020
+    placeList->linkendTimePlace("San Carlos",1588917600,time,place); // 08 / 05 / 2020
+    placeList->linkendTimePlace("San Carlos",1591768800,time,place); // 10 / 06 / 2020
+    placeList->linkendTimePlace("San Carlos",1594533600,time,place); // 12 / 07 / 2020
+    placeList->linkendTimePlace("San Carlos",1594533600,time,place); // 14 / 08 / 2020
+    placeList->linkendTimePlace("San Carlos",1600236000,time,place); // 16 / 09 / 2020
+    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 18 / 10 / 2020
+    placeList->linkendTimePlace("San Carlos",1605852000,time,place); // 20 / 11 / 2020
+    placeList->linkendTimePlace("San Carlos",1671688800,time,place); // 22 / 12 / 2020
+
+
+    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
+    timeList->linkendRainTime("1",1662789600,rain,time); // 10 / 09 / 2022
+    timeList->linkendRainTime("1",1662444000,rain,time); // 06 / 09 / 2022
+    timeList->linkendRainTime("1",1662703200,rain,time); // 09 / 09 / 2022
+    timeList->linkendRainTime("1",1662098400,rain,time); // 02 / 09 / 2022
+    timeList->linkendRainTime("1",1662271200,rain,time); // 04 / 09 / 2022
+    timeList->linkendRainTime("1",1662357600,rain,time); // 05 / 09 / 2022
 
 }
 
@@ -467,6 +470,7 @@ int main()
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
     //timeList->print(timeList);
+
     //SE CARGAN DATOS A LAS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
     //peopleList->getSizeSublist(peopleList);
