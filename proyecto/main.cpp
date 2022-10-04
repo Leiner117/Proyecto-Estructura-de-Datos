@@ -11,7 +11,7 @@
 
 
 
-
+/**/
 /*
     Autor: Karina Urbina
     Iniciado: 12/09/2022
@@ -33,6 +33,22 @@ Ephemerality* ephemeralityList;
 //new code
 
 //REGISTRO DE UNA PERSONA
+bool valDate(int day,int month,int year){
+    bool flag = true;
+    if (day > 31 || day <1){
+        flag = false;
+    }
+    if (month > 12 || month < 1){
+        flag = false;
+
+    }
+    if (year < 2000){
+        flag = false;
+
+    }
+    return flag;
+}
+
 void userLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
@@ -165,7 +181,9 @@ void ephemeralityLogin(){
     cin>>month;
     cout << "\t\tYEAR: ";
     cin>>year;
-
+    if (!valDate(day, month, year)){
+        cout<<"Ingreso un formato de fecha incorrecto!."<<endl;
+    }
     date=ephemeralityList->dateToUnixDate(year,month,day);
 
     cout << "\n\t\tINGRESE LA HORA DE SALIDA";
@@ -208,6 +226,7 @@ void timeLogin(){
     cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
 
     cout << "\n\t\tDIA: ";
+
     cin>>day;
     cout << "\t\tMES: ";
     cin>>month;
@@ -279,6 +298,7 @@ void reports(){
     cout<<"\t\t0.REGRESAR\n\n";
 
 }
+
 
 void consults(){
 
@@ -386,6 +406,7 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     timeList->linkendRainTime("10",1662012000,rainList,timeList);
     timeList->linkendRainTime("2",1662357600,rainList,timeList);
 
+
     //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
     placeList->linkendTimePlace("Palmares",1662098400,time,place); // 5345
     placeList->linkendTimePlace("Upala",1662184800,time,place); //5571
@@ -435,17 +456,17 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
 
 
 
-
 int main()
 {
     //SE CARGAN DATOS A LAS LISTAS
+
     placeList=placeList->dataLoad(placeList);
     regionList=regionList->dataLoad(regionList);
     timeList=timeList->dataLoad(timeList);
     rainList=rainList->dataLoad(rainList);
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
-
+    //timeList->print(timeList);
     //SE CARGAN DATOS A LAS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
     //peopleList->getSizeSublist(peopleList);
@@ -457,7 +478,14 @@ int main()
     //regionList->MonthlyRain(2022,regionList);
     //rainList->printRainList(rainList);
     //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
-    placeList->printRainyDays(2020,"San Carlos",placeList);
+    //placeList->printRainyDays(2020,"San Carlos",placeList);
+    //placeList->printPercentageRain(2022,"San Carlos",placeList);
+    placeList->print(placeList);
+    Region*r = regionList->searchRegion("NA",regionList);
+    r->placeSublist->linkPlace->modify("San Carlos","Santa Clara",2500,456.07,placeList);
+    placeList->print(placeList);
+
+
 
 
 

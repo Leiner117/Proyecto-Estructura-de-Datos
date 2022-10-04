@@ -50,7 +50,7 @@ class Place
 
         Place * next  = NULL;
         class NodoSubTime* timeRegiSublist = NULL;
-        class NodoSubTime* timeRegiSublist;
+
 
 
     private:

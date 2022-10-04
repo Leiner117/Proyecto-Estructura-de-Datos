@@ -123,17 +123,28 @@ bool TimeRegis::validate(long int date, TimeRegis* timeList){
 
 //Agregar al Inicio
 TimeRegis* TimeRegis::add(long int dateR,int precip,float maxTemp,float minTemp,int winSpd, int winDirec,int humidity,bool rained, TimeRegis* timeList){
-
-    bool duplicate=validate(dateR,timeList);
-    if(duplicate==NULL){
-
+    if (searchTime(dateR,timeList) == NULL){
         TimeRegis* newNodo = new TimeRegis(dateR,precip,maxTemp,minTemp,winSpd,winDirec,humidity,rained);
-        newNodo->next = timeList;//se enlaza, conoce la direccion el inicio de la lista
-        timeList = newNodo;
+        if (timeList == NULL){
+            timeList = newNodo;
+        }
+        else if (dateR < timeList->getDateR()){
+            newNodo->next = timeList;
+            timeList = newNodo;
+        }
+        else{
+            TimeRegis*temp = timeList;
+            TimeRegis*ant;
+            while((temp != NULL) && (dateR>temp->getDateR())){
+                ant = temp;
+                temp = temp->next;
+            }
+            ant->next = newNodo;
+            if(temp !=NULL){
+                newNodo->next = temp;
+            }
+        }
     }
-    else
-        cout<<"\n+++ Advertencia: El nombre ingresado ya esta en la lista +++\n";
-
     return timeList;
 
 }
@@ -215,7 +226,7 @@ TimeRegis* TimeRegis::deleteAllTime(TimeRegis* timeList) {
 
 TimeRegis* TimeRegis::searchTime(long int date, TimeRegis* timeList){
     if(timeList == NULL)
-        cout<<"\nLa lista esta vacia....";
+        return NULL;
     else{
         TimeRegis*temp = timeList;
         while(temp != NULL){
@@ -237,7 +248,7 @@ void TimeRegis:: print(TimeRegis* timeList){
     else{
         TimeRegis*temp = timeList;
         while(temp != NULL){
-            cout<<temp->getDateR()<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | ";
+            cout<<temp->dateToString(unixDateToDate(temp->getDateR()))<<" | "<<temp->getPrecip()<<" | "<<temp->getMaxTemp()<<" | "<<temp->getMinTemp()<<temp->getWinDirec()<<" | "<<temp->getWinPsd()<<" | "<<temp->getHumidity()<<" | ";
             if (temp->getRained()==true){
                 cout<<"Si llovio"<<endl;
             }
@@ -253,16 +264,16 @@ void TimeRegis:: print(TimeRegis* timeList){
 //Cargar datos quemados
 TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
 
-    timeList=add(1662012000,1245,21.4,10.4,24,89,25,true,timeList);
-    timeList=add(1662098400,5345,25.0,11.4,29,73,26, true,timeList);
-    timeList=add(1662184800,5571,15.9,5.6,31,69,29,true,timeList);
-    timeList=add(1662271200,5486,12.4,6.9,6,83,21,true,timeList);
-    timeList=add(1662357600,4911,8.8,3.8,34,70,20, true,timeList);
-    timeList=add(1662444000,2688,17.3,11.0,27,93,19,true,timeList);
-    timeList=add(1662530400,9875,31.5,15.3,19,60,34,false,timeList);
-    timeList=add(1662616800,1135,20.1,14.1,13,80,2,false,timeList);
-    timeList=add(1662703200,887,27.0,12.9,28,25,36,true,timeList);
-    timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1662012000,1245,21.4,10.4,24,89,25,true,timeList);//01 / 09 / 2022
+    timeList=add(1662098400,5345,25.0,11.4,29,73,26, true,timeList);//02 / 09 / 2022
+    timeList=add(1662184800,5571,15.9,5.6,31,69,29,true,timeList);//03 / 09 / 2022
+    timeList=add(1662271200,5486,12.4,6.9,6,83,21,true,timeList);//04 / 09 / 2022
+    timeList=add(1662357600,4911,8.8,3.8,34,70,20, true,timeList);//05 / 09 / 2022
+    timeList=add(1662444000,2688,17.3,11.0,27,93,19,true,timeList);//06 / 09 / 2022
+    timeList=add(1662530400,9875,31.5,15.3,19,60,34,false,timeList);//07 / 09 / 2022
+    timeList=add(1662616800,1135,20.1,14.1,13,80,2,false,timeList);//08 / 09 / 2022
+    timeList=add(1662703200,887,27.0,12.9,28,25,36,true,timeList);//09 / 09 / 2022
+    timeList=add(1662789600,235,23.3,16.5,25,60,32,true,timeList);//10 / 09 / 2022
     timeList=add(1568095200,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1657432800,4567,25.3,12.5,23,0,32,true,timeList);
     timeList=add(1577836800,5345,25.0,11.4,29,73,26,true,timeList);
@@ -451,11 +462,11 @@ NodoSubRain*TimeRegis::linkendRainTime(string idRain, long int date,Rain* rainLi
     Rain* rain = rain->searchRain(rainList,idRain);
 
     if(time == NULL){
-        cout<<"\nNo existe el registro del tiempo";
+        cout<<"\nNo existe el registro del tiempo"<<endl;
         return NULL;
     }
     if(rain == NULL){
-        cout<<"\nNo existe el registrod e lluvia";
+        cout<<"\nNo existe el registro de lluvia"<<endl;
         return NULL;
     }
     NodoSubRain* newNodo = new NodoSubRain();

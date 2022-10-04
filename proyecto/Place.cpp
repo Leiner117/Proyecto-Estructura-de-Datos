@@ -125,7 +125,7 @@ Place* Place::modify(string data, string n,int p, float m,Place*placeList){
                     temp->setName(n);
                     temp->setPopulation(p);
                     temp->setSquareMeters(m);
-                    cout<<"\nSe modifico correctamente";
+                    cout<<"\nSe modifico correctamente"<<endl;
                     return placeList;//me salgo de la fucnion
                 }
                 temp = temp->next;
@@ -271,11 +271,11 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
     TimeRegis* timeR = timeR->searchTime(date,timeList);
 
     if(plc == NULL){
-        cout<<"\nNo existe el lugar";
+        cout<<"\nNo existe el lugar"<<endl;
         return NULL;
     }
     if(timeR == NULL){
-        cout<<"\nNo existe el registro del tiempo";
+        cout<<"\nNo existe el registro del tiempo"<<endl;
         return NULL;
     }
 
@@ -334,7 +334,7 @@ void Place::printSubTimePlace(string namePlace,Place* placeList){
 
 //New code
 
-//Reporte imprimir la precipitación mensual promedio de cada lugar en un año X.
+//Reporte imprimir la precipitaciï¿½n mensual promedio de cada lugar en un aï¿½o X.
 
 void Place::MonthlyRain(int year,Place* placeList){
     system("cls");
@@ -395,7 +395,7 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
                 if (month == 0){
                     month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
                 }
-                else if ((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next == NULL){
+                else if (((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next == NULL)){
                     cout<<"\n\t________________________________________________\n";
                     cout<<"\n\tMes: "<<months[month-1]<<endl;
                     cout<<"\n\tExtremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
