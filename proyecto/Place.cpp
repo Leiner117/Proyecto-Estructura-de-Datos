@@ -280,7 +280,7 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
     }
 
     NodoSubTime* newNodo = new NodoSubTime();
-    newNodo->linkTime = timeR;// se enlaza con el curso
+    newNodo->linkTime = timeR;
     newNodo->next = plc->timeRegiSublist;
     plc->timeRegiSublist = newNodo;
 
@@ -454,38 +454,32 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
     int days = 0;
-    //float promExtremeRain = 0, promRainy = 0,promNormal = 0,promDry = 0,promExtremeDry = 0;
+
     Place* plc = plc->searchPlace(namePlace,pList);
     NodoSubTime*time = plc->timeRegiSublist;
 
     cout<<"\n\n\t   =============================================\n";
     cout<<"\t   ||      Dias lluviosos en "<<plc->getName()+"       ||\n";
     cout<<"\t   =============================================\n";
+
     while (time !=  NULL){
 
         if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
-            //cout<<time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year<<endl;
-            //cout<<time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon<<endl;
-
             if (time->linkTime->getRained()){
                 days++;
-
-                //cout<<time->linkTime->getRained()<<endl;
-
-                if (month == 0){
+                if (month == 0) {
                     month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
-                    //cout<<month<<endl;
+                    //days++;
                 }
                 else if (month != time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon){
                     cout<<"\n\t________________________________________________\n";
                     cout<<"\n\tMes: "<<months[month-1]<<endl;
                     cout<<"\n\tDias lluviosos: "<<days<<endl;
                     month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
-                    //cout<<month<<endl;
                     days = 0;
                 }
-
-                NodoSubRain*rainList= time->linkTime->rainSublist;
+                //NodoSubRain*rainList= time->linkTime->rainSublist;
+                //days++;
             }
         }
         time = time->next;

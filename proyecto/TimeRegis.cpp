@@ -293,6 +293,22 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
 
 
+    timeList=add(1577772000 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1577944800 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1581228000 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1580623200 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1583301600 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1584338400 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1587621600 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1586152800 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1588917600 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1591768800 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1594533600 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1600236000 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1603065600 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1605852000 ,235,23.3,16.5,25,60,32,true,timeList);
+    timeList=add(1671688800 ,235,23.3,16.5,25,60,32,true,timeList);
+
 
 
 
