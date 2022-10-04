@@ -35,7 +35,6 @@ class People
         string getYearIncome();
         class NodoSubTime* getPeopleList();
 
-
         //Funciones
         People* addPeople(string,string,short,string,string,People*);//Agregar nodo persona a la lista
         People* searchPeople(People*,string);//Busca un nodo especifico en la lista
@@ -48,19 +47,15 @@ class People
         People* deletePeople(People*,string);// Elimina un nodo de la lista
         People* dataLoad(People*);
 
-        void* getSizeSublist(People*);
-        int getSize(NodoSubTime*);
 
         //Sublista
-        NodoSubTime* linkendTimePeople(string,long int,TimeRegis*,People*);
+        NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);
         void printSublistTime(string,People*);
 
         //Puntero
         People*next;//Siguiente
         People*pre;//Anterior
         class NodoSubTime* timeSublist;
-        int numRegist;
-
 
     private:
             //Atributos
@@ -69,7 +64,6 @@ class People
             short age;// edad
             string placeResidence;// Lugar de residencia
             string yearIncome;// Año ingreso
-
 
 };
 

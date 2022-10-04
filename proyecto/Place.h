@@ -35,11 +35,14 @@ class Place
         void print(Place*);
         void askData();
         Place* dataLoad(Place*);
+        void printRainyDays(int ,string,Place*);
 
         //Metodos de sublista
-        NodoSubTime* linkendTimePlace(string, string,TimeRegis*,Place*);
+        NodoSubTime* linkendTimePlace(string, long int,TimeRegis*,Place*);
         void printSubTimePlace(string ,Place*);
 
+
+        void MonthlyRain(int,Place* );
         //NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);
         //void printSublistTime(string,People*);
 
@@ -47,7 +50,6 @@ class Place
         //Puntero
         Place * next;
         class NodoSubTime* timeRegiSublist;
-        //class NodoTimeRegis* TimeRegiSublist;
 
     private:
 

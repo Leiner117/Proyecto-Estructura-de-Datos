@@ -2,7 +2,7 @@
 #include "TimeRegis.h"
 #include <string>
 #include <iostream>
-#include "TimeRegis.h"
+
 /*
  Creado: 16/09/2022 ultima mod: 19/09/2022
  Autor: Leiner Alvarado
@@ -20,8 +20,7 @@ People::People(string n,string id,short age,string place,string year)
     setYearIncome(year);
     next=NULL;
     timeSublist=NULL;
-
-
+    numRegist=0;
 }
 //Setters
 void People::setName(string n){
@@ -40,9 +39,6 @@ void People::setPlaceResidence(string place){
 void People::setYearIncome(string year){
 
     yearIncome = year;
-}
-void People::setTimeSublist(TimeRegis*newList){
-    timeSublist = newList;
 }
 
 //Getters
@@ -64,19 +60,20 @@ string People::getPlaceResidence(){
 string People::getYearIncome(){
     return yearIncome;
 }
-TimeRegis*People::getTimeSubList(){
-    return timeSublist;
-}
+
 // Funciones
 
 /*
 Funcion agregar personas
 Se encarga de agregar nodos personas a la lista doble
 */
+/*
+Funcion agregar personas
+Se encarga de agregar nodos personas a la lista doble
+*/
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
 
-
-    if (searchPeople(peopleList,id)==NULL){
+  if (searchPeople(peopleList,id) == NULL){
 
 
       People*newPeople = new People(name,id,age,place,year);
@@ -110,7 +107,6 @@ Funcion imprimir lista personas
 Recorre la lista y imprime la informacion de cada personas
 */
 
-
 void People::printPeopleList(People*pList){
 
 
@@ -120,20 +116,26 @@ void People::printPeopleList(People*pList){
     }
     else{
         People*temp = pList;
-        cout<< "Lista de Personas"<<endl;
-        cout<<"*******************************"<<endl;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||          Lista de Personas          ||\n";
+        cout<<"\t   =========================================\n";
+        //cout<< "Lista de Personas"<<endl;
+        //cout<<"*******************************"<<endl;
         while(temp != NULL){
-            cout<<temp->getName()<<endl;
-            cout<<temp->getId()<<endl;
-            cout<<temp->getPlaceResidence()<<endl;
-            cout<<temp->getYearIncome()<<endl;
-            cout<<"*******************************"<<endl;
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
+            cout<<"\n\tCEDULA: "<<temp->getId()<<endl;
+            cout<<"\n\tRESIDENCIA: "<<temp->getPlaceResidence()<<endl;
+            cout<<"\n\tYEAR DE INGRESO: "<<temp->getYearIncome()<<endl;
             temp = temp->next;
         }
-
-
     }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 }
+
 /*
 Funcion buscar personas
 Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo retorna
@@ -141,6 +143,7 @@ Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo re
 People*People::searchPeople(People*pList,string id){
 
     if(pList == NULL){
+
         return NULL;
     }
     People*temp = pList;
@@ -224,21 +227,20 @@ void People::modYearIncome(string id,string newYear,People*pList){
     people->setYearIncome(newYear);
 }
 
-
 //Cargar datos quemados
 People* People::dataLoad(People* peopleList){
 
     //Datos preestablecidos en lista lugar
-    peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
-    peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
-    peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
+    //peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
+    //peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
+    //peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
     peopleList=addPeople("Leiner","202204",20,"Bajo Rodriguez","2022",peopleList);
-    peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
+    //peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
     peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
     peopleList=addPeople("Karina","202207",18,"Los Angeles","2022",peopleList);
-    peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
-    peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
-    peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
+    //peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
+    //peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
+    //peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
 
     cout<<"\n---Se cargaron los datos correctamente---\n";
 
@@ -250,9 +252,9 @@ People* People::dataLoad(People* peopleList){
 
 //---------------------------------SUBLISTA DE LUGARES----------------------------
 
-NodoSubTime* People::linkendTimePeople(string idPerson, string dateR,TimeRegis* timeList,People* peopleList){
+NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis* timeList,People* peopleList){
 
-    People* pers = pers->searchPeople(peopleList,id);
+    People* pers = pers->searchPeople(peopleList,idPerson);
     TimeRegis* timeR = timeR->searchTime(dateR,timeList);
 
     if(pers == NULL){
@@ -263,54 +265,100 @@ NodoSubTime* People::linkendTimePeople(string idPerson, string dateR,TimeRegis* 
         cout<<"\nNo hay registro en esa fecha";
         return NULL ;
     }
+
     NodoSubTime* newNodo = new NodoSubTime();
     newNodo->linkTime = timeR;// se enlaza con el curso
     newNodo->next = pers->timeSublist;
     pers->timeSublist = newNodo;
-
     return pers->timeSublist;
+
+}
+
+//NEW CODE
+//Calcula cuantos nodos tiene una lista
+int People::getSize(NodoSubTime* a)
+{
+    int sz = 0;
+    while (a != NULL) {
+        a = a->next;
+        sz++;
+    }
+    return sz;
+}
+
+//Calcula cual persona tiene mas registros del tiempo
+void* People::getSizeSublist(People* peopleList){
+
+    People * pers= peopleList;
+    People * cont= pers;
+    NodoSubTime* temp1 = NULL;//pers->timeSublist;
+    NodoSubTime* temp2 = NULL;//pers->next->timeSublist;
+
+    int a, b = 0;
+    while((pers!= NULL)&&(pers->next!= NULL)){
+
+        temp1=cont->timeSublist;
+        temp2=pers->next->timeSublist;
+
+        a=getSize(temp1);
+        b=getSize(temp2);
+
+        if(a>b){ // A > B
+           pers=pers->next;
+        }
+        else{ //B > A
+            pers=pers->next;
+            cont=pers;
+        }
+    }
+    cout<<"\n\t\t"<<cont->getName()<<" es la persona con mas registros del tiempo";;
 }
 
 
+
 void People::printSublistTime(string id,People* peopleList){
-    People * pers =pers->searchPeople(peopleList,id);
+
+    People * pers = pers->searchPeople(peopleList,id);
+
     if(pers == NULL){
         cout<<"\nNo existe la persona";
         return;
     }
-    //Grafica de  los resultados a imprimir
-    system("cls");
-    cout<<"\n\t   =========================================\n";
-    cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
-    cout<<"\t   =========================================\n";
+    else{
+        NodoSubTime* temSub = pers->timeSublist;
+        if(temSub==NULL){
+            cout<<"\n\t"<<pers->getName()<<" no tiene registros del tiempo\n";
+        }
+        else{
+            cout<<"\n\t   =========================================\n";
+            cout<<"\t   ||   Tiempos registrados por "<<pers->getName()<<"   ||\n";
+            cout<<"\t   =========================================\n";
+            while(temSub != NULL){
+                cout<<"\n\t________________________________________________\n";
+                cout<<"\n\tFECHA: "<<temSub->linkTime->dateToString(temSub->linkTime->unixDateToDate(temSub->linkTime->getDateR()));
+                cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
+                cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
+                cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
+                cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
+                cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
+                cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
+                if (temSub->linkTime->getRained()==true){
+                    cout<<"\n\tLLUVIA: SI";
+                }
+                else{
+                    cout<<"\n\tLLUVIA: NO";
+                }
 
-    NodoSubTime* temSub = pers->timeSublist;
-    do{
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tFECHA: "<<temSub->linkTime->getDateR();
-        cout<<"\n\tPRECIPITACION: "<<temSub->linkTime->getPrecip();
-        cout<<"\n\tTEMPERATURA MINIMA: "<<temSub->linkTime->getMinTemp();
-        cout<<"\n\tTEMPERATURA MAXIMA: "<<temSub->linkTime->getMaxTemp();
-        cout<<"\n\tDIRECCION DEL VIENTO: "<<temSub->linkTime->getWinDirec();
-        cout<<"\n\tVELOCIDAD DEL VIENTO: "<<temSub->linkTime->getWinPsd();
-        cout<<"\n\tHUMEDAD: "<<temSub->linkTime->getHumidity();
-        cout<<"\n\LLUVIA: "<<temSub->linkTime->getRained();
+                temSub = temSub->next;
 
-        temSub = temSub->next;
+            }
+            cout<<"\n\t________________________________________________\n";
+        }
 
-    }while(temSub != NULL);
-    cout<<"\n\t________________________________________________\n";
-
+    }
 }
 
 
-People*People::dataLoad(People*pList){
-    pList = pList->addPeople("TANIA","2022440044",19,"Bajo","2022",pList);
-    pList = pList->addPeople("TANIA","2022440045",19,"Bajo","2022",pList);
-    pList = pList->addPeople("MELANIE","202307080",19,"Bajo","2022",pList);
-    pList = pList->addPeople("KARINA","2022456780",19,"Bajo","2022",pList);
-    pList = pList->addPeople("LEINER","2022437759",19,"Bajo","2022",pList);
-    pList = pList->addPeople("LEIDY","2022437759",19,"Bajo","2022",pList);
-    return pList;
-}
+
+
 

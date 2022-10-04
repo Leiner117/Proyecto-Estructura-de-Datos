@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ctime>
-#include<fstream>
+#include <fstream>
 #include "TimeRegis.h"
 #include "Place.h"
 #include "Region.h"
@@ -19,31 +19,286 @@
     Ultima modificacion:
 
 */
+
 using namespace std;
 
 
-Place* placeList;// Lista Lugares
-Region* regionList;// Lista region
-TimeRegis* timeList;// Lista registro del tiempo
-Rain* rainList;// lista LLuvia
-People* peopleList;// Lista Personas
-Ephemerality* ephemeralityList;//Lista efimeridad
+Place* placeList;
+Region* regionList;
+TimeRegis* timeList;
+Rain* rainList;
+People* peopleList;
+Ephemerality* ephemeralityList;
 
+//new code
 
+//REGISTRO DE UNA PERSONA
+void userLogin(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t\t  LISTA DE PERSONAS  "<<endl;
+    cout<<"\t\t======================================================"<<endl;
+    cout<<endl;
 
-void options(){
-    cout<<"\t\t\t=========================================================================="<<endl;
-    cout<<"\t\t\t\t\t   SISTEMA DE REGISTRO DEL TIEMPO DIARIO "<<endl;
-    cout<<"\t\t\t=========================================================================="<<endl;
-    cout<<"\t\t\t\t1.INSERTAR DATOS EN LISTAS\n\n";
-    cout<<"\t\t\t\t2.MODIFICAR LISTA\n\n";
-    cout<<"\t\t\t\t3.BORRAR NODO DE LISTA\n\n";
-    cout<<"\t\t\t\t4.BORRAR LISTAn\n";
-    cout<<"\t\t\t\t5.IMPRIMIR LISTAS\n\n";
-    cout<<"\t\t\t\t6.CONSULTAS\n\n";
-    cout<<"\t\t\t\t7.REPORTES\n\n";
-    cout<<"\t\t\t\t0.SALIR\n\n";
+    string namePerson,idPerson,residence,yearIncome;
+    short age;
+
+    cout << "\n\t\tINGRESE SU NOMBRE: ";
+    cin>>namePerson;
+
+    cout << "\n\t\tINGRESE SU CEDULA: ";
+    cin>>idPerson;
+
+    cout << "\n\t\tINGRESE SU EDAD: ";
+    cin>>age;
+
+    cout << "\n\t\tINGRESE SU LUGAR DE RESIDENCIA: ";
+    getline(cin>>ws, residence);
+
+    cout << "\n\t\tINGRESE EL YEAR EN EL QUE ESTA INGRESANDO: ";
+    cin>>yearIncome;
+
+    peopleList=peopleList->addPeople(namePerson,idPerson,age,residence,yearIncome,peopleList);
+    cout << "\n\t\tSUS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE PERSONAS... ";
+
+    Sleep(3000);
+
 }
+
+//REGISTRO DE UN LUGAR
+void placeLogin(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t\t  LISTA DE LUGARES  "<<endl;
+    cout<<"\t\t======================================================"<<endl;
+    cout<<endl;
+    string namePlace;
+    int population;
+    float area;
+
+    cout << "\n\t\tINGRESE EL NOMBRE DEL LUGAR: ";
+    getline(cin>>ws, namePlace);
+
+    cout << "\n\t\tINGRESE LA POBLACION DEL LUGAR: ";
+    cin>>population;
+
+    cout << "\n\t\tINGRESE EL AREA DEL LUGAR: ";
+    cin>>area;
+
+    placeList=placeList->add(namePlace,population,area,placeList);
+    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LUGARES... ";
+
+}
+
+//REGISTRO DE UNA REGION
+void regionLogin(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t\t  LISTA DE REGIONES  "<<endl;
+    cout<<"\t\t======================================================"<<endl;
+    cout<<endl;
+    string nameRegion,idRegion,location;
+
+    cout << "\n\t\tINGRESE EL NOMBRE DE LA REGION: ";
+    getline(cin>>ws, nameRegion);
+
+    cout << "\n\t\tINGRESE EL CODIGO DE LA REGION: ";
+    cin>>idRegion;
+
+    cout << "\n\t\tINGRESE LA UBICACION(PROVINCIA): ";
+    cin>>location;
+
+    regionList=regionList->add(idRegion,nameRegion,location,regionList);
+    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE REGIONES... ";
+
+}
+
+//REGISTRO DE LLUVIA
+void rainLogin(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t\t  LISTA DE LLUVIAS  "<<endl;
+    cout<<"\t\t======================================================"<<endl;
+    cout<<endl;
+
+    string nameRain,rainCode;
+    int averageRange;// Rango promedio en mm
+
+    cout << "\n\t\tINGRESE EL NOMBRE DEL ESCENARIO CLIMATICO: ";
+    cin>>nameRain;
+
+    cout << "\n\t\tINGRESE EL CODIGO DEL ESCENARIO CLIMATICO: ";
+    cin>>rainCode;
+
+    cout << "\n\t\tINGRESE EL RANGO PROMEDIO EN MILIMEMTROS(mm): ";
+    cin>>averageRange;
+
+    rainList=rainList->addRain(rainCode,nameRain,averageRange,rainList);
+    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LLUVIA... ";
+
+
+}
+
+
+//REGISTRO DE EFEMERIDAD
+void ephemeralityLogin(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t\t  LISTA DE EPHEMERIDADES  "<<endl;
+    cout<<"\t\t\t======================================================"<<endl;
+    cout<<endl;
+
+    string nameEp;
+    short hourDeparture,minutesDeparture,hourHide,minutesHide,month,day;
+    long int date;
+    int year,departureTime,hideTime;
+
+
+    cout << "\n\t\tINGRESE EL NOMBRE DE LA EFEMERIDAD: ";
+    cin>>nameEp;
+
+    cout << "\n\t\tINGRESE LA FECHA DE LA EFEMERIADAD";
+
+    cout << "\n\t\tDIA: ";
+    cin>>day;
+    cout << "\t\tMES: ";
+    cin>>month;
+    cout << "\t\tYEAR: ";
+    cin>>year;
+
+    date=ephemeralityList->dateToUnixDate(year,month,day);
+
+    cout << "\n\t\tINGRESE LA HORA DE SALIDA";
+
+    cout << "\n\t\tHORA: ";
+    cin>>hourDeparture;
+    cout << "\t\tMINUTOS: ";
+    cin>>minutesDeparture;
+
+    departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
+
+    cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
+
+    cout << "\n\t\tHORA: ";
+    cin>>hourHide;
+    cout << "\t\tMINUTOS: ";
+    cin>>minutesHide;
+
+    hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
+
+
+    ephemeralityList=ephemeralityList->addEphemerality(nameEp,date,departureTime,hideTime,ephemeralityList);
+    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE EFEMERIDAD... ";
+
+}
+
+//REGISTRO DEL TIEMPO/CLIMA
+void timeLogin(){
+    system("cls");
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<"\t\t\t\t  LISTA DE REGISTROS DEL TIEMPO  "<<endl;
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<endl;
+    short month,day;
+    long int registrationDate;
+    int precipitation,windSpeed,windDirection,humidity,year;
+    float maxTemperature,minTemperature;
+    bool yesRained=NULL;
+
+    cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
+
+    cout << "\n\t\tDIA: ";
+    cin>>day;
+    cout << "\t\tMES: ";
+    cin>>month;
+    cout << "\t\tYEAR: ";
+    cin>>year;
+
+    registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
+
+    cout << "\n\t\tINGRESE PRECIPITACION: ";
+    cin>>precipitation;
+
+    cout << "\n\t\tINGRESE LA TEMPERATURA MAXIMA: ";
+    cin>>maxTemperature;
+
+    cout << "\n\t\tINGRESE LA TEMPERATURA MINIMA ";
+    cin>>minTemperature;
+
+    cout << "\n\t\tINGRESE LA VELOCIDAD DEL VIENTO: ";
+    cin>>windSpeed;
+
+    cout << "\n\t\tINGRESE LA DIRECCION DEL VIENTO(Grados): ";
+    cin>>windDirection;
+
+    cout << "\n\t\tINGRESE LA HUMEDAD RELATIVA: ";
+    cin>>humidity;
+
+    cout << "\n\t\tLLOVIO?(true/false): ";
+    cin>>yesRained;
+
+    timeList=timeList->add(registrationDate,precipitation,maxTemperature,minTemperature,windSpeed,windDirection,humidity,yesRained,timeList);
+    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE REGISTORS DEL TIEMPO... ";
+
+}
+
+
+//New code
+
+void optionListSublis(){
+    system("cls");
+    cout<<"\t\t======================================================"<<endl;
+    cout<<"\t\t\t        SELECCIONE UNA LA LISTA  "<<endl;
+    cout<<"\t\t======================================================"<<endl;
+    cout<<endl;
+    cout<<"\t\t1.LISTA DE PERSONAS\n\n";
+    cout<<"\t\t2.LISTA DE LLUVIAS\n\n";
+    cout<<"\t\t3.LISTA DE REGIONES\n\n";
+    cout<<"\t\t4.LISTA DE LUGARES\n\n";
+    cout<<"\t\t5.LISTA DE EFIMERIDAD\n\n";
+    cout<<"\t\t6.LISTA DE REGISTROS DEL TIEMPO\n\n";
+    cout<<"\t\t0.REGRESAR\n\n";
+    cout<<"\t\t======================================================"<<endl;
+}
+
+void reports(){
+    system("cls");
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<"\t\t\t    REPORTES DEL SISTEMA DE REGISTRO DEL TIEMPO DIARIO   "<<endl;
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<endl;
+    cout<<"\t\t1.MOSTRAR LA INFORMACION DE TODAS LAS LISTAS\n\n";
+    cout<<"\t\t2.VER HORARIOS DE LA SALIDA Y PUESTA DEL SOL\n\n";
+    cout<<"\t\t3.VER LA PRECIPITACION MENSUAL DE UN LUGAR\n\n";
+    cout<<"\t\t4.VER LA PRECIPITACION MENSUAL DE UNA REGION \n\n";
+    cout<<"\t\t5.VER LAS VARIABLES CLIAMATOLOGICAS DE UNA REGION\n\n";
+    cout<<"\t\t6.VER LOS PERIODOS DEL CLIMA\n\n";
+    cout<<"\t\t7.VER LOS PORCENTAJES DE LA CLASIFICACION DE LA LLUVIA\n\n";
+    cout<<"\t\t8.VER LOS DIAS DE LLUVIA EN UN LUGAR\n\n";
+    cout<<"\t\t9.VER LOS EXTREMOS DE TEMPERATURA DE UN LUGAR\n\n";
+    cout<<"\t\t0.REGRESAR\n\n";
+
+}
+
+void consults(){
+
+    system("cls");
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<"\t\t\t    CONSULTAS DEL SISTEMA DE REGISTRO DEL TIEMPO DIARIO   "<<endl;
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<endl;
+    cout<<"\t\t1.VER LA FECHA CON LA SALIDA DEL SOL MAS TEMPRANO Y EL OCULTAMIENTO MAS TARDIO\n\n";
+    cout<<"\t\t2.MOSTRAR LAS FECHAS CON LA MAYOR DIFERENCIA EN MIN DE LA SALIDA DE SOL\n\n";
+    cout<<"\t\t3.MOSTRAR EL MES CON MAS EXTREMOS LLUVIOSOS DE UN LUGAR EN UN YEAR\n\n";
+    cout<<"\t\t4.MOSTRAR LA PERSONA QUE MAS REGISTROS DEL TIEMPO TIENE\n\n";
+    cout<<"\t\t0.REGRESAR\n\n";
+
+}
+
+
+
+
+
 
 
 
@@ -51,19 +306,24 @@ void options(){
 //Bienvenida al sistema
 void welcome(){
     system("cls");
-    cout << "\n\n\n";
-    cout << "\t\t\t * * *   *   *****  **    *   * * *   *****  **    *  *  *****    *****  "<< endl;
-    cout << "\t\t\t *   *      *       * *   *   *   *  *       * *   *     *    *  *     * "<< endl;
-    cout << "\t\t\t * * *   *  ****    *  *  *   * * *  ****    *  *  *  *  *    *  *     * "<< endl;
-    cout << "\t\t\t *   *   *  *       *   * *   *   *  *       *   * *  *  *    *  *     * "<< endl;
-    cout << "\t\t\t * * *   *   *****  *    **   * * *   *****  *    **  *  *****    *****  "<< endl;
+    cout << "\n";
+    cout << "\t\t * * *   *   *****  **    *   * * *   *****  **    *  *  *****    *****  "<< endl;
+    cout << "\t\t *   *      *       * *   *   *   *  *       * *   *     *    *  *     * "<< endl;
+    cout << "\t\t * * *   *  ****    *  *  *   * * *  ****    *  *  *  *  *    *  *     * "<< endl;
+    cout << "\t\t *   *   *  *       *   * *   *   *  *       *   * *  *  *    *  *     * "<< endl;
+    cout << "\t\t * * *   *   *****  *    **   * * *   *****  *    **  *  *****    *****  "<< endl;
     cout<<endl;
-    cout<<"\t\t\t=========================================================================="<<endl;
-    cout<<"\t\t\t\t\t   SISTEMA DE REGISTRO DEL TIEMPO DIARIO "<<endl;
-    cout<<"\t\t\t=========================================================================="<<endl;
+    cout<<"\t\t=========================================================================="<<endl;
+    cout<<"\t\t\t\t   SISTEMA DE REGISTRO DEL TIEMPO DIARIO "<<endl;
+    cout<<"\t\t=========================================================================="<<endl;
     cout<<endl;
-    cout<<"\t\t\t\t1. MENU PRINCIPAL\n\n";
-    cout<<"\t\t\t\t2. SALIR\n\n";
+    cout<<"\t\t1.AGREGAR EN LISTA\n\n";
+    cout<<"\t\t2.MODIFICAR UN NODO DE LA LISTA\n\n";
+    cout<<"\t\t3.BORRAR UN NODO ESPECIFICO DE LA LISTA \n\n";
+    cout<<"\t\t4.BORRAR COMPLETAMENTE UNA LISTA \n\n";
+    cout<<"\t\t5.MOSTRAR CONSULTAS\n\n";
+    cout<<"\t\t6.VER REPORTES\n\n";
+    cout<<"\t\t0.SALIR\n\n";
 
     //cout<<"press any key to continue...";
     //cin.ignore();
@@ -71,135 +331,242 @@ void welcome(){
 }
 
 //Imprime la sublista de lugares de una region especifica
-void dataLoadSublist(Place* placeList,Region* regionList,People* peopleList,TimeRegis* timeList,Rain* rainList){
+void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain*rain){
 
     //Datos quemados en SUBLISTA LUGAR-REGION
-    regionList->linkendPlaceRegion("NA","San Carlos",placeList,regionList);
-    regionList->linkendPlaceRegion("NA","Naranjo",placeList,regionList);
-    regionList->linkendPlaceRegion("NA","Guatuso",placeList,regionList);
+    regionList->linkendPlaceRegion("NA","San Carlos",place,region);
+    regionList->linkendPlaceRegion("NA","Naranjo",place,region);
+    regionList->linkendPlaceRegion("NA","Guatuso",place,region);
+    regionList->linkendPlaceRegion("VC","Escazu",place,region);
+    regionList->linkendPlaceRegion("CGT","Liberia",place,region);
+    regionList->linkendPlaceRegion("UC","Guatuso",place,region);
+    regionList->linkendPlaceRegion("UC","Los Chiles",place,region);
+    regionList->linkendPlaceRegion("NA","Palmares",place,region);
+    regionList->linkendPlaceRegion("T","Talamanca",place,region);
+    //regionList->linkendPlaceRegion("NA","Guatuso",place,region);
 
     //Datos quemados en SUBLISTA PERSONA-TIEMPO
-    peopleList->linkendTimePeople("202204","01/09/2022",timeList,peopleList);
-    peopleList->linkendTimePeople("202204","02/09/2022",timeList,peopleList);
-    peopleList->linkendTimePeople("202204","03/09/2022",timeList,peopleList);
-    peopleList->linkendTimePeople("202204","04/09/2022",timeList,peopleList);
+    peopleList->linkendTimePeople("202204",1662012000,time,people);//LEINER tiene 4 REGISTROS DEL TIEMPO
+    peopleList->linkendTimePeople("202204",1662098400,time,people);
+    peopleList->linkendTimePeople("202204",1662357600,time,people);
+    peopleList->linkendTimePeople("202204",1662616800,time,people);
 
-    peopleList->linkendTimePeople("202207","05/09/2022",timeList,peopleList);
-    peopleList->linkendTimePeople("202207","06/09/2022",timeList,peopleList);
-    peopleList->linkendTimePeople("202207","07/09/2022",timeList,peopleList);
+    //peopleList->linkendTimePeople("202205",1662616800,time,people);//SARA tiene 2 REGISTROS DEL TIEMPO
+    //peopleList->linkendTimePeople("202205",1662616800,time,people);
+
+    //peopleList->linkendTimePeople("202206",1662616800,time,people);//TOMMY tiene 1 REGISTROS DEL TIEMPO
+
+    peopleList->linkendTimePeople("202207",1662703200,time,people); //KARINA tiene 3 REGISTROS DEL TIEMPO
+    peopleList->linkendTimePeople("202207",1662789600,time,people);
+    peopleList->linkendTimePeople("202207",1662012000,time,people);
 
 
     //Datos quemados en SUBLISTA LUGAR-REGISTRO TIEMPO
-    placeList->linkendTimePlace("San Carlos","03/09/2022",timeList,placeList);
-    placeList->linkendTimePlace("San Carlos","04/09/2022",timeList,placeList);
-    placeList->linkendTimePlace("San Carlos","05/09/2022",timeList,placeList);
-    placeList->linkendTimePlace("San Carlos","06/09/2022",timeList,placeList);
-    placeList->linkendTimePlace("San Carlos","07/09/2022",timeList,placeList);
+    //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
+    placeList->linkendTimePlace("Palmares",1662098400,time,place); // 5345
+    placeList->linkendTimePlace("Upala",1662184800,time,place); //5571
+    placeList->linkendTimePlace("Naranjo",1662271200,time,place); //5486
+    placeList->linkendTimePlace("Liberia",1662357600,time,place); //4911
+    //placeList->linkendTimePlace("San Carlos",1662444000,time,place);//2688
+    placeList->linkendTimePlace("Palmares",1662530400,time,place); //9875
+    placeList->linkendTimePlace("Los Chiles",1662616800,time,place);//1135
+    placeList->linkendTimePlace("Guatuso",1662703200,time,place); // 887
+    placeList->linkendTimePlace("Talamanca",1662789600,time,place);// 235
+
+    placeList->linkendTimePlace("San Carlos",1577836800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1578009600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1581292800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1580688000,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1583366400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1584403200,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1587686400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1586217600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1588982400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1591833600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1594598400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1597449600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1600300800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
+
+
+
+
+
+
+
+
+
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1","03/09/2022",rainList,timeList);
-    timeList->linkendRainTime("1","04/09/2022",rainList,timeList);
-    timeList->linkendRainTime("1","05/09/2022",rainList,timeList);
-    timeList->linkendRainTime("1","06/09/2022",rainList,timeList);
-    timeList->linkendRainTime("1","07/09/2022",rainList,timeList);
-    timeList->linkendRainTime("1","08/09/2022",rainList,timeList);
+    timeList->linkendRainTime("1",1662789600,rain,time);
+    timeList->linkendRainTime("1",1662444000,rain,time);
+    timeList->linkendRainTime("1",1662703200,rain,time);
+    timeList->linkendRainTime("1",1662098400,rain,time);
+    timeList->linkendRainTime("1",1662271200,rain,time);
+    timeList->linkendRainTime("1",1662357600,rain,time);
 }
 
-/*
-void calcPersonMostRegis(People* peopleList){
 
 
 
 
-}
-*/
+
+
 
 
 
 
 int main()
 {
-    // CARGAR DATOS LISTAS
+    //SE CARGAN DATOS A LAS LISTAS
     placeList=placeList->dataLoad(placeList);
-    placeList->print(placeList);
-
     regionList=regionList->dataLoad(regionList);
-    regionList->print(regionList);
-
-
     timeList=timeList->dataLoad(timeList);
-    timeList->print(timeList);// revisar
-
     rainList=rainList->dataLoad(rainList);
-    rainList->printRainList(rainList);
-
-
-    ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);
-    //ephemeralityList->printEphemeralityList(ephemeralityList);
-
+    ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
-    peopleList->printPeopleList(peopleList);
 
-
-    //CARGAR DATOS SUBLISTAS
+    //SE CARGAN DATOS A LAS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
+    //peopleList->getSizeSublist(peopleList);
+    //peopleList->printSublistTime("202206",peopleList);
+   // regionList->printSublistPlace("T",regionList);
+    //timeList->printSubRain(1662789600,timeList);
+   //placeList->printSubTimePlace("San Carlos",placeList);
+    //placeList->MonthlyRain(2021,placeList);
+    //regionList->MonthlyRain(2022,regionList);
+    //rainList->printRainList(rainList);
+    //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
+    placeList->printRainyDays(2020,"San Carlos",placeList);
 
 
-    //regionList->printSublistPlace("NA",regionList);
-    //peopleList->printSublistTime("202204",peopleList); //revisar
-    //placeList->printSubTimePlace("San Carlos",placeList); //revisar(error raro)
-    timeList->linkendRainTime("1","05/09/2022",rainList,timeList);
-
-    cout << "ESTO ES UNA PRUEBA!" << endl;
-    peopleList = peopleList->dataLoad(peopleList);
-    People*persona = peopleList->searchPeople(peopleList,"2022437759");
-    peopleList->printPeopleList(peopleList);
-    ephemeralityList = ephemeralityList->dataload(ephemeralityList);
-    ephemeralityList->printEphemeralityList(ephemeralityList);
-
-    ephemeralityList->diffDepartureTime(2022,ephemeralityList);
-    ephemeralityList->timeReportYear(ephemeralityList,2022);
-    ephemeralityList->earlyDeparLateHide(ephemeralityList);
-    //persona->setTimeSublist(timeList->add("2022/09/23",001,12.11,12.12,20,23,22,false,persona->getTimeSubList()));
-    //persona->setTimeSublist(timeList->add("2022/09/24",001,0.11,14.12,20,23,22,true,persona->getTimeSubList()));
-    //timeList->print(persona->getTimeSubList());
 
 
-    //char c;
+
+
+
+
 /*
-    do{
-       welcome();
-       cout<<"\n\t\t\tELIGA UNA OPCION:";
-       cin>>c;
-       system("cls");
+    char c; //OPCION DEL MENU PREINCIPAL
+    char p; //OPCION DE LAS LISTAS
+    char b; //OPCION DE LISTAS EN REPORTES
+    while(true){
 
-       switch(c)
-       {
-       case '1':
-        {
-            //linkPlaceRegion("San Carlos","Z",placeList,regionList);
-            //printSublistPlace("Z",placeList);
-            //Sleep(1500);
-            //break;
-        }
-       case '2':
-        {        cout << "\n\t\t       GRACIAS POR USAR ESTE SISTEMA"<<endl;
-                 cout <<endl;
-                 cout << "\n\t\t  PROYECTO 1  ESTRUCTURAS DIAMICAS LINEALES\n";
-                 cout<<"\n\t\t\   =========================================\n";
-                 cout<<"\n\t\t\   MIEMBROS DEL GRUPO (DESARROLLADORES)";
-                 cout << "\n\n";
-                 cout << "\n\t\t\   NOMBRE                        CARNET\n\n";
-                 cout << "\n\t\t\   1. lEINER ALVARADO           202200000\n\n";
-                 cout << "\n\t\t\   2. KARINA URBINA             208460025\n\n";
-                 cout<<"\n\t\t\  =========================================\n";
-                 cout<<"\n\t\t\   START DATE: 12/09/2022\n";
-                 cout<<"\n\t\t\   END DATE: 07/10/2022 ";
-                 cout << "\n\n";
-        }
-        }
-       }while(c!='2');
+        welcome();
+        cout<<"\n\t\tELIGA UNA OPCION:";
+        cin>>c;
 
+            if(c=='1'){//AGREGAR EN LAS LISTAS
+
+                optionListSublis();
+                cout<<"\n\t\tELIGA UNA OPCION:";
+                cin>>p;
+
+                    if(p=='1'){ // AGREGAR EN LISTA PERSONA
+                        userLogin();
+                    }
+                    else if(p=='2'){ // AGREGAR EN LISTA LLUVIA
+                        rainLogin();
+                    }
+                    else if(p=='3'){ // AGREGAR EN LISTA REGIONES
+                        regionLogin();
+                    }
+                    else if(p=='4'){ // AGREGAR EN LISTA LUGARES
+                        placeLogin();
+                    }
+                    else if(p=='5'){ // AGREGAR EN LISTA EFEMERIDAD
+                        ephemeralityLogin();
+                    }
+                    else if(p=='6'){ // AGREGAR EN LISTA EFEMERIDAD
+                        timeLogin();
+                    }
+            }
+
+            if(c=='2'){//MODIFICAR EN LAS LISTA
+                optionListSublis();
+                cin>>p;
+
+            }
+            else if(c=='3'){//BORARR NODO EN LAS LISTAS
+                optionListSublis();
+                cout<<"\n\t\tELIGA UNA OPCION:";
+                cin>>p;
+
+            }
+            else if(c=='4'){ //BORRAR TODA LA LISTA
+                optionListSublis();
+                cout<<"\n\t\tELIGA UNA OPCION:";
+                cin>>p;
+            }
+            else if(c=='5'){ //VER CONSULTAS
+                consults();
+                cout<<"\n\t\tELIGA UNA OPCION:";
+                cin>>p;
+                if(p=='4'){
+                    peopleList->getSizeSublist(peopleList);
+
+                }
+
+            }
+            else if(c=='6'){//VER REPORTES
+                reports();
+                cout<<"\n\t\tELIGA UNA OPCION:";
+                cin>>p;
+                if(p=='1'){ // MOSTRAR TODAS LAS LISTAS
+                    optionListSublis();
+                    cout<<"\n\t\tELIGA UNA OPCION:";
+                    cin>>b;
+                    if(b=='1'){ // IMPRIME LA LISTA PERSONA
+                        system("cls");
+                        peopleList->printPeopleList(peopleList);
+                    }
+                    else if(b=='2'){ // IMPRIME LA LISTA LLUVIA
+                        system("cls");
+                        rainList->printRainList(rainList);
+                    }
+                    else if(b=='3'){ // IMPRIME LA LISTA REGIONES
+                        system("cls");
+                        regionList->print(regionList);
+                    }
+                    else if(b=='4'){ // IMPRIME LA LISTA LUGARES
+                        system("cls");
+                        placeList->print(placeList);
+                    }
+                    else if(b=='5'){ // IMPRIME LA LISTA EFEMERIDAD
+                            system("cls");
+                        ephemeralityList->printEphemeralityList(ephemeralityList);
+                    }
+                    else if(b=='6'){ // IMPRIME LA LISTA DE REGISTROS DEL TIEMPO
+                        system("cls");
+                        timeList->print(timeList);
+                    }
+                }
+
+
+
+            }
+            else if(c=='0'){ //SALIR
+                system("cls");
+                cout << "\n\t\t       GRACIAS POR USAR ESTE SISTEMA"<<endl;
+                cout <<endl;
+                cout <<"\n\t\t   PROYECTO 1  ESTRUCTURAS DIAMICAS LINEALES\n";
+                cout<<"\n\t\t\   =========================================\n";
+                cout<<"\n\t\t\   MIEMBROS DEL GRUPO (DESARROLLADORES)";
+                cout << "\n\n";
+                cout << "\n\t\t\   NOMBRE                        CARNET\n\n";
+                cout << "\n\t\t\   1. lEINER ALVARADO           202200000\n\n";
+                cout << "\n\t\t\   2. KARINA URBINA             208460025\n\n";
+                cout<<"\n\t\t\   =========================================\n";
+                cout<<"\n\t\t\   START DATE: 12/09/2022\n";
+                cout<<"\n\t\t\   END DATE: 07/10/2022 ";
+                cout << "\n\n";
+                break;
+
+            }
+
+        }
 */
     return 0;
 

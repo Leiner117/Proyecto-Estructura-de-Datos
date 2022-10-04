@@ -1,14 +1,10 @@
 #ifndef TIMEREGIS_H
 #define TIMEREGIS_H
 #include <string>
-
 #include "Rain.h"
-
-#include "time.h"
-
 using namespace std;
 
-// Aqui se declaran las variables,constantes y las funciones
+// Aquí se declaran las variables,constantes y las funciones
 
 class TimeRegis
 {
@@ -41,24 +37,21 @@ class TimeRegis
 
         //Metodos
         bool validate(long int , TimeRegis* );
-        TimeRegis* add(long int ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
-        TimeRegis* deleteTime(long int  ,TimeRegis* );
+        TimeRegis* add(long int  ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* deleteTime(long  ,TimeRegis* );
         TimeRegis* deleteAllTime(TimeRegis* );
-        TimeRegis* modify(long int,long int ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
+        TimeRegis* modify(long int ,long int ,int,float ,float ,int , int ,int ,bool , TimeRegis* );
         TimeRegis* searchTime(long int , TimeRegis* );
         void print(TimeRegis* );
         TimeRegis* dataLoad(TimeRegis* );
-        
-
-
-        //Metodos de sublista
-
-        NodoSubRain* linkendRainTime(string, string,Rain*,TimeRegis*);
-        void printSubRain(string,TimeRegis*);
-
         long int dateToUnixDate(int ,short ,short);// Convierte la fecha a UnixDate(segundos totales)
         string dateToString(tm*);// Convierte de formato fecha a string para imprimir
         tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
+
+        //Metodos de sublista
+
+        NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
+        void printSubRain(long int,TimeRegis*);
 
         //Puntero
         TimeRegis* next;
@@ -74,7 +67,6 @@ class TimeRegis
         int windDirection;
         int humidity;
         bool yesRained=false;
-        int contRegis;
 
 };
 

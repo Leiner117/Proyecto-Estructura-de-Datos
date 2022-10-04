@@ -176,15 +176,11 @@ void Ephemerality::modDepartureTime(Ephemerality*eList,long int date,int newDepa
 
 }
 
-Ephemerality* Ephemerality::dataload(Ephemerality*eList){
+Ephemerality* Ephemerality::dataLoad(Ephemerality*eList){
     eList = eList->addEphemerality("Sol",1663999200,18900,65700,eList);
-
     eList = eList->addEphemerality("Sol",1664344800,19200,63900,eList);
-
     eList = eList->addEphemerality("Sol",1662012000,19800,65640,eList);
-
     eList = eList->addEphemerality("Sol",1662098400,20700,62100,eList);
-
     eList = eList->addEphemerality("Sol",1662184800,21300,66300,eList);
     eList = eList->addEphemerality("Sol",1658815200,21300,66300,eList);
     eList = eList->addEphemerality("Sol",1627279200,21300,66300,eList);
@@ -322,23 +318,30 @@ void Ephemerality::printEphemeralityList(Ephemerality*eList){
     }
     else{
         Ephemerality*temp = eList;
-        cout<< "Lista de efimeridad"<<endl;
-        cout<<"*******************************"<<endl;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||        Lista de Efimeridad          ||\n";
+        cout<<"\t   =========================================\n";
+        //cout<< "Lista de efimeridad"<<endl;
+        //cout<<"*******************************"<<endl;
         while(temp != NULL){
-            cout<<temp->getName()<<endl;
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
             struct tm*date = unixDateToDate(temp->getDate());
             string ans = dateToString(date);
-            cout<<ans<<endl;
-            cout<<temp->secondsToTime(temp->getDepartureTime())<<endl;
-            cout<<temp->secondsToTime(temp->getHideTime())<<endl;
-            cout<<"*******************************"<<endl;
+            cout<<"\n\tFECHA: "<<ans<<endl;
+            cout<<"\n\tHORA DE SALIDA: "<<temp->secondsToTime(temp->getDepartureTime())<<endl;
+            cout<<"\n\tHORA DE OCULTAMIENTO: "<<temp->secondsToTime(temp->getHideTime())<<endl;
+
             temp = temp->next;
         }
-
-
     }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 
 }
+
 string Ephemerality::dateToString(tm*date){
     string ans = "";
     ans += to_string(date->tm_mday);
@@ -461,14 +464,14 @@ Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del s
 
 
             if (month != date->tm_mon){
-                cout<<"Mes: "<<months[(date->tm_mon)-1]<<endl;
+                cout<<"MES: "<<months[(date->tm_mon)-1]<<endl;
                 cout<<"*******************************"<<endl;
                 month = date->tm_mon;
 
             }
 
-            cout<<"Hora de salida: "<<secondsToTime(temp->getDepartureTime())<<endl;
-            cout<< "Hora de ocultamiento: "<<secondsToTime(temp->getHideTime())<<endl;
+            cout<<"HORA DE SALIDA: "<<secondsToTime(temp->getDepartureTime())<<endl;
+            cout<< "HORA DE OCULTAMIENTO: "<<secondsToTime(temp->getHideTime())<<endl;
             cout<<"*******************************"<<endl;
 
             }
