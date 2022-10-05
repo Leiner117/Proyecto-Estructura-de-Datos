@@ -58,7 +58,7 @@ class TimeRegis
 
         NodoSubRain *linkendRainTime(string , long , Rain *, TimeRegis *);
         //Puntero
-        TimeRegis* next;
+        TimeRegis* next = NULL;
         class NodoSubRain* rainSublist = NULL;
 
     private:

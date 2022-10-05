@@ -876,12 +876,13 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                 if(month == time->linkTime->next->unixDateToDate(time->linkTime->getDateR())->tm_mon){
                     days++;
 
-                }else{
+                }if((month != time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon)||time->next==NULL){
                     int flag = 1;
                     while(flag !=0){
                         cout<<"\n\t________________________________________________\n";
                         cout<<"\n\tMes: "<<months[month-1]<<endl;
                         cout<<"\n\tDias lluviosos: "<<days<<endl;
+                        int month1 = month;
                         month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
                         days = 1;
                         if(time->next != NULL){
@@ -891,19 +892,26 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                             else{
                                 flag = 0;
                             }
-                        }
-                        else{
-                            if (flag == 1){
-                                flag = flag+1;
+                        }else{
+                            if(month != month1){
+                                if (flag == 1){
+                                    flag = flag+1;
+
+                                }
+                                else{
+                                    flag = 0;
+                                }
                             }
                             else{
                                 flag = 0;
                             }
 
+
                         }
 
 
                     }
+                    flag = 1;
 
                 }
                 //NodoSubRain*rainList= time->linkTime->rainSublist;
