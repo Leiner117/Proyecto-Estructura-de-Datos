@@ -395,7 +395,7 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("San Carlos",1671688800,time,place); // 22 / 12 / 2020
     placeList->linkendTimePlace("San Carlos",1605852000,time,place); // 20 / 11 / 2020
     placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 18 / 10 / 2020
-     placeList->linkendTimePlace("San Carlos",1600236000,time,place); // 16 / 09 / 2020
+    placeList->linkendTimePlace("San Carlos",1600236000,time,place); // 16 / 09 / 2020
     placeList->linkendTimePlace("San Carlos",1659592800,time,place); // 04 / 08 / 2020
     placeList->linkendTimePlace("San Carlos",1594533600,time,place); // 12 / 07 / 2020
     placeList->linkendTimePlace("San Carlos",1657432800,time,place); // 10 / 07 / 2022
@@ -507,7 +507,7 @@ int main()
    //regionList->printSublistPlace("T",regionList);
     //timeList->printSubRain(1662789600,timeList);
    //placeList->printSubTimePlace("San Carlos",placeList);
-    //placeList->MonthlyRain(2021,placeList);
+    placeList->MonthlyRain(2021,placeList);
     //regionList->MonthlyRain(2022,regionList);
     //rainList->printRainList(rainList);
     //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
