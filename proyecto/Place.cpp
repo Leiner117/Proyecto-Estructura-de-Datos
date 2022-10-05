@@ -280,10 +280,29 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
     }
 
     NodoSubTime* newNodo = new NodoSubTime();
-    newNodo->linkTime = timeR;// se enlaza con el curso
-    newNodo->next = plc->timeRegiSublist;
-    plc->timeRegiSublist = newNodo;
+    if (plc->timeRegiSublist == NULL){
+        plc->timeRegiSublist = newNodo;
+        newNodo->linkTime = timeR;
+    }
+    else if (date<plc->timeRegiSublist->linkTime->getDateR()){
+        newNodo->linkTime = timeR;
+        newNodo->next = plc->timeRegiSublist;
+        plc->timeRegiSublist = newNodo;
+    }else{
+        newNodo->linkTime = timeR;
+        NodoSubTime*temp = plc->timeRegiSublist;
+        NodoSubTime*ant;
+        while((temp!=NULL)&&(date>temp->linkTime->getDateR())){
+            ant = temp;
+            temp = temp->next;
+        }
 
+
+        ant->next = newNodo;
+        if (temp != NULL){
+            newNodo->next = temp;
+        }
+    }
     return plc->timeRegiSublist;
 }
 
@@ -395,22 +414,74 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
                 if (month == 0){
                     month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
                 }
-                else if (((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next == NULL)){
-                    cout<<"\n\t________________________________________________\n";
-                    cout<<"\n\tMes: "<<months[month-1]<<endl;
-                    cout<<"\n\tExtremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
-                    cout<<"\n\tLluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
-                    cout<<"\n\tNormal: "<<(promNormal*100)/cont<<"%"<<endl;
-                    cout<<"\n\tSeco: "<<(promDry*100)/cont<<"%"<<endl;
-                    cout<<"\n\tExtremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
-                    month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
+
+                if((month != timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)||timeList->next==NULL){
+                    int flag = 1;
+                    while(flag !=0){
+                        if(flag ==2){
+                            NodoSubRain*rainList= timeList->linkTime->rainSublist;
+                            cont = 0;
+                            promExtremeDry = 0;
+                            promDry = 0;
+                            promNormal = 0;
+                            promRainy = 0;
+                            promExtremeRain = 0;
+                            if (rainList != NULL){
+                                cont++;
+                                if (rainList->linkRain->getName() == "Extremo lluvioso"){
+                                    promExtremeRain++;
+                                }
+                                else if (rainList->linkRain->getName() == "Extremo seco"){
+                                    promExtremeDry++;
+                                }
+                                else if (rainList->linkRain->getName() == "Seco"){
+                                    promDry++;
+                                }
+                                else if (rainList->linkRain->getName() == "Normal"){
+                                    promNormal++;
+                                }
+                                else if (rainList->linkRain->getName() == "Lluvioso"){
+                                    promRainy++;
+                                }
+
+                            }
+                        }
+                        cout<<"\n\t________________________________________________\n";
+                        cout<<"\n\tMes: "<<months[month-1]<<endl;
+                        cout<<"\n\tExtremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
+                        cout<<"\n\tLluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
+                        cout<<"\n\tNormal: "<<(promNormal*100)/cont<<"%"<<endl;
+                        cout<<"\n\tSeco: "<<(promDry*100)/cont<<"%"<<endl;
+                        cout<<"\n\tExtremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
+                        month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
+                        if(timeList->next != NULL){
+                            if( (timeList->next->linkTime->next->unixDateToDate(timeList->linkTime->getDateR())->tm_mon!=timeList->linkTime->next->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)&&flag ==1){
+                                flag = flag+1;
+                            }
+                            else{
+                                flag = 0;
+                            }
+                        }
+                        else{
+                            if (flag == 1){
+                                flag = flag+1;
+                            }
+                            else{
+                                flag = 0;
+                            }
+
+                        }
+                    }
+                    flag = 1;
                     cont = 0;
                     promExtremeDry = 0;
                     promDry = 0;
                     promNormal = 0;
                     promRainy = 0;
                     promExtremeRain = 0;
+
                 }
+
 
                 NodoSubRain*rainList= timeList->linkTime->rainSublist;
                 if (rainList != NULL){
@@ -450,7 +521,7 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
 
 //void printVarWeather()
 
-void Place::printRainyDays(int year,string namePlace,Place*pList){
+/*void Place::printRainyDays(int year,string namePlace,Place*pList){
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
     int days = 0;
@@ -495,7 +566,7 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
     cin.ignore();
     cin.get();
 }
-
+*/
 
 /*
 
@@ -655,8 +726,205 @@ void Place::calcMonthRain(int year, string place,Place* placeList){
 
 */
 
+struct tempList{
+    int month;
+    int extremeRain;
+    int extremeDry;
+    tempList*next = NULL;
+    tempList(int m,int rain,int dry){
+        month = m;
+        extremeRain = rain;
+        extremeDry = dry;
+        next = NULL;
+    }
+};
+tempList*searchtempList(tempList*list1,int month){
+    if (list1 == NULL){
+        return NULL;
+
+    }
+    tempList*temp = list1;
+    while(temp!=NULL){
+        if (month == temp->month){
+            return temp;
+        }
+    }
+    return NULL;
+}
+void Place::monthlyRainfallExtremes(string placeName,int year,Place*pList){
+    Place*localPlace = pList->searchPlace(placeName,pList);
+    NodoSubTime*listTime = localPlace->timeRegiSublist;
+    int month = 0;
+    int extremeRain = 0;
+    int extremeDry = 0;
+    tempList*finalList = NULL;
+    bool flag = false;
+    while(listTime != NULL){
+        tm*date =listTime->linkTime->unixDateToDate(listTime->linkTime->getDateR());
+        if (date->tm_year == year){
+            if (listTime->linkTime->getRained()){
+
+                if (month == 0){
+                    month = date->tm_mon;
+
+                }
+                if (month == date->tm_mon){
+                    if (listTime->linkTime->rainSublist !=NULL){
+                        if (listTime->linkTime->rainSublist->linkRain->getName() == "Extremo lluvioso"){
+                            extremeRain++;
+                        }
+                        if (listTime->linkTime->rainSublist->linkRain->getName() == "Extremo seco"){
+                            extremeDry++;
+                        }
+
+                    }
+                }
+                if ((month != date->tm_mon)||(listTime->next==NULL)){
+                    tempList*newNodo = new tempList(month,extremeRain,extremeDry);
+                    if (finalList == NULL){
+                        finalList = newNodo;
+                    }
+                    else{
+                        month = date->tm_mon;
+                        newNodo->next = finalList;
+                        finalList = newNodo;
+
+                        extremeDry = 0;
+                        extremeRain = 0;
+                    }
 
 
 
+
+                }
+
+            }
+        }
+        listTime = listTime->next;
+    }
+
+    tempList*finalRain = NULL;
+    tempList*finalDry = NULL;
+    tempList*tempList = finalList;
+    while(finalList!=NULL){
+        if (finalRain == NULL && finalDry == NULL){
+            finalRain = finalList;
+            finalDry = finalList;
+        }
+        if (finalRain->extremeDry < finalList->extremeRain){
+            finalRain = finalList;
+        }
+        if (finalDry->extremeDry < finalList->extremeDry){
+            finalDry = finalList;
+        }
+        finalList = finalList->next;
+    }
+    bool flagRain = false,flagDry = false;
+   while(tempList !=NULL){
+       if(finalRain->extremeRain>0){
+           if (finalRain->extremeRain == tempList->extremeRain){
+               cout<<"Mes: "<<tempList->month<<" con "<<tempList->extremeRain<<" Extremos lluviosos"<<endl;
+                flagRain = true;
+           }
+       }
+
+       if(finalDry->extremeDry>0){
+           if(finalDry->extremeDry == tempList->extremeDry){
+               cout<<"Mes: "<<tempList->month<<" con "<<tempList->extremeDry<<" Extremos secos"<<endl;
+                flagDry = true;
+           }
+       }
+       tempList = tempList->next;
+
+   }
+   if(!flagRain){
+       cout<<"No hay registros de extremos lluviosos"<<endl;
+
+   }
+   if(!flagDry){
+       cout<<"No hay registros de extremos secos"<<endl;
+   }
+
+
+
+
+}
+
+
+
+void Place::printRainyDays(int year,string namePlace,Place*pList){
+    string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+    int month =0;
+    int days = 0;
+
+    Place* plc = plc->searchPlace(namePlace,pList);
+    NodoSubTime*time = plc->timeRegiSublist;
+
+    cout<<"\n\n\t   =============================================\n";
+    cout<<"\t   ||      Dias lluviosos en "<<plc->getName()+"       ||\n";
+    cout<<"\t   =============================================\n";
+
+    while (time !=  NULL){
+
+        if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
+            if (time->linkTime->getRained()){
+                if (month == 0) {
+                    month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
+                    //days++;
+
+                }
+                if(month == time->linkTime->next->unixDateToDate(time->linkTime->getDateR())->tm_mon){
+                    days++;
+
+                }if((month != time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon)||time->next==NULL){
+                    int flag = 1;
+                    while(flag !=0){
+                        cout<<"\n\t________________________________________________\n";
+                        cout<<"\n\tMes: "<<months[month-1]<<endl;
+                        cout<<"\n\tDias lluviosos: "<<days<<endl;
+                        int month1 = month;
+                        month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
+                        days = 1;
+                        if(time->next != NULL){
+                            if( (time->next->linkTime->next->unixDateToDate(time->linkTime->getDateR())->tm_mon!=time->linkTime->next->unixDateToDate(time->linkTime->getDateR())->tm_mon)&&flag ==1){
+                                flag = flag+1;
+                            }
+                            else{
+                                flag = 0;
+                            }
+                        }else{
+                            if(month != month1){
+                                if (flag == 1){
+                                    flag = flag+1;
+
+                                }
+                                else{
+                                    flag = 0;
+                                }
+                            }
+                            else{
+                                flag = 0;
+                            }
+
+
+                        }
+
+
+                    }
+                    flag = 1;
+
+                }
+                //NodoSubRain*rainList= time->linkTime->rainSublist;
+                //days++;
+
+            }
+        }
+        time = time->next;
+    }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
+}
 
 

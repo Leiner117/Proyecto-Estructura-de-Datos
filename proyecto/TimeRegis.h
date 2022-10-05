@@ -48,16 +48,17 @@ class TimeRegis
         long int dateToUnixDate(int ,short ,short);// Convierte la fecha a UnixDate(segundos totales)
         string dateToString(tm*);// Convierte de formato fecha a string para imprimir
         tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
+
         //void extremeRainMonth(TimeRegis *, int , string ,Place*);
         //Metodos de sublista
 
         //NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
         //void printSubRain(long int,TimeRegis*);
-
+        void periodInYear(int , TimeRegis*);
 
         NodoSubRain *linkendRainTime(string , long , Rain *, TimeRegis *);
         //Puntero
-        TimeRegis* next;
+        TimeRegis* next = NULL;
         class NodoSubRain* rainSublist = NULL;
 
     private:

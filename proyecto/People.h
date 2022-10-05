@@ -56,9 +56,9 @@ class People
         void printSublistTime(string,People*);
 
         //Puntero
-        People*next;//Siguiente
-        People*pre;//Anterior
-        class NodoSubTime* timeSublist;
+        People*next = NULL;//Siguiente
+        People*pre = NULL;//Anterior
+        class NodoSubTime* timeSublist = NULL;
 
 
 
@@ -75,8 +75,8 @@ class People
 
 class NodoSubTime{
     public:
-        NodoSubTime* next;
-        TimeRegis* linkTime;
+        NodoSubTime* next =NULL;
+        TimeRegis* linkTime =NULL;
 };
 
 
