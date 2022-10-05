@@ -32,10 +32,11 @@ Ephemerality* ephemeralityList;
 
 //new code
 
-//REGISTRO DE UNA PERSONA
+
 bool valDate(int day,int month,int year){
     bool flag = true;
     if (day > 31 || day <1){
+
         flag = false;
     }
     if (month > 12 || month < 1){
@@ -45,6 +46,9 @@ bool valDate(int day,int month,int year){
     if (year < 2000){
         flag = false;
 
+    }
+    if (!flag){
+        cout<<"Formato de fecha incorrecto!."<<endl;
     }
     return flag;
 }
@@ -175,32 +179,35 @@ void ephemeralityLogin(){
 
     cout << "\n\t\tINGRESE LA FECHA DE LA EFEMERIADAD";
 
-    cout << "\n\t\tDIA: ";
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
-    if (!valDate(day, month, year)){
-        cout<<"Ingreso un formato de fecha incorrecto!."<<endl;
-    }
+    do{
+        cout << "\n\t\tDIA: ";
+
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
     date=ephemeralityList->dateToUnixDate(year,month,day);
+    do{
+        cout << "\n\t\tINGRESE LA HORA DE SALIDA";
 
-    cout << "\n\t\tINGRESE LA HORA DE SALIDA";
+        cout << "\n\t\tHORA: ";
+        cin>>hourDeparture;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesDeparture;
+        cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
+        cout << "\n\t\tHORA: ";
+        cin>>hourHide;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesHide;
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourDeparture;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesDeparture;
+    }while(ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
+
 
     departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
 
-    cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourHide;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesHide;
 
     hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
 
@@ -224,14 +231,16 @@ void timeLogin(){
     bool yesRained=NULL;
 
     cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
+    do{
+        cout << "\n\t\tDIA: ";
 
-    cout << "\n\t\tDIA: ";
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
 
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
 
     registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
 
@@ -438,8 +447,50 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("Talamanca",1662789600,time,place); // 10 / 09 / 2022
 
 
+    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
+    timeList->linkendRainTime("1",1662098400,rainList,timeList);
+    timeList->linkendRainTime("3",1657432800,rainList,timeList);
+    timeList->linkendRainTime("1",1662703200,rainList,timeList);
+    timeList->linkendRainTime("5",1662271200,rainList,timeList);
+    timeList->linkendRainTime("10",1662012000,rainList,timeList);
+    timeList->linkendRainTime("2",1662357600,rainList,timeList);
+    timeList->linkendRainTime("2",1672552800,rainList,time);//01/01/2023
+    timeList->linkendRainTime("5",1675231200,rainList,time);//01/02/2023
+    timeList->linkendRainTime("4",1690869600,rainList,time);//01/03/2023
 
+    //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
+    placeList->linkendTimePlace("Palmares",1662098400,time,place); // 5345
+    placeList->linkendTimePlace("Upala",1662184800,time,place); //5571
+    placeList->linkendTimePlace("Naranjo",1662271200,time,place); //5486
+    placeList->linkendTimePlace("Liberia",1662357600,time,place); //4911
+    //placeList->linkendTimePlace("San Carlos",1662444000,time,place);//2688
+    placeList->linkendTimePlace("Palmares",1662530400,time,place); //9875
+    placeList->linkendTimePlace("Los Chiles",1662616800,time,place);//1135
+    placeList->linkendTimePlace("Guatuso",1662703200,time,place); // 887
+    placeList->linkendTimePlace("Talamanca",1662789600,time,place);// 235
 
+    placeList->linkendTimePlace("San Carlos",1577836800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1578009600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1581292800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1580688000,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1583366400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1584403200,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1587686400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1586217600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1588982400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1591833600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1594598400,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1597449600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1600300800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
+    placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
+
+    placeList->linkendTimePlace("Palmares",1672552800,time,place);//01/01/2023
+    placeList->linkendTimePlace("Palmares",1675231200,time,place);//01/02/2023
+    placeList->linkendTimePlace("Palmares",1690869600,time,place);//01/03/2023
+    placeList->linkendTimePlace("Palmares",1691042400,time,place);//03/08/2023
+    //placeList->linkendTimePlace("Palmares",1701756000,time,place);//05/12/2023
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
 
     /*timeList->linkendRainTime("1",1662789600,rain,time); // 10 / 09 / 2022
@@ -476,6 +527,15 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
 
 
 
+    timeList->linkendRainTime("2",1672552800,rain,time);
+    timeList->linkendRainTime("3",1675231200,rain,time);
+    timeList->linkendRainTime("1",1690869600,rain,time);
+    timeList->linkendRainTime("5",1701756000,rain,time);
+
+
+
+
+
 }
 
 
@@ -498,6 +558,7 @@ int main()
     rainList=rainList->dataLoad(rainList);
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
+
     //timeList->print(timeList);
 
     //SE CARGAN DATOS A LAS SUBLISTAS
@@ -511,6 +572,8 @@ int main()
     //regionList->MonthlyRain(2022,regionList);
     //rainList->printRainList(rainList);
     //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
+    
+
     placeList->printRainyDays(2020,"San Carlos",placeList);
     //placeList->printPercentageRain(2022,"San Carlos",placeList);
     //placeList->print(placeList);
@@ -518,13 +581,15 @@ int main()
     //r->placeSublist->linkPlace->modify("San Carlos","Santa Clara",2500,456.07,placeList);
     //placeList->print(placeList);
 
+    placeList->printRainyDays(2023,"Palmares",placeList);
+    //placeList->printPercentageRain(2023,"Palmares",placeList);
+    //regionList->printVarWeather("NA",2021,2022,regionList);
 
+    //placeList->printPercentageRain(2023,"Palmares",placeList);
 
-
-
-
-
-
+    //placeList->printSubTimePlace("San Carlos",placeList);
+    //placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
+    //placeList->printRainyDays(2020,"San Carlos",placeList);
 
 
 

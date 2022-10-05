@@ -298,10 +298,10 @@ void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
     //cout<< "Promedio de las variables climatologicas en la region "<<reg->getName()<<endl;
     //cout<< "En el periodo de "<<year1<<" a "<<year2<<"\n"<<endl;
     cout<<"\n\t________________________________________________\n";
-    cout<< "\n\tPromedio de precipitacion: "<<promPreci/cont<<endl;
-    cout<< "\n\tPromedio de Maxima temperatura: "<<promMaxTemp/cont<<endl;
-    cout<< "\n\tPromedio de Minima temperatura: "<<promMinTemp/cont<<endl;
-    cout<< "\n\tPromedio de dias de lluvia: "<< (float)cont/promDayRain<<endl;
+    cout<< "\n\tPromedio de precipitacion: "<<(promPreci*cont)/100<<endl;
+    cout<< "\n\tPromedio de Maxima temperatura: "<<(promMaxTemp*cont)/100<<endl;
+    cout<< "\n\tPromedio de Minima temperatura: "<<(promMinTemp*cont)/100<<endl;
+    cout<< "\n\tPromedio de dias de lluvia: "<< (float)(promDayRain*cont)/100<<endl;
     cout<<"\n\t________________________________________________\n";
     cout<<"\n\tPresione cualquier tecla para regresar al menu...";
     cin.ignore();
@@ -312,7 +312,7 @@ void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
 
 //New code
 
-//Reporte imprimir la precipitación mensual promedio de cada region en un año X.
+//Reporte imprimir la precipitaciï¿½n mensual promedio de cada region en un aï¿½o X.
 
 void Region::MonthlyRain(int year,Region* regionList){
     system("cls");

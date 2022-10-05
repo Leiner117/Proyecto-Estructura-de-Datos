@@ -292,7 +292,6 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1584403200 ,887,27.0,12.9,28,25,36,false,timeList);
     timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
 
-
     timeList=add(1577772000 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1577944800 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1581228000 ,235,23.3,16.5,25,60,32,true,timeList);
@@ -309,10 +308,11 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1605852000 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1671688800 ,235,23.3,16.5,25,60,32,true,timeList);
 
-
-
-
-
+    timeList=add(1672552800 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
+    timeList=add(1675231200 ,235,23.3,16.5,25,60,32,true,timeList);//01/02/2023
+    timeList=add(1690869600 ,235,23.3,16.5,25,60,32,true,timeList);//01/08/2023
+    timeList=add(1691042400 ,235,23.3,16.5,25,60,32,true,timeList);//03/08/2023
+    timeList=add(1701756000 ,235,23.3,16.5,25,60,32,true,timeList);//05/12/2023
 
 
     cout<<"\n--- Se cargaron los datos correctamente ---\n";
@@ -524,42 +524,36 @@ void TimeRegis::printSubRain(long int date,TimeRegis* timeList){
     }
 
 }
-/*
-void calcMonthRain(int year, string place,TimeRegis* timeList){
 
-    TimeRegis* time = timeList;
+void TimeRegis::periodInYear(int year, TimeRegis*timeList){
+    TimeRegis*tempList = timeList;
+    int cont = 0;
+    int day = 0;
+    string rain = "";
+    while(tempList !=NULL){
+        tm*date = tempList->unixDateToDate(tempList->getDateR());
+        if(date->tm_year == year){
+            if (tempList->getRained()){
+                if(day == 0){
+                    day = date->tm_mday;
+                    rain = tempList->rainSublist->linkRain->getName();
+                }
+                else if((day == date->tm_mday-1)&& (rain == tempList->rainSublist->linkRain->getName())){
 
-    int contA,contB;
-
-    while(time!=NULL){
-
-            if ()
-
-            if(time->unixDateToDate(time->getDateR())->tm_year==year){
+                    cont++;
+                    day = date->tm_mday;
 
 
+                }
+                else{
+                    rain = "";
+                    cont = 0;
+                }
             }
-
-
-
-
-
-
-
-
-
-
+        }
+        tempList = tempList->next;
     }
-
-
-
-
-
-
 }
-*/
-
-
 
 
 
