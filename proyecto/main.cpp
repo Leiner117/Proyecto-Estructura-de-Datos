@@ -32,10 +32,11 @@ Ephemerality* ephemeralityList;
 
 //new code
 
-//REGISTRO DE UNA PERSONA
+
 bool valDate(int day,int month,int year){
     bool flag = true;
     if (day > 31 || day <1){
+
         flag = false;
     }
     if (month > 12 || month < 1){
@@ -45,6 +46,9 @@ bool valDate(int day,int month,int year){
     if (year < 2000){
         flag = false;
 
+    }
+    if (!flag){
+        cout<<"Formato de fecha incorrecto!."<<endl;
     }
     return flag;
 }
@@ -175,32 +179,35 @@ void ephemeralityLogin(){
 
     cout << "\n\t\tINGRESE LA FECHA DE LA EFEMERIADAD";
 
-    cout << "\n\t\tDIA: ";
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
-    if (!valDate(day, month, year)){
-        cout<<"Ingreso un formato de fecha incorrecto!."<<endl;
-    }
+    do{
+        cout << "\n\t\tDIA: ";
+
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
     date=ephemeralityList->dateToUnixDate(year,month,day);
+    do{
+        cout << "\n\t\tINGRESE LA HORA DE SALIDA";
 
-    cout << "\n\t\tINGRESE LA HORA DE SALIDA";
+        cout << "\n\t\tHORA: ";
+        cin>>hourDeparture;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesDeparture;
+        cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
+        cout << "\n\t\tHORA: ";
+        cin>>hourHide;
+        cout << "\t\tMINUTOS: ";
+        cin>>minutesHide;
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourDeparture;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesDeparture;
+    }while(ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
+
 
     departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
 
-    cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
 
-    cout << "\n\t\tHORA: ";
-    cin>>hourHide;
-    cout << "\t\tMINUTOS: ";
-    cin>>minutesHide;
 
     hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
 
@@ -224,14 +231,16 @@ void timeLogin(){
     bool yesRained=NULL;
 
     cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
+    do{
+        cout << "\n\t\tDIA: ";
 
-    cout << "\n\t\tDIA: ";
+        cin>>day;
+        cout << "\t\tMES: ";
+        cin>>month;
+        cout << "\t\tYEAR: ";
+        cin>>year;
+    }while(!valDate(day, month, year));
 
-    cin>>day;
-    cout << "\t\tMES: ";
-    cin>>month;
-    cout << "\t\tYEAR: ";
-    cin>>year;
 
     registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
 
@@ -419,6 +428,7 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("Naranjo",1568095200,time,placeList); //10 / 09 / 2019
 
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
+
     timeList->linkendRainTime("1",1662098400,rainList,time); // 02 / 09 / 2022
     timeList->linkendRainTime("3",1657432800,rainList,time); // 10 / 07 / 2022
     timeList->linkendRainTime("1",1662703200,rainList,time); //09 / 09 / 2022
@@ -437,9 +447,24 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("Guatuso",1662703200,time,place);   // 09 / 09 / 2022
     placeList->linkendTimePlace("Talamanca",1662789600,time,place); // 10 / 09 / 2022
 
+    timeList->linkendRainTime("1",1662098400,rainList,timeList);
+    timeList->linkendRainTime("3",1657432800,rainList,timeList);
+    timeList->linkendRainTime("1",1662703200,rainList,timeList);
+    timeList->linkendRainTime("5",1662271200,rainList,timeList);
+    timeList->linkendRainTime("10",1662012000,rainList,timeList);
+    timeList->linkendRainTime("2",1662357600,rainList,timeList);
+    timeList->linkendRainTime("2",1672552800,rainList,time);//01/01/2023
+    timeList->linkendRainTime("5",1675231200,rainList,time);//01/02/2023
+    timeList->linkendRainTime("4",1690869600,rainList,time);//01/03/2023
 
 
 
+
+    placeList->linkendTimePlace("Palmares",1672552800,time,place);//01/01/2023
+    placeList->linkendTimePlace("Palmares",1675231200,time,place);//01/02/2023
+    placeList->linkendTimePlace("Palmares",1690869600,time,place);//01/03/2023
+    placeList->linkendTimePlace("Palmares",1691042400,time,place);//03/08/2023
+    //placeList->linkendTimePlace("Palmares",1701756000,time,place);//05/12/2023
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
 
     /*timeList->linkendRainTime("1",1662789600,rain,time); // 10 / 09 / 2022
@@ -476,6 +501,15 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
 
 
 
+    timeList->linkendRainTime("2",1672552800,rain,time);
+    timeList->linkendRainTime("3",1675231200,rain,time);
+    timeList->linkendRainTime("1",1690869600,rain,time);
+    timeList->linkendRainTime("5",1701756000,rain,time);
+
+
+
+
+
 }
 
 
@@ -498,6 +532,7 @@ int main()
     rainList=rainList->dataLoad(rainList);
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
+
     //timeList->print(timeList);
 
     //SE CARGAN DATOS A LAS SUBLISTAS
@@ -517,6 +552,15 @@ int main()
     //Region*r = regionList->searchRegion("NA",regionList);
     //r->placeSublist->linkPlace->modify("San Carlos","Santa Clara",2500,456.07,placeList);
     //placeList->print(placeList);
+    placeList->printRainyDays(2023,"Palmares",placeList);
+    //placeList->printPercentageRain(2023,"Palmares",placeList);
+    //regionList->printVarWeather("NA",2021,2022,regionList);
+
+    //placeList->printPercentageRain(2023,"Palmares",placeList);
+
+    //placeList->printSubTimePlace("San Carlos",placeList);
+    //placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
+    //placeList->printRainyDays(2020,"San Carlos",placeList);
 
 
 

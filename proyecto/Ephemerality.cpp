@@ -534,7 +534,14 @@ Se encarga de imprimir las dos fechas con la mayor diferencia de la salida del s
 
 
  }
+bool Ephemerality::valTime(int hourDeparture,int minutesDeparture,int hoursHide,int minutesHide){
+     bool flag = false;
+     if ((hourDeparture <=24 && hourDeparture>0)&&(hoursHide <=24 && hoursHide>0)&&(minutesDeparture <=60 && minutesDeparture >0)&&(minutesHide <=60 && minutesHide >0)){
+         flag  =true;
 
+     }
+     return flag;
+ }
 
 
 
