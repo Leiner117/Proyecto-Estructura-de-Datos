@@ -293,6 +293,9 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
 
 
+    timeList=add(1672552800 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
+    timeList=add(1675231200 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
+    timeList=add(1690869600 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
 
 
 

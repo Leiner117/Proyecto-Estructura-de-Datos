@@ -414,6 +414,9 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     timeList->linkendRainTime("5",1662271200,rainList,timeList);
     timeList->linkendRainTime("10",1662012000,rainList,timeList);
     timeList->linkendRainTime("2",1662357600,rainList,timeList);
+    timeList->linkendRainTime("2",1672552800,rainList,time);//01/01/2023
+    timeList->linkendRainTime("5",1675231200,rainList,time);//01/02/2023
+    timeList->linkendRainTime("4",1690869600,rainList,time);//01/03/2023
 
 
     //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 1245
@@ -444,7 +447,9 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
     placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
 
-
+    placeList->linkendTimePlace("Palmares",1672552800,time,place);//01/01/2023
+    placeList->linkendTimePlace("Palmares",1675231200,time,place);//01/02/2023
+    placeList->linkendTimePlace("Palmares",1690869600,time,place);//01/03/2023
     //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
     timeList->linkendRainTime("1",1662789600,rain,time);
     timeList->linkendRainTime("1",1662444000,rain,time);
@@ -452,6 +457,12 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     timeList->linkendRainTime("1",1662098400,rain,time);
     timeList->linkendRainTime("1",1662271200,rain,time);
     timeList->linkendRainTime("1",1662357600,rain,time);
+
+    timeList->linkendRainTime("2",1672552800,rain,time);
+    timeList->linkendRainTime("3",1675231200,rain,time);
+    timeList->linkendRainTime("1",1690869600,rain,time);
+
+
 
 }
 
@@ -490,12 +501,14 @@ int main()
     //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
     //placeList->printRainyDays(2020,"San Carlos",placeList);
     //placeList->printPercentageRain(2022,"San Carlos",placeList);
-    regionList->printVarWeather("NA",2021,2022,regionList);
+    //regionList->printVarWeather("NA",2021,2022,regionList);
 
-    //placeList->printPercentageRain(2020,"San Carlos",placeList);
+    placeList->printPercentageRain(2023,"Palmares",placeList);
 
     //placeList->printSubTimePlace("San Carlos",placeList);
-    placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
+    //placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
+    //placeList->printRainyDays(2020,"San Carlos",placeList);
+
 
 
 
