@@ -292,7 +292,11 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
     }
 
     NodoSubTime* newNodo = new NodoSubTime();
-<<<<<<<<< Temporary merge branch 1
+<<<<<<< HEAD
+    newNodo->linkTime = timeR;
+    newNodo->next = plc->timeRegiSublist;
+    plc->timeRegiSublist = newNodo;
+=======
     if (plc->timeRegiSublist == NULL){
         plc->timeRegiSublist = newNodo;
         newNodo->linkTime = timeR;
@@ -309,11 +313,7 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
             ant = temp;
             temp = temp->next;
         }
-=========
-    newNodo->linkTime = timeR;
-    newNodo->next = plc->timeRegiSublist;
-    plc->timeRegiSublist = newNodo;
->>>>>>>>> Temporary merge branch 2
+>>>>>>> main
 
 
         ant->next = newNodo;

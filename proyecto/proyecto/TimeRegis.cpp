@@ -293,13 +293,7 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1587686400 ,235,23.3,16.5,25,60,32,true,timeList);
 
 
-
-    timeList=add(1672552800 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
-    timeList=add(1675231200 ,235,23.3,16.5,25,60,32,true,timeList);//01/02/2023
-    timeList=add(1690869600 ,235,23.3,16.5,25,60,32,true,timeList);//01/08/2023
-    timeList=add(1691042400 ,235,23.3,16.5,25,60,32,true,timeList);//03/08/2023
-    timeList=add(1701756000 ,235,23.3,16.5,25,60,32,true,timeList);//05/12/2023
-
+<<<<<<< HEAD
     timeList=add(1577772000 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1577944800 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1581228000 ,235,23.3,16.5,25,60,32,true,timeList);
@@ -316,7 +310,13 @@ TimeRegis* TimeRegis::dataLoad(TimeRegis* timeList){
     timeList=add(1605852000 ,235,23.3,16.5,25,60,32,true,timeList);
     timeList=add(1671688800 ,235,23.3,16.5,25,60,32,true,timeList);
 
-
+=======
+    timeList=add(1672552800 ,235,23.3,16.5,25,60,32,true,timeList);//01/01/2023
+    timeList=add(1675231200 ,235,23.3,16.5,25,60,32,true,timeList);//01/02/2023
+    timeList=add(1690869600 ,235,23.3,16.5,25,60,32,true,timeList);//01/08/2023
+    timeList=add(1691042400 ,235,23.3,16.5,25,60,32,true,timeList);//03/08/2023
+    timeList=add(1701756000 ,235,23.3,16.5,25,60,32,true,timeList);//05/12/2023
+>>>>>>> main
 
 
 
