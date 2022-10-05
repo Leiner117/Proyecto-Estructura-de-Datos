@@ -89,6 +89,16 @@ Funcion buscar efimeridad
 Retorna el nodo de efimeridad solicitado
 */
 
+/**
+ * Esta función busca una efímera en la lista de efímera basada en la fecha
+ *
+ * Args:
+ *   date (long int): La fecha de lo efímero que quieres buscar.
+ *   eList (Ephemerality): La lista de lo efímero
+ *
+ * Returns:
+ *   Un puntero al objeto Ephemeraality que tiene la fecha en que se pasó.
+ */
 Ephemerality*Ephemerality::searchEphemerality(long int date,Ephemerality*eList){
     if(eList == NULL){
         return NULL;
