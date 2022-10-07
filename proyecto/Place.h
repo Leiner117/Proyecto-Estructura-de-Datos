@@ -43,7 +43,7 @@ class Place
         void printSubTimePlace(string ,Place*);
 
 
-        void MonthlyRain(int,Place* );
+        void MonthlyRain(int,string,Place* );
         //NodoSubTime* linkendTimePeople(string,string,TimeRegis*,People*);
         //void printSublistTime(string,People*);
 

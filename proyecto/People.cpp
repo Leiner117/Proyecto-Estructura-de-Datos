@@ -235,7 +235,7 @@ People* People::dataLoad(People* peopleList){
     //peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
     //peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
     peopleList=addPeople("Leiner","202204",20,"Bajo Rodriguez","2022",peopleList);
-    //peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
+    peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
     peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
     peopleList=addPeople("Karina","202207",18,"Los Angeles","2022",peopleList);
     //peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);

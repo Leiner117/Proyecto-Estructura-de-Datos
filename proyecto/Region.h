@@ -39,7 +39,7 @@ class Region
         void printSublistPlace(string,Region*);
         //void dataLoadSublist(Region*);
 
-        void MonthlyRain(int ,Region* );
+        void MonthlyRain(int ,string,Region* );
 
         //Puntero
         Region * next = NULL;

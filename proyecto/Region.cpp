@@ -2,6 +2,7 @@
 #include "Place.h"
 #include <string>
 #include <iostream>
+#include <map>
 #include "TimeRegis.h"
 using namespace std;
 
@@ -314,47 +315,74 @@ void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
 
 //Reporte imprimir la precipitaci�n mensual promedio de cada region en un a�o X.
 
-void Region::MonthlyRain(int year,Region* regionList){
+void Region::MonthlyRain(int year,string id,Region* regionList){
     system("cls");
-    Region * reg = regionList;
 
-    int totalPrecip;
-       /* cout<<"\n\t   =========================================\n";
-        cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
-        cout<<"\t   ||                 "<<year<<"                ||\n";
-        cout<<"\t   =========================================\n";
-        */
-    while(reg!=NULL){
-        system("cls");
+    string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+    map <string, float> precipMonth;
+    int month =0;
+    int days = 0;
+    float totalPrecip=0;
+
+    Region* reg = reg->searchRegion(id,regionList);
+    NodoSubTime*time = reg->placeSublist->linkPlace->timeRegiSublist;
 
         cout<<"\n\t   =========================================\n";
         cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
-        cout<<"\t   ||                 "<<year<<"                ||\n";
+        cout<<"\t   ||          "<<reg->getName()<<" "<<year<<"            ||\n";
         cout<<"\t   =========================================\n";
-        if(reg->placeSublist==NULL){
-            cout<<"\n\t   "<<reg->getName()<<" no tiene registros del tiempo\n";
+
+
+    while(reg->placeSublist!=NULL){
+
+        cout<<reg->placeSublist->linkPlace->getName()<<endl;
+
+        if(time==NULL){
+
+            cout<<"\n"<<reg->placeSublist->linkPlace->getName()<<" no tiene registros del tiempo en esta fecha"<<endl;
         }
         else{
-            //cout<<reg->placeSublist->linkPlace->timeRegiSublist;
-            while(reg->placeSublist->linkPlace->timeRegiSublist!=NULL){
-                if(year== reg->placeSublist->linkPlace->timeRegiSublist->linkTime->unixDateToDate(reg->placeSublist->linkPlace->timeRegiSublist->linkTime->getDateR())->tm_year){
-                    totalPrecip=totalPrecip+reg->placeSublist->linkPlace->timeRegiSublist->linkTime->getPrecip();
+
+            while(time!=NULL){
+
+               cout<<time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon<<endl;
+
+                if(time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
+
+                    if(time->linkTime->getRained()){
+
+                        month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
+
+                        if(time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon==time->linkTime->next->unixDateToDate(time->linkTime->next->getDateR())->tm_mon){
+                            totalPrecip = totalPrecip + time->linkTime->getPrecip();
+                            days++;
+                        }
+                        else{
+                            totalPrecip = totalPrecip + time->linkTime->getPrecip();
+                            days++;
+                            precipMonth[months[month-1]] = totalPrecip/days;
+
+                            cout<<precipMonth[months[month-1]]<<endl;
+                        }
+                    }
                 }
-                reg->placeSublist->linkPlace->timeRegiSublist=reg->placeSublist->linkPlace->timeRegiSublist->next;
+                time=time->next;
+                totalPrecip=0;
+                days=0;
 
             }
-
-            cout<<"\t   REGION: "<<reg->getName()<<"\n\t   PRECIPITACION TOTAL: "<<totalPrecip<<endl;
         }
-        cout<<"\t   _________________________________________\n";
-        totalPrecip=0;
-        reg = reg->next;
-        //cout<<reg->getName();
-
-        cout<<"\n\t   Presione cualquier tecla para continuar...";
-        cin.ignore();
-        cin.get();
+        reg->placeSublist= reg->placeSublist->next;
     }
 
+    if(reg->placeSublist!=NULL){
 
+        while(month>0){
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tMes: "<<months[month-1]<<endl;
+            cout<<"\n\tPrecipitacion Promedio: "<<precipMonth[months[month-1]]<<endl;
+            month--;
+
+        }
+    }
 }

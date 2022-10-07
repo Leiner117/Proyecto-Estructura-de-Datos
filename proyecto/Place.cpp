@@ -211,12 +211,7 @@ Place* Place::searchPlace(string n, Place* placeList){
 
 
 //Imprime la lista completa
-/**
- * Imprime el nombre, población y metros cuadrados de cada lugar de la lista
- *
- * Args:
- *   placeList (Place): es el encabezado de la lista enlazada circular
- */
+
 void Place:: print(Place* placeList){
 
     if(placeList== NULL)
@@ -232,12 +227,6 @@ void Place:: print(Place* placeList){
 }
 
 //Se reciben datos de entrada
-/**
- * It asks the user to input the name, population and area of a place
- */
-/**
- * Le pide al usuario que ingrese el nombre, la población y el área de un lugar
- */
 void Place::askData(){
 
     string n;
@@ -364,65 +353,59 @@ void Place::printSubTimePlace(string namePlace,Place* placeList){
 }
 
 
+
 //New code
 
-//Reporte imprimir la precipitaci�n mensual promedio de cada lugar en un a�o X.
 
-void Place::MonthlyRain(int year,Place* placeList){
-    system("cls");
-    Place * plc = placeList;
-    int cont, month;
+void Place::MonthlyRain(int year,string namePlace,Place* placeList){
+
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
+    int month =0;
+    int days = 0;
 
+    Place* plc = plc->searchPlace(namePlace,placeList);
+    NodoSubTime*time = plc->timeRegiSublist;
 
-    int totalPrecip;
+    float totalPrecip = 0;
+
         cout<<"\n\t   =========================================\n";
         cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
-        cout<<"\t   ||                 "<<year<<"                ||\n";
+        cout<<"\t   ||         "<<plc->getName()<<" "<<year<<"             ||\n";
         cout<<"\t   =========================================\n";
-    do{
-        //system("cls");
 
-        //cout<<"\n\t   =========================================\n";
-        //cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
-        //cout<<"\t   ||                 "<<year<<"                ||\n";
-        //cout<<"\t   =========================================\n";
-        if(plc->timeRegiSublist==NULL){
-            cout<<"\n\t   "<<plc->getName()<<" no tiene registros del tiempo\n";
-        }
-        else{
-            while(plc->timeRegiSublist->linkTime!=NULL){
-                if(year==plc->timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_year){
-                    if(plc->timeRegiSublist->linkTime->getRained()){
-                        if (month==0){
-                            month=plc->timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_mon;
-                        }
-                        else if(month != plc->timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_mon){
-                            cout<<"\n\t________________________________________________\n";
-                            cout<<"\n\tMes: "<<months[month-1]<<endl;
-                            cout<<"\n\tPromedio de Precipitacion mesual: "<<(totalPrecip*cont)/100<<endl;
-                            month = timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_mon;
-                            totalPrecip=0;
-                        }
-                        cont++;
-                        totalPrecip=totalPrecip+plc->timeRegiSublist->linkTime->getPrecip();
-                    }
+    while (time !=  NULL){
+
+        if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
+
+            if (time->linkTime->getRained()){
+
+                month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
+
+                if(time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon==time->linkTime->next->unixDateToDate(time->linkTime->next->getDateR())->tm_mon){
+
+                    totalPrecip = totalPrecip + time->linkTime->getPrecip();
+                    days++;
                 }
-                plc->timeRegiSublist->linkTime=plc->timeRegiSublist->linkTime->next;
+                else{
+                    totalPrecip = totalPrecip + time->linkTime->getPrecip();
+                    days++;
+                    cout<<"\n\t________________________________________________\n";
+                    cout<<"\n\tMes: "<<months[month-1]<<endl;
+                    //cout<<"\n\tDIAS:  "<<days<<endl;
+                    cout<<"\n\tPrecipitacion Promedio: "<<(totalPrecip/days)<<endl;
+                    totalPrecip=0;
+                    days=0;
+                }
             }
-
-            //cout<<"\t   LUGAR: "<<plc->getName()<<"\n\t   PRECIPITACION TOTAL: "<<totalPrecip<<endl;
         }
-        cout<<"\t   _________________________________________\n";
-        //totalPrecip=0;
-        plc = plc->next;
-        //cout<<"\n\t   Presione cualquier tecla para continuar...";
-       // cin.ignore();
-        //cin.get();
-    }while(plc!=placeList);
-
-
+        time = time->next;
+    }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cin.ignore();
+    cin.get();
 }
+
 // Nuevo codigo
 
 //void printVarWeather()
@@ -511,7 +494,6 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
 
                 }
 
-
                 NodoSubRain*rainList= timeList->linkTime->rainSublist;
                 if (rainList != NULL){
                     cont++;
@@ -543,211 +525,6 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
     cin.get();
 }
 
-
-
-//}
-// Nuevo codigo
-
-//void printVarWeather()
-
-/*void Place::printRainyDays(int year,string namePlace,Place*pList){
-    string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
-    int month =0;
-    int days = 0;
-
-    Place* plc = plc->searchPlace(namePlace,pList);
-    NodoSubTime*time = plc->timeRegiSublist;
-
-    cout<<"\n\n\t   =============================================\n";
-    cout<<"\t   ||      Dias lluviosos en "<<plc->getName()+"       ||\n";
-    cout<<"\t   =============================================\n";
-
-    while (time !=  NULL){
-
-        if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
-            if (time->linkTime->getRained()){
-                days++;
-                if (month == 0) {
-                    month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
-                    //days++;
-                }
-                else if (month != time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon){
-                    cout<<"\n\t________________________________________________\n";
-                    cout<<"\n\tMes: "<<months[month-1]<<endl;
-                    cout<<"\n\tDias lluviosos: "<<days<<endl;
-                    month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
-                    days = 0;
-                }
-                //NodoSubRain*rainList= time->linkTime->rainSublist;
-                //days++;
-            }
-        }
-        time = time->next;
-    }
-    cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
-    cin.ignore();
-    cin.get();
-}
-*/
-
-/*
-
-int Place::countDataRepeated(string code,NodoSubRain* subRain){
-
-    int cont;
-  if(subRain!=NULL)
-  {
-    if(subRain->linkRain->getRainCode()=='1')
-    {
-       cont=1+countDataRepeated(subRain->next);
-    }
-    else
-    {
-       cont=0+countDataRepeated(subRain->Rain);
-    }
-
-  }
-
- return cont;
-}
-
-
-void Place::calcMonthRain(int year, string place,Place* placeList){
-
-    Place* plc = plc->searchPlace(place,placeList);
-
-    int contA,contB,contC,contD;
-
-    if(plc->timeRegiSublist==NULL){
-            cout<<"\n\t"<<plc->getName()<<" no tiene registro del tiempo\n";
-    }
-    else{
-        NodoSubTime*time = plc->timeRegiSublist;
-        while(time!=NULL){
-            if(time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_year == year){
-
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==1){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                else if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==2){
-                    contC=countDataRepeated(1,time->linkTime->rainSublist);
-                    contD=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-
-                if(contA<contC)&&(contB<contD){
-
-                }
-
-
-
-
-
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==3){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==4){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==5){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==6){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==7){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==8){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==5){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==6){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==7){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-                if (time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon ==8){
-                    contA=countDataRepeated(1,time->linkTime->rainSublist);
-                    contB=countDataRepeated(1,time->linkTime->rainSublist);
-                }
-
-            }
-
-
-        }
-    }
-
-
-
-        else{
-            while
-
-
-
-
-                while(plc->timeRegiSublist!=NULL){
-                    if(plc->timeRegiSublist->linkTime->unixDateToDate(plc->timeRegiSublist->linkTime->getDateR())->tm_year==year){
-                                contA=
-
-
-                            }
-                        }
-
-
-
-
-
-
-                    }
-                    plc->timeRegiSublist->linkTime= plc->timeRegiSublist->linkTime->next;
-
-                }
-
-            }
-
-        }
-        plc=plc->next;
-    }while(plc!=placeList);
-
-
-
-    (plc!=NULL){
-
-            if ()
-
-            if(time->unixDateToDate(time->getDateR())->tm_year==year){
-
-
-            }
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-*/
 
 struct tempList{
     int month;
@@ -894,7 +671,6 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                 if (month == 0) {
                     month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
                     //days++;
-
                 }
                 if(month == time->linkTime->next->unixDateToDate(time->linkTime->getDateR())->tm_mon){
                     days++;
@@ -928,18 +704,13 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                             else{
                                 flag = 0;
                             }
-
-
                         }
-
-
                     }
                     flag = 1;
 
                 }
                 //NodoSubRain*rainList= time->linkTime->rainSublist;
                 //days++;
-
             }
         }
         time = time->next;
