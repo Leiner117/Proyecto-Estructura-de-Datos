@@ -1,23 +1,23 @@
 # depslib dependency file v1.0
-1664670993 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.cpp
+1665218016 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.cpp
 	"Ephemerality.h"
 	<string>
 	<iostream>
 	<time.h>
 
-1664508134 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.h
+1665195299 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\ephemerality.h
 	<string>
 	<time.h>
 
-1664672441 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.cpp
+1665211484 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.cpp
 	"Rain.h"
 	<string>
 	<iostream>
 
-1664222202 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.h
+1665211484 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\rain.h
 	<string>
 
-1664702428 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\main.cpp
+1665248392 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\main.cpp
 	<iostream>
 	<ctime>
 	<fstream>
@@ -29,43 +29,45 @@
 	"Rain.h"
 	<windows.h>
 
-1664518493 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.h
+1665195569 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.h
 	<string>
 	"Rain.h"
 
-1664692170 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.h
+1665245093 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.h
 	<string>
 	"TimeRegis.h"
 	"People.h"
 
-1664699593 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.h
+1665243203 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.h
 	<string>
 	"Place.h"
 
-1664665643 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.h
+1665195257 c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.h
 	<string>
 	"TimeRegis.h"
 
-1664699636 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.cpp
+1665242951 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\place.cpp
 	"Place.h"
 	"TimeRegis.h"
 	<string>
 	<iostream>
 
-1664702537 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.cpp
+1665243203 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\region.cpp
 	"Region.h"
 	"Place.h"
 	<string>
 	<iostream>
+	<map>
+	"TimeRegis.h"
 
-1664690937 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.cpp
+1665199826 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\timeregis.cpp
 	"TimeRegis.h"
 	"Ephemerality.h"
 	<string>
 	<iostream>
 	<time.h>
 
-1664689144 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.cpp
+1665210675 source:c:\users\karina\desktop\estructura de datos\proyecto\proyecto-estructura-de-datos\proyecto\people.cpp
 	"People.h"
 	"TimeRegis.h"
 	<string>

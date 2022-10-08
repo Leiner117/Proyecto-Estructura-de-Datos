@@ -9,18 +9,13 @@
 #include "Rain.h"
 #include<windows.h>
 
-
-
 /*
-    Autor: Karina Urbina
+    Autores: Karina Urbina y Leiner Alvarado
     Iniciado: 12/09/2022
-    Avance1: 16/09/2022
-    Ultima modificacion:
-
+    Ultima modificacion: 07/10/2022
 */
 
 using namespace std;
-
 
 Place* placeList;
 Region* regionList;
@@ -29,29 +24,308 @@ Rain* rainList;
 People* peopleList;
 Ephemerality* ephemeralityList;
 
-//new code
-
-
+/**
+ * Funcion que verifica si los datos de fecha son validos
+ *
+ * Args:
+ *   day (int): Dia.
+ *   month (int): Mes, especificado como un número entero entre 1 y 12 (enero = 1, febrero = 2, etc.).
+ *   year (int): Año.
+ *
+ * Returns:
+ *   Un valor booleano
+ */
 bool valDate(int day,int month,int year){
     bool flag = true;
     if (day > 31 || day <1){
-
         flag = false;
     }
     if (month > 12 || month < 1){
         flag = false;
-
     }
     if (year < 2000){
         flag = false;
-
     }
     if (!flag){
-        cout<<"Formato de fecha incorrecto!."<<endl;
+        cout<<"\n\t\tINGRESO UN DATO DE FECHA NO VALIDO! VUELVA A INTENTARLO"<<endl;
     }
     return flag;
 }
 
+
+/**
+ * Funcion para modificar los datos de un lugar en la lista de lugares
+ */
+void modifyPlace(){
+
+    string data,newPlc;
+    int newPobl,newMeters;
+
+    cout << "\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA MODIFICAR: ";
+    getline(cin>>ws, data);
+
+    cout << "\n\t\tINGRESE EL NUEVO NOMBRE DEL LUGAR: ";
+    getline(cin>>ws, newPlc);
+
+    cout << "\n\t\tINGRESE LA NUEVA POBLACION DEL LUGAR: ";
+    cin>>newPobl;
+
+    cout << "\n\t\tINGRESE EL NUEVO AREA DEL LUGAR: ";
+    cin>>newMeters;
+
+    placeList=placeList->modify(data,newPlc,newPobl,newMeters,placeList);
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+
+}
+
+/**
+ * Funcion para modificar los datos de una region en la lista de regiones
+ */
+void modifyRegion(){
+
+    string data,newReg,newID,newLocation;
+
+    cout << "\n\t\tINGRESE EL CODIGO DE LA REGION QUE DESEA MODIFICAR: ";
+    cin>>data;
+
+    cout << "\n\t\tINGRESE EL NUEVO NOMBRE DE LA REGION: ";
+    getline(cin>>ws, newReg);
+
+    cout << "\n\t\tINGRESE EL NUEVO CODIGO DE LA REGION: ";
+    cin>>newID;
+
+    cout << "\n\t\tINGRESE LA NUEVA UBICACION (PROVINCIA) DE LA REGION: ";
+    cin>>newLocation;
+
+    regionList=regionList->modify( data,newID,newReg,newLocation,regionList);
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+
+}
+
+/**
+ * Funcion para modificar los datos de un registro del tiempo en la lista de registros del tiempo
+ */
+void modifyTimeRegis(){
+
+    short month,day;
+    long int registrationDate,dateChance;
+    int precipitation,windSpeed,windDirection,humidity,year;
+    float maxTemperature,minTemperature;
+    bool yesRained=NULL;
+    string answer;
+
+    cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO QUE DESEA MODIFICAR";
+    do{
+        cout << "\n\t\tDIA (dd): ";
+        cin>>day;
+        cout << "\t\tMES (mm): ";
+        cin>>month;
+        cout << "\t\tYEAR (yy): ";
+        cin>>year;
+    }while(!valDate(day, month, year));
+
+    dateChance=ephemeralityList->dateToUnixDate(year,month,day);
+
+    day=0;
+    month=0;
+    year=0;
+
+    cout << "\n\t\tINGRESE LA NUEVA FECHA DEL REGISTRO";
+    do{
+        cout << "\n\t\tDIA (dd): ";
+        cin>>day;
+        cout << "\t\tMES (mm): ";
+        cin>>month;
+        cout << "\t\tYEAR (yy): ";
+        cin>>year;
+    }while(!valDate(day, month, year));
+
+    registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
+
+    cout << "\n\t\tINGRESE LA NUEVA PRECIPITACION: ";
+    cin>>precipitation;
+
+    cout << "\n\t\tINGRESE LA NUEVA TEMPERATURA MAXIMA: ";
+    cin>>maxTemperature;
+
+    cout << "\n\t\tINGRESE LA NUEVA TEMPERATURA MINIMA ";
+    cin>>minTemperature;
+
+    cout << "\n\t\tINGRESE LA NUEVA VELOCIDAD DEL VIENTO: ";
+    cin>>windSpeed;
+
+    cout << "\n\t\tINGRESE LA NUEVA DIRECCION DEL VIENTO: ";
+    cin>>windDirection;
+
+    cout << "\n\t\tINGRESE LA NUEVA HUMEDAD RELATIVA: ";
+    cin>>humidity;
+
+    cout << "\n\t\tLLOVIO?(S/N): ";
+    cin>>answer;
+
+    if((answer=="n")||(answer=="N")){
+        yesRained=false;
+    }
+    else if((answer=="s")||(answer=="S")){
+        yesRained=true;
+    }
+    timeList=timeList->modify(dateChance,registrationDate,precipitation,maxTemperature,minTemperature,windSpeed,windDirection,humidity,yesRained,timeList);
+
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+
+}
+
+/**
+ * Funcion para modificar los datos de una efimeridad en la lista de efimeridades
+ */
+void modEphemerality(){
+    short year,month,day;
+    string name;
+    long int date;
+    int departureTime,hideTime;
+    int hour,minutes;
+    cout << "\n\t\tINGRESE EL YEAR DE LA FECHA QUE DESEA MODIFICAR: ";
+    cin>>year;
+    cout << "\n\t\tINGRESE EL MES DE LA FECHA QUE DESEA MODIFICAR: ";
+    cin>>month;
+    cout << "\n\t\tINGRESE EL DIA DE LA FECHA QUE DESEA MODIFICAR: ";
+    cin>>day;
+    date = ephemeralityList->dateToUnixDate(year,month,day);
+    year=0;
+    month = 0;
+    day = 0;
+    Ephemerality*ephemerality = ephemeralityList->searchEphemerality(date,ephemeralityList);
+    if(ephemerality!=NULL){
+        cout << "\n\t\tINGRESE EL NUEVO YEAR DE LA FECHA QUE DESEA MODIFICAR: ";
+        cin>>year;
+        cout << "\n\t\tINGRESE EL NUEVO MES DE LA FECHA QUE DESEA MODIFICAR: ";
+        cin>>month;
+        cout << "\n\t\tINGRESE EL NUEVO MES DE LA FECHA QUE DESEA MODIFICAR: ";
+        cin>>day;
+        date = ephemeralityList->dateToUnixDate(year,month,day);
+        Ephemerality*ephemerality = ephemeralityList->searchEphemerality(date,ephemeralityList);
+        if(ephemeralityList->searchEphemerality(date,ephemeralityList) == NULL){
+            cout << "\n\t\tINGRESE EL NUEVO NOMBRE DE LA EFIMERIDAD: ";
+            getline(cin>>ws,name);
+
+            cout << "\n\t\tINGRESE LA NUEVA HORA DE SALIDA DEL SOL: ";
+            cin>>hour;
+            cout << "\n\t\tINGRESE LOS NUEVOS MINUTOS DE SALIDA DEL SOL: ";
+            cin>>minutes;
+            departureTime = ephemeralityList->timeToSeconds(hour,minutes);
+            cout << "\n\t\tINGRESE LA NUEVA HORA DE OCULTAMIENTO DEL SOL: ";
+            cin>>hour;
+            cout << "\n\t\tINGRESE LOS NUEVOS MINUTOS DE OCULTAMIENTO DEL SOL: ";
+            cin>>minutes;
+            hideTime = ephemeralityList->timeToSeconds(hour,minutes);
+            ephemerality->setDate(date);
+            ephemerality->setDepartureTime(departureTime);
+            ephemerality->setHideTime(hideTime);
+            ephemerality->setName(name);
+        }else{
+            cout<<"\n\tLA NUEVA FECHA YA SE ENCUENTRA REGISTRADA";
+        }
+    }
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+}
+
+/**
+ * Funcion para modificar los datos de una persona en la lista de personas
+ */
+void modPeople(){
+    string name;
+    string id,newId;
+    short age;
+    string place;
+    string yearIncome;
+
+    cout<<"\n\t INGRESE LA ID DE LA PERSONA QUE DESEA MODIFICAR: ";
+    getline(cin>>ws,id);
+    if(peopleList->searchPeople(peopleList,id) ==NULL){
+        cout << "\n\t\tINGRESE EL NUEVO NOMBRE";
+        getline(cin>>ws,name);
+        cout << "\n\t\tINGRESE LA NUEVA ID: ";
+        getline(cin>>ws,newId);
+        People*p1 = peopleList->searchPeople(peopleList,id);
+        if(peopleList->searchPeople(peopleList,newId) == NULL){
+            cout << "\n\t\tINGRESE LA NUEVA EDAD: ";
+            cin>>age;
+            cout << "\n\t\tINGRESE EL NUEVO LUGAR DE RESIDENCIA: ";
+            getline(cin>>ws,place);
+            cout << "\n\t\tINGRESE EL NUEVO YEAR DE INGRESO: ";
+            getline(cin>>ws,yearIncome);
+            p1->setName(name);
+            p1->setId(newId);
+            p1->setYearIncome(yearIncome);
+            p1->setPlaceResidence(place);
+            p1->setAge(age);
+
+
+        }
+    }
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+}
+
+/**
+ * Funcion para modificar los datos de una condicion climatica en la lista de lluvia
+ */
+void modifyRain(){
+
+    string data,nameRain,rainCode;
+    int averageRange,opc;
+
+    cout << "\n\t\tINGRESE EL CODIGO DEL ESCENARIO CLIMATICO QUE DESEA MODIFICAR: ";
+    cin>>data;
+
+    if(rainList->searchRain(rainList,rainCode) == NULL){
+
+        cout<<"\t\t CLASIFICACION DE ESCENARIOS CLIMATICOS"<<endl;
+        cout<<"\t\t  1.Extremo lluvioso "<<endl;
+        cout<<"\t\t  2.Lluvioso "<<endl;
+        cout<<"\t\t  3.Normal "<<endl;
+        cout<<"\t\t  4.Seco "<<endl;
+        cout<<"\t\t  5.Extremo seco "<<endl;
+        cout<<"\t\t======================================================"<<endl;
+
+        cout << "\n\t\tELIGA EL NUEVO ESCENARIO CLIMATICO: ";
+        cin>>opc;
+
+        switch(opc){
+
+            case 1:
+                nameRain="Extremo lluvioso";
+            case 2:
+                nameRain="Lluvioso";
+            case 3:
+                nameRain="Normal";
+            case 4:
+                nameRain="Seco";
+            case 5:
+                nameRain="Extremo seco";
+        }
+
+
+
+
+    }
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+}
+
+/**
+ * Esta función se utiliza para agregar una nueva persona a la lista
+ */
 void userLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
@@ -78,40 +352,62 @@ void userLogin(){
     cin>>yearIncome;
 
     peopleList=peopleList->addPeople(namePerson,idPerson,age,residence,yearIncome,peopleList);
-    cout << "\n\t\tSUS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE PERSONAS... ";
-
-    Sleep(3000);
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 
 }
 
-//REGISTRO DE UN LUGAR
+/**
+ * Esta función permite al usuario agregar un nuevo lugar a la lista de lugares.
+ */
 void placeLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
     cout<<"\t\t\t\t  LISTA DE LUGARES  "<<endl;
     cout<<"\t\t======================================================"<<endl;
     cout<<endl;
+
+    string idRegion;
     string namePlace;
     int population;
     float area;
+    bool status= true;
 
-    cout << "\n\t\tINGRESE EL NOMBRE DEL LUGAR: ";
-    getline(cin>>ws, namePlace);
+    while(status){
 
-    cout << "\n\t\tINGRESE LA POBLACION DEL LUGAR: ";
-    cin>>population;
+            cout << "\n\t\tINGRESE El ID DE LA REGION A LA QUE PERTENECE ESTE LUGAR: ";
+            cin>>idRegion;
+            Region* reg =reg->searchRegion(idRegion,regionList);
 
-    cout << "\n\t\tINGRESE EL AREA DEL LUGAR: ";
-    cin>>area;
+            if(reg==NULL){
+                cout<<"\n\t\tEl ID no pertenece a ninguna region registrada....\n";
+            }
+            else{
+                cout << "\n\t\tINGRESE EL NOMBRE DEL LUGAR: ";
+                getline(cin>>ws, namePlace);
+
+                cout << "\n\t\tINGRESE LA POBLACION DEL LUGAR: ";
+                cin>>population;
+
+                cout << "\n\t\tINGRESE EL AREA DEL LUGAR: ";
+                cin>>area;
+                status=false;
+
+            }
+    }
 
     placeList=placeList->add(namePlace,population,area,placeList);
-    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LUGARES... ";
+    regionList->linkendPlaceRegion(idRegion,namePlace,placeList,regionList);
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 
 }
 
-
-
-//REGISTRO DE UNA REGION
+/**
+ * Esta función permite al usuario agregar una nueva región a la lista de regiones
+ */
 void regionLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
@@ -130,42 +426,68 @@ void regionLogin(){
     cin>>location;
 
     regionList=regionList->add(idRegion,nameRegion,location,regionList);
-    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE REGIONES... ";
-
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 }
 
-//REGISTRO DE LLUVIA
+/**
+ * Esta función permite al usuario agregar un nuevo escenario de lluvia a la lista
+ */
 void rainLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
     cout<<"\t\t\t\t  LISTA DE LLUVIAS  "<<endl;
     cout<<"\t\t======================================================"<<endl;
     cout<<endl;
+    cout<<"\t\t CLASIFICACION DE ESCENARIOS CLIMATICOS"<<endl;
+    cout<<"\t\t  1.Extremo lluvioso "<<endl;
+    cout<<"\t\t  2.Lluvioso "<<endl;
+    cout<<"\t\t  3.Normal "<<endl;
+    cout<<"\t\t  4.Seco "<<endl;
+    cout<<"\t\t  5.Extremo seco "<<endl;
+    cout<<"\t\t======================================================"<<endl;
 
     string nameRain,rainCode;
-    int averageRange;// Rango promedio en mm
+    int averageRange,opc;
 
-    cout << "\n\t\tINGRESE EL NOMBRE DEL ESCENARIO CLIMATICO: ";
-    cin>>nameRain;
+    cout << "\n\t\tELIGA UN ESCENARIO CLIMATICO: ";
+    cin>>opc;
 
-    cout << "\n\t\tINGRESE EL CODIGO DEL ESCENARIO CLIMATICO: ";
+    switch(opc){
+
+        case 1:
+            nameRain="Extremo lluvioso";
+        case 2:
+            nameRain="Lluvioso";
+        case 3:
+            nameRain="Normal";
+        case 4:
+            nameRain="Seco";
+        case 5:
+            nameRain="Extremo seco";
+    }
+
+    cout << "\n\t\tINGRESE UN CODIGO PARA EL ESCENARIO CLIMATICO: ";
     cin>>rainCode;
 
-    cout << "\n\t\tINGRESE EL RANGO PROMEDIO EN MILIMEMTROS(mm): ";
+    cout << "\n\t\tINGRESE EL RANGO PROMEDIO EN MILIMEMTROS (mm): ";
     cin>>averageRange;
 
     rainList=rainList->addRain(rainCode,nameRain,averageRange,rainList);
-    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LLUVIA... ";
-
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 
 }
 
-
-//REGISTRO DE EFEMERIDAD
+/**
+ * Funcion que permite al usario agregar una nueva efimeridad
+ */
 void ephemeralityLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
-    cout<<"\t\t\t\t  LISTA DE EPHEMERIDADES  "<<endl;
+    cout<<"\t\t\t\t  LISTA DE EFIMERIDADES    "<<endl;
     cout<<"\t\t\t======================================================"<<endl;
     cout<<endl;
 
@@ -181,44 +503,43 @@ void ephemeralityLogin(){
     cout << "\n\t\tINGRESE LA FECHA DE LA EFEMERIADAD";
 
     do{
-        cout << "\n\t\tDIA: ";
+        cout << "\n\t\tDIA (dd): ";
 
         cin>>day;
-        cout << "\t\tMES: ";
+        cout << "\t\tMES (mm): ";
         cin>>month;
-        cout << "\t\tYEAR: ";
+        cout << "\t\tYEAR (yy): ";
         cin>>year;
     }while(!valDate(day, month, year));
     date=ephemeralityList->dateToUnixDate(year,month,day);
     do{
         cout << "\n\t\tINGRESE LA HORA DE SALIDA";
 
-        cout << "\n\t\tHORA: ";
+        cout << "\n\t\tHORA (24h): ";
         cin>>hourDeparture;
-        cout << "\t\tMINUTOS: ";
+        cout << "\t\tMINUTOS (mm): ";
         cin>>minutesDeparture;
         cout << "\n\t\tINGRESE HORA DE OCULTAMIENTO: ";
-        cout << "\n\t\tHORA: ";
+        cout << "\n\t\tHORA (24H): ";
         cin>>hourHide;
-        cout << "\t\tMINUTOS: ";
+        cout << "\t\tMINUTOS (mm): ";
         cin>>minutesHide;
 
     }while(ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
 
-
     departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
-
-
-
     hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
-
-
     ephemeralityList=ephemeralityList->addEphemerality(nameEp,date,departureTime,hideTime,ephemeralityList);
-    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE EFEMERIDAD... ";
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
+
 
 }
 
-//REGISTRO DEL TIEMPO/CLIMA
+/**
+ * Funicon que le permite al usuario agregar nuevos registros del tiempo
+ */
 void timeLogin(){
     system("cls");
     cout<<"\t\t=========================================================================="<<endl;
@@ -230,22 +551,22 @@ void timeLogin(){
     int precipitation,windSpeed,windDirection,humidity,year;
     float maxTemperature,minTemperature;
     bool yesRained=NULL;
+    string answer;
 
     cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO";
     do{
-        cout << "\n\t\tDIA: ";
-
+        cout << "\n\t\tDIA (dd): ";
         cin>>day;
-        cout << "\t\tMES: ";
+        cout << "\t\tMES (mm): ";
         cin>>month;
-        cout << "\t\tYEAR: ";
+        cout << "\t\tYEAR (yy): ";
         cin>>year;
     }while(!valDate(day, month, year));
 
 
     registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
 
-    cout << "\n\t\tINGRESE PRECIPITACION: ";
+    cout << "\n\t\tINGRESE LA PRECIPITACION: ";
     cin>>precipitation;
 
     cout << "\n\t\tINGRESE LA TEMPERATURA MAXIMA: ";
@@ -257,23 +578,32 @@ void timeLogin(){
     cout << "\n\t\tINGRESE LA VELOCIDAD DEL VIENTO: ";
     cin>>windSpeed;
 
-    cout << "\n\t\tINGRESE LA DIRECCION DEL VIENTO(Grados): ";
+    cout << "\n\t\tINGRESE LA DIRECCION DEL VIENTO: ";
     cin>>windDirection;
 
     cout << "\n\t\tINGRESE LA HUMEDAD RELATIVA: ";
     cin>>humidity;
 
-    cout << "\n\t\tLLOVIO?(true/false): ";
-    cin>>yesRained;
+    cout << "\n\t\tLLOVIO?(S/N): ";
+    cin>>answer;
+
+    if((answer=="n")||(answer=="N")){
+        yesRained=false;
+    }
+    else if((answer=="s")||(answer=="S")){
+        yesRained=true;
+    }
 
     timeList=timeList->add(registrationDate,precipitation,maxTemperature,minTemperature,windSpeed,windDirection,humidity,yesRained,timeList);
-    cout << "\n\t\tLOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE REGISTORS DEL TIEMPO... ";
+    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 
 }
 
-
-//New code
-
+/**
+ * Esta función se utiliza para mostrar las opciones del menú de la sublista
+ */
 void optionListSublis(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
@@ -290,6 +620,9 @@ void optionListSublis(){
     cout<<"\t\t======================================================"<<endl;
 }
 
+/**
+ * Esta función imprime el menú de los reportes.
+ */
 void reports(){
     system("cls");
     cout<<"\t\t=========================================================================="<<endl;
@@ -310,8 +643,10 @@ void reports(){
 }
 
 
+/**
+ * Imprime un menú de las consultas.
+ */
 void consults(){
-
     system("cls");
     cout<<"\t\t=========================================================================="<<endl;
     cout<<"\t\t\t    CONSULTAS DEL SISTEMA DE REGISTRO DEL TIEMPO DIARIO   "<<endl;
@@ -322,18 +657,11 @@ void consults(){
     cout<<"\t\t3.MOSTRAR EL MES CON MAS EXTREMOS LLUVIOSOS DE UN LUGAR EN UN YEAR\n\n";
     cout<<"\t\t4.MOSTRAR LA PERSONA QUE MAS REGISTROS DEL TIEMPO TIENE\n\n";
     cout<<"\t\t0.REGRESAR\n\n";
-
 }
 
-
-
-
-
-
-
-
-
-//Bienvenida al sistema
+/**
+ * Imprime un mensaje de bienvenida al usuario y muestra el menu principal.
+ */
 void welcome(){
     system("cls");
     cout << "\n";
@@ -350,68 +678,71 @@ void welcome(){
     cout<<"\t\t1.AGREGAR EN LISTA\n\n";
     cout<<"\t\t2.MODIFICAR UN NODO DE LA LISTA\n\n";
     cout<<"\t\t3.BORRAR UN NODO ESPECIFICO DE LA LISTA \n\n";
-    cout<<"\t\t4.BORRAR COMPLETAMENTE UNA LISTA \n\n";
-    cout<<"\t\t5.MOSTRAR CONSULTAS\n\n";
-    cout<<"\t\t6.VER REPORTES\n\n";
+    cout<<"\t\t4.MOSTRAR CONSULTAS\n\n";
+    cout<<"\t\t5.VER REPORTES\n\n";
     cout<<"\t\t0.SALIR\n\n";
-
-    //cout<<"press any key to continue...";
-    //cin.ignore();
-    //cin.get();
 }
 
-//Imprime la sublista de lugares de una region especifica
+
+/**
+ * Crea las sublistas y las vincula a las listas principales
+ *
+ * Args:
+ *   place (Place): puntero a la lista de lugares
+ *   region (Region): un puntero a la lista de regiones
+ *   people (People): un puntero a la lista de personas
+ *   time (TimeRegis): un puntero a la lista de registros del tiempo
+ *   rain (Rain): un puntero a la lista de lluvia
+ */
 void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain*rain){
 
-    //Datos quemados en SUBLISTA LUGAR-REGION
+    //Enlace de la sublista de registros del tiempo con personas
+    peopleList->linkendTimePeople("202204",1662012000,time,people); // 01 / 09 / 2022-Leiner
+    peopleList->linkendTimePeople("202204",1662098400,time,people); //02 / 09 / 2022-Leiner
+    peopleList->linkendTimePeople("202204",1662357600,time,people); //05 / 09 / 2022-Leiner
+    peopleList->linkendTimePeople("202204",1662616800,time,people); // 08 / 09 / 2022-Leiner
+    peopleList->linkendTimePeople("202205",1657432800,time,people); // 10 / 07 / 2022-Sara
+    peopleList->linkendTimePeople("202205",1583301600,time,people); //04 / 03 / 2020-Sara
+    peopleList->linkendTimePeople("202206",1577772000,time,people); //31 / 12 / 2019-Tommy
+    peopleList->linkendTimePeople("202207",1587621600,time,people); //23 / 04 / 2020-Karina
+    peopleList->linkendTimePeople("202207",1598335200,time,people); // 25 / 08 / 2020-Karina
+    peopleList->linkendTimePeople("202207",1607493600,time,people); //09 / 12 / 2020-Karina
+
+    //Enlace de la sublista de lugares en regiones
     regionList->linkendPlaceRegion("NA","San Carlos",place,region);
     regionList->linkendPlaceRegion("NA","Naranjo",place,region);
-    regionList->linkendPlaceRegion("NA","Guatuso",place,region);
+    regionList->linkendPlaceRegion("NA","Palmares",place,region);
     regionList->linkendPlaceRegion("VC","Escazu",place,region);
     regionList->linkendPlaceRegion("CGT","Liberia",place,region);
     regionList->linkendPlaceRegion("UC","Guatuso",place,region);
     regionList->linkendPlaceRegion("UC","Los Chiles",place,region);
-    regionList->linkendPlaceRegion("NA","Palmares",place,region);
     regionList->linkendPlaceRegion("T","Talamanca",place,region);
+    regionList->linkendPlaceRegion("NA","Grecia",place,region);
+    regionList->linkendPlaceRegion("T","Sarapiqui",place,region);
 
-    cout<<"Datos quemados en SUBLISTA PERSONA-TIEMPO";
+    //Enlace de la sublista lluvia en registros del tiempo
+    timeList->linkendRainTime("5",1662098400,rainList,timeList);// 02 / 09 / 2022
+    timeList->linkendRainTime("1",1662703200,rainList,timeList); // 09 / 09 / 2022
+    timeList->linkendRainTime("8",1662012000,rainList,timeList); //01 / 09 / 2022
+    timeList->linkendRainTime("2",1662357600,rainList,timeList); //05 / 09 / 2022
+    timeList->linkendRainTime("9",1581228000,rainList,timeList);//09 / 02 / 2020
+    timeList->linkendRainTime("3",1583301600,rainList,timeList);// 04 / 03 / 2020
+    timeList->linkendRainTime("9",1584338400,rainList,timeList); //16 / 03 / 2020
+    timeList->linkendRainTime("3",1586152800,rainList,timeList);// 06 / 04 / 2020
+    timeList->linkendRainTime("4",1588917600,rainList,timeList);// 08 / 05 / 2020
+    timeList->linkendRainTime("1",1594533600,rainList,timeList);// 12 / 07 / 2020
+    timeList->linkendRainTime("5",1598335200,rainList,timeList);// 25 / 08 / 2020
+    timeList->linkendRainTime("6",1603065600,rainList,timeList);// 18 / 10 / 2020
+    timeList->linkendRainTime("7",1605852000,rainList,timeList);// 20 / 11 / 2020
+    timeList->linkendRainTime("10",1607493600,rainList,timeList); //09 / 12 / 2020
 
-    //LEINER tiene 4 REGISTROS DEL TIEMPO
-    peopleList->linkendTimePeople("202204",1662012000,time,people); // 01 / 09 / 2022
-    peopleList->linkendTimePeople("202204",1662098400,time,people); //02 / 09 / 2022
-    peopleList->linkendTimePeople("202204",1662357600,time,people); //05 / 09 / 2022
-    peopleList->linkendTimePeople("202204",1662616800,time,people); // 08 / 09 / 2022
-
-    //SARA tiene 2 REGISTROS DEL TIEMPO
-    peopleList->linkendTimePeople("202205",1662616800,time,people); // 08 / 09 / 2022
-    peopleList->linkendTimePeople("202205",1662616800,time,people); // 08 / 09 / 2022
-
-    //TOMMY tiene 1 REGISTROS DEL TIEMPO
-
-    peopleList->linkendTimePeople("202206",1662616800,time,people); //08 / 09 / 2022
-
-    //KARINA tiene 3 REGISTROS DEL TIEMPO
-    peopleList->linkendTimePeople("202207",1662703200,time,people); // 09 / 09 / 2022
-    peopleList->linkendTimePeople("202207",1662789600,time,people); // 10 / 09 / 2022
-    peopleList->linkendTimePeople("202207",1662012000,time,people); // 01 / 09 / 2022
-
-
-    //Datos quemados en SUBLISTA LUGAR-REGISTRO TIEMPO
-    //placeList->linkendTimePlace("San Carlos",1662357600,time,place); //05 / 09 / 2022
-    //placeList->linkendTimePlace("San Carlos",1662271200,time,place); //04 / 09 / 2022
-    //placeList->linkendTimePlace("San Carlos",1662184800,time,place); // 03 / 09 / 2022
-   // placeList->linkendTimePlace("San Carlos",1662098400,time,place); // 02 / 09 / 2022
-    //placeList->linkendTimePlace("San Carlos",1662012000,time,place); // 01 / 09 / 2022
-
-
+    //Enlace de la sublista registros del tiempo de lugares
     placeList->linkendTimePlace("San Carlos",1607493600,time,place); //09 / 12 / 2020
     placeList->linkendTimePlace("San Carlos",1605852000,time,place); // 20 / 11 / 2020
     placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 18 / 10 / 2020
     placeList->linkendTimePlace("San Carlos",1600236000,time,place); // 16 / 09 / 2020
-
     placeList->linkendTimePlace("San Carlos",1598335200,time,place); // 25 / 08 / 2020
     placeList->linkendTimePlace("San Carlos",1597557600,time,place); // 16 / 08 / 2020
-
     placeList->linkendTimePlace("San Carlos",1596520800,time,place); // 04 / 08 / 2020
     placeList->linkendTimePlace("San Carlos",1594533600,time,place); // 12 / 07 / 2020
     placeList->linkendTimePlace("San Carlos",1657432800,time,place); // 10 / 07 / 2022
@@ -424,141 +755,34 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     placeList->linkendTimePlace("San Carlos",1580623200,time,place); // 02 / 02 / 2020
     placeList->linkendTimePlace("San Carlos",1581228000,time,place); // 09 / 02 / 2020
     placeList->linkendTimePlace("San Carlos",1577944800,time,place); // 02 / 01 / 2020
-    placeList->linkendTimePlace("San Carlos",1577772000,time,place); // 31 / 12 / 2019
-    placeList->linkendTimePlace("Guatuso",1662789600,time,place); //10 / 09 / 2022
-    placeList->linkendTimePlace("Guatuso",1662703200,time,place); //09 / 09 / 2022
-    placeList->linkendTimePlace("Guatuso",1662616800,time,place); //08 / 09 / 2022
-    placeList->linkendTimePlace("Guatuso",1662530400,time,place); //07 / 09 / 2022
-    placeList->linkendTimePlace("Guatuso",1662444000,time,place); //06 / 09 / 2022
-    //cout<<"Datos quemados en SUBLISTA PERSONA-TIEMPO";
-
-    placeList->linkendTimePlace("Naranjo",1568095200,time,placeList); //10 / 09 / 2019
-
-    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-
-    timeList->linkendRainTime("1",1577772000 ,rainList,time); //31 / 12 / 2019
-    timeList->linkendRainTime("1",1577944800 ,rainList,time);//02 / 01 / 2020
-    timeList->linkendRainTime("5",1581228000 ,rainList,time);//09 / 02 / 2020
-    timeList->linkendRainTime("1",1580623200 ,rainList,time); //09 / 02 / 2020
-    timeList->linkendRainTime("5",1583301600 ,rainList,time);// 04 / 03 / 2020
-    timeList->linkendRainTime("1",1584338400 ,rainList,time); //16 / 03 / 2020
-    timeList->linkendRainTime("5",1587621600 ,rainList,time); //23 / 04 / 2020
-    timeList->linkendRainTime("1",1586152800 ,rainList,time);// 06 / 04 / 2020
-    timeList->linkendRainTime("5",1588917600 ,rainList,time);// 08 / 05 / 2020
-    timeList->linkendRainTime("5",1591768800 ,rainList,time);//10 / 06 / 2020
-    timeList->linkendRainTime("1",1594533600 ,rainList,time);// 12 / 07 / 2020
-
-    timeList->linkendRainTime("1",1596520800 ,rainList,time);// 4 / 08 / 2020
-    timeList->linkendRainTime("5",1597557600 ,rainList,time);// 16 / 08 / 2020
-    timeList->linkendRainTime("1",1598335200 ,rainList,time);// 25 / 08 / 2020
-    timeList->linkendRainTime("5",1600236000 ,rainList,time);//16 / 09 / 2020
-    timeList->linkendRainTime("1",1603065600 ,rainList,time);// 18 / 10 / 2020
-    timeList->linkendRainTime("5",1605852000 ,rainList,time);// 20 / 11 / 2020
-    timeList->linkendRainTime("1",1671688800 ,rainList,time); //22 / 12 / 2022
-
-    timeList->linkendRainTime("1",1662098400,rainList,time); // 02 / 09 / 2022
-    timeList->linkendRainTime("3",1657432800,rainList,time); // 10 / 07 / 2022
-    timeList->linkendRainTime("1",1662703200,rainList,time); //09 / 09 / 2022
-    timeList->linkendRainTime("5",1662271200,rainList,time); //04 / 09 / 2022
-    timeList->linkendRainTime("10",1662012000,rainList,time); //01 / 09 / 2022
-    timeList->linkendRainTime("2",1662357600,rainList,time); // 05 / 09 / 2022
-
-    placeList->linkendTimePlace("San Carlos",1662012000,time,place);// 01 / 09 / 2022
-    placeList->linkendTimePlace("Palmares",1662098400,time,place);  //02 / 09 / 2022
-    placeList->linkendTimePlace("Upala",1662184800,time,place);     // 03 / 09 / 2022
-    placeList->linkendTimePlace("Naranjo",1662271200,time,place);   //  04 / 09 / 2022
-    placeList->linkendTimePlace("Liberia",1662357600,time,place);   // 05 / 09 / 2022
-    placeList->linkendTimePlace("San Carlos",1662444000,time,place);// 06 / 09 / 2022
-    placeList->linkendTimePlace("Palmares",1662530400,time,place);  // 07 / 09 / 2022
-    placeList->linkendTimePlace("Los Chiles",1662616800,time,place);// 08 / 09 / 2022
-    placeList->linkendTimePlace("Guatuso",1662703200,time,place);   // 09 / 09 / 2022
-    placeList->linkendTimePlace("Talamanca",1662789600,time,place); // 10 / 09 / 2022
-
-
-    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-    timeList->linkendRainTime("1",1662098400,rainList,timeList);// 02 / 09 / 2022
-    timeList->linkendRainTime("3",1657432800,rainList,timeList);// 10 / 07 / 2022
-    timeList->linkendRainTime("1",1662703200,rainList,timeList); // 09 / 09 / 2022
-    timeList->linkendRainTime("5",1662271200,rainList,timeList); //04 / 09 / 2022
-    timeList->linkendRainTime("10",1662012000,rainList,timeList); //01 / 09 / 2022
-    timeList->linkendRainTime("2",1662357600,rainList,timeList); //05 / 09 / 2022
-    timeList->linkendRainTime("2",1672552800,rainList,time);//01/01/2023
-    timeList->linkendRainTime("5",1675231200,rainList,time);//01/02/2023
-    timeList->linkendRainTime("4",1690869600,rainList,time);//01/03/2023
-
-
-    /*placeList->linkendTimePlace("San Carlos",1577836800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1578009600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1581292800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1580688000,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1583366400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1584403200,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1587686400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1586217600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1588982400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1591833600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1594598400,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1597449600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1600300800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1603065600,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1605916800,time,place); // 1245
-    placeList->linkendTimePlace("San Carlos",1608681600,time,place); // 1245
-*/
-    placeList->linkendTimePlace("Palmares",1672552800,time,place);//01/01/2023
-    placeList->linkendTimePlace("Palmares",1675231200,time,place);//01/02/2023
-    placeList->linkendTimePlace("Palmares",1690869600,time,place);//01/03/2023
-    placeList->linkendTimePlace("Palmares",1691042400,time,place);//03/08/2023
-    placeList->linkendTimePlace("Palmares",1701756000,time,place);//05/12/2023
-
-    //Datos quemados en SUBLISTA REGISTRO TIEMPO- LLUVIA
-
-    /*timeList->linkendRainTime("1",1662789600,rain,time); // 10 / 09 / 2022
-    timeList->linkendRainTime("1",1662444000,rain,time); // 06 / 09 / 2022
-    timeList->linkendRainTime("1",1662703200,rain,time); // 09 / 09 / 2022
-    timeList->linkendRainTime("1",1662098400,rain,time); // 02 / 09 / 2022
-    timeList->linkendRainTime("1",1662271200,rain,time); // 04 / 09 / 2022
-    timeList->linkendRainTime("1",1662357600,rain,time); // 05 / 09 / 2022
-    */
- /*   timeList->linkendRainTime("1",1662357600,rain,time); //05 / 09 / 2022
-    timeList->linkendRainTime("1",1662271200,rain,time); //04 / 09 / 2022
-    timeList->linkendRainTime("1",1662184800,rain,time); // 03 / 09 / 2022
-    timeList->linkendRainTime("3",1662098400,rain,time); // 02 / 09 / 2022
-    timeList->linkendRainTime("1",1662012000,rain,time); // 01 / 09 / 2022
-    timeList->linkendRainTime("1",1577772000,rain,time); // 31 / 12 / 2019
-    timeList->linkendRainTime("1",1671688800,rain,time); // 22 / 12 / 2020
-    timeList->linkendRainTime("1",1605852000,rain,time); // 20 / 11 / 2020
-    timeList->linkendRainTime("1",1603065600,rain,time); // 18 / 10 / 2020
-    timeList->linkendRainTime("1",1600236000,rain,time); // 16 / 09 / 2020
-    timeList->linkendRainTime("1",1594533600,rain,time); // 14 / 08 / 2020
-    timeList->linkendRainTime("1",1594533600,rain,time); // 12 / 07 / 2020
-    timeList->linkendRainTime("1",1657432800,rain,time); // 10 / 07 / 2022
-    timeList->linkendRainTime("1",1591768800,rain,time); // 10 / 06 / 2020
-    timeList->linkendRainTime("1",1588917600,rain,time); // 08 / 05 / 2020
-    timeList->linkendRainTime("1",1587621600,rain,time); // 23 / 04 / 2020
-    timeList->linkendRainTime("1",1586152800,rain,time); // 06 / 04 / 2020
-    timeList->linkendRainTime("1",1584338400,rain,time); // 16 / 03 / 2020
-    timeList->linkendRainTime("1",1583301600,rain,time); // 04 / 03 / 2020
-    timeList->linkendRainTime("1",1580623200,rain,time); // 02 / 02 / 2020
-    timeList->linkendRainTime("1",1581228000,rain,time); // 09 / 02 / 2020
-    timeList->linkendRainTime("1",1577944800,rain,time); // 02 / 01 / 2020
-
-    timeList->linkendRainTime("2",1672552800,rain,time); // 01 / 01 / 2023
-    timeList->linkendRainTime("3",1675231200,rain,time); // 01 / 02 / 2023
-    timeList->linkendRainTime("1",1690869600,rain,time); // 01 / 08 / 2023
-    timeList->linkendRainTime("5",1701756000,rain,time); //05 / 12 / 2023
-*/
-
-
-
+    placeList->linkendTimePlace("Guatuso",1662271200,time,place);//04 / 09 / 2022.
+    placeList->linkendTimePlace("Guatuso",1662357600,time,place);//05 / 09 / 2022.
+    placeList->linkendTimePlace("Guatuso",1662444000,time,place);//06 / 09 / 2022
+    placeList->linkendTimePlace("Palmares",1662530400,time,place);//07 / 09 / 2022
+    placeList->linkendTimePlace("Palmares",1662616800,time,place);//08 / 09 / 2022
+    placeList->linkendTimePlace("Palmares",1662703200,time,place);//09 / 09 / 2022.
+    placeList->linkendTimePlace("Naranjo",1662789600,time,place);//10 / 09 / 2022
+    placeList->linkendTimePlace("Naranjo",1568095200,time,place);// 10 / 09 / 2019
 
 }
 
 
 
+/**
+ * Función principal del programa,llama a las demás funciones y es la que se ejecuta primero.
+ */
 int main()
 {
-    //SE CARGAN DATOS A LAS LISTAS
+    int year,year2;
+    string plc,idReg,idPerson,idRain;
+    short month,day;
+    long int registrationDate;
 
+    char c; //OPCION DEL MENU PREINCIPAL
+    char p; //OPCION DE LAS LISTAS
+    char b; //OPCION DE LISTAS EN REPORTES
+
+    //SE CARGAN DATOS A LAS LISTAS
     placeList=placeList->dataLoad(placeList);
     regionList=regionList->dataLoad(regionList);
     timeList=timeList->dataLoad(timeList);
@@ -566,45 +790,9 @@ int main()
     ephemeralityList=ephemeralityList->dataLoad(ephemeralityList);;
     peopleList=peopleList->dataLoad(peopleList);
 
-    //timeList->print(timeList);
-
     //SE CARGAN DATOS A LAS SUBLISTAS
     dataLoadSublist(placeList,regionList,peopleList,timeList,rainList);
-    //peopleList->getSizeSublist(peopleList);
-    //peopleList->printSublistTime("202206",peopleList);
-   //regionList->printSublistPlace("NA",regionList);
-    //timeList->printSubRain(1662789600,timeList);
-   //placeList->printSubTimePlace("San Carlos",placeList);
-    //placeList->MonthlyRain(2020,"San Carlos",placeList);
-    //placeList->printSubTimePlace("San Carlos",placeList);
-    regionList->MonthlyRain(2020,"NA",regionList);
-    //rainList->printRainList(rainList);
-    //placeList->timeRegiSublist->linkTime->printSubRain(1662789600,timeList);
 
-
-    //placeList->printRainyDays(2020,"San Carlos",placeList);
-    //placeList->printPercentageRain(2022,"San Carlos",placeList);
-    //placeList->print(placeList);
-    //Region*r = regionList->searchRegion("NA",regionList);
-    //r->placeSublist->linkPlace->modify("San Carlos","Santa Clara",2500,456.07,placeList);
-    //placeList->print(placeList);
-
-    //placeList->printRainyDays(2023,"Palmares",placeList);
-    //placeList->printPercentageRain(2023,"Palmares",placeList);
-    //regionList->printVarWeather("NA",2021,2022,regionList);
-
-    //placeList->printPercentageRain(2023,"Palmares",placeList);
-
-    //placeList->printSubTimePlace("San Carlos",placeList);
-    //placeList->monthlyRainfallExtremes("San Carlos",2022,placeList);
-    //placeList->printRainyDays(2020,"San Carlos",placeList);
-
-
-
-/*
-    char c; //OPCION DEL MENU PREINCIPAL
-    char p; //OPCION DE LAS LISTAS
-    char b; //OPCION DE LISTAS EN REPORTES
     while(true){
 
         welcome();
@@ -636,34 +824,109 @@ int main()
                         timeLogin();
                     }
             }
-
-            if(c=='2'){//MODIFICAR EN LAS LISTA
+            else if(c=='2'){//MODIFICAR EN LAS LISTA
                 optionListSublis();
+                cout<<"\n\t\tELIGA UNA OPCION:";
                 cin>>p;
+
+                if(p=='1'){ // MODIFICAR EN LISTA PERSONA
+                    modPeople();
+                }
+                else if(p=='2'){ // MODIFICAR EN LISTA LLUVIA
+                    modifyRain();
+                }
+                else if(p=='3'){ // MODIFICAR EN LISTA REGIONES
+                    modifyRegion();
+                }
+                else if(p=='4'){ // MODIFICAR EN LISTA LUGARES
+                    modifyPlace();
+                }
+                else if(p=='5'){ // MODIFICAR EN LISTA EFEMERIDAD
+                    modEphemerality();
+                }
+                else if(p=='6'){ // MODIFICAR EN LISTA REGISTROS DEL TIEMPO
+                    modifyTimeRegis();
+                }
 
             }
             else if(c=='3'){//BORARR NODO EN LAS LISTAS
                 optionListSublis();
                 cout<<"\n\t\tELIGA UNA OPCION:";
                 cin>>p;
+                if(p=='1'){ // BORRAR EN LISTA PERSONA
+                    cout<<"\n\t\tINGRESE EL ID DE LA PERSONA QUE DESEA ELIMINAR: ";
+                    cin>>idPerson;
+                    peopleList=peopleList->deletePeople(peopleList,idPerson);
+                }
+                else if(p=='2'){ // BORRAR EN LISTA LLUVIA
+                    cout<<"\n\t\tINGRESE EL ID DEL CLIMATICO QUE DESEA ELIMINAR: ";
+                    cin>>idRain;
+                    rainList=rainList->deleteRain(rainList,idRain);
+                }
+                else if(p=='3'){ // BORRAR EN LISTA REGIONES
+                    cout<<"\n\t\tINGRESE EL ID DE LA REGION QUE DESEA ELIMINAR: ";
+                    cin>>idReg;
+                    regionList=regionList->deleteRegion(idReg,regionList);
+                }
+                else if(p=='4'){ // BORRAR EN LISTA LUGARES
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA ELIMINAR: ";
+                    getline(cin>>ws, plc);
+                    //placeList=placeList->deletePlace(plc,placeList);
+                }
+                else if(p=='5'){ // BORRAR EN LISTA EFEMERIDAD
+                    cout << "\n\t\tINGRESE LA FECHA DE LA EFIMERIDAD QUE DESEA ELIMINAR";
+                    do{
+                        cout << "\n\t\tDIA (dd): ";
+                        cin>>day;
+                        cout << "\t\tMES (mm): ";
+                        cin>>month;
+                        cout << "\t\tYEAR (yy): ";
+                        cin>>year;
+                    }while(!valDate(day, month, year));
 
+                    registrationDate=ephemeralityList->dateToUnixDate(year,month,day);
+                    ephemeralityList=ephemeralityList->deleteEphemerality(registrationDate,ephemeralityList);
+                }
+                else if(p=='6'){ // BORRAR EN LISTA REGISTROS DEL TIEMPO
+                    cout << "\n\t\tINGRESE LA FECHA DEL REGISTRO TIEMPO QUE DESEA ELIMINAR";
+                    do{
+                        cout << "\n\t\tDIA (dd): ";
+                        cin>>day;
+                        cout << "\t\tMES (mm): ";
+                        cin>>month;
+                        cout << "\t\tYEAR (yy): ";
+                        cin>>year;
+                    }while(!valDate(day, month, year));
+
+                    registrationDate=timeList->dateToUnixDate(year,month,day);
+                    timeList=timeList->deleteTime(registrationDate,timeList);
+                }
             }
-            else if(c=='4'){ //BORRAR TODA LA LISTA
-                optionListSublis();
-                cout<<"\n\t\tELIGA UNA OPCION:";
-                cin>>p;
-            }
-            else if(c=='5'){ //VER CONSULTAS
+            else if(c=='4'){ //VER CONSULTAS
                 consults();
                 cout<<"\n\t\tELIGA UNA OPCION:";
                 cin>>p;
-                if(p=='4'){
-                    peopleList->getSizeSublist(peopleList);
-
+                if(p=='1'){ // VER SALIDA MAS TEMPANA Y OSCULTAMIENTO MAS TARDIO DEL SOL
+                    ephemeralityList->earlyDeparLateHide(ephemeralityList);
                 }
+                else if(p=='2'){ // VER DIFERENCIAS EN LA SALIDA DEL SOL
 
+                    cout<<"\n\t\tINGRESE EL AÑO EN LA QUE DESEA VER LAS DIFERENCIAS DE FECHAS: ";
+                    cin>>year;
+                    ephemeralityList->diffDepartureTime(year,ephemeralityList);
+                }
+                else if(p=='3'){ // VER MES CON MAS EXTREMOS CLIMATICOS
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, plc);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    placeList->monthlyRainfallExtremes(plc,year,placeList);
+                }
+                else if(p=='4'){ // VER PERSONA CON MAS REGISTROS
+                    peopleList->getSizeSublist(peopleList);
+                }
             }
-            else if(c=='6'){//VER REPORTES
+            else if(c=='5'){//VER REPORTES
                 reports();
                 cout<<"\n\t\tELIGA UNA OPCION:";
                 cin>>p;
@@ -696,31 +959,96 @@ int main()
                         timeList->print(timeList);
                     }
                 }
+                else if(p='2'){//HORARIOS DE LA SALIDA Y PUESTA DEL SOL
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    ephemeralityList->timeReportYear(ephemeralityList,year);
+                }
+                else if(p='3'){// PRECIPITACION MENSUAL DE UN LUGAR
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, plc);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    placeList->monthlyRain(year,plc,placeList);
+                }
+                else if(p='4'){// PRECIPITACION MENSUAL DE UN LUGAR
+                    cout<<"\n\t\tINGRESE EL ID DE LA REGION QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, idReg);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    regionList->monthlyRain(year,idReg,regionList);
 
+                }
+                else if(p='5'){// VARIABLES CLIAMATOLOGICAS DE UNA REGION
+                    cout<<"\n\t\tINGRESE EL ID DE LA REGION QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, idReg);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE INICIA EL RANGO: ";
+                    cin>>year;
+                    cout<<"\n\t\tINGRESE EL AÑO QUE FINALIZA EL RANGO: ";
+                    cin>>year2;
+                    regionList->printVarWeather(idReg,year,year2,regionList);
+                }
+                else if(p='6'){// PERIODOS DEL CLIMA
+                    system("cls");
+                    cout<<"\n\t\tESTA FUNCION POR EL MOMENTO NO ESTA DISPONIBLE :): ";
+                    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+                    cin.ignore();
+                    cin.get();
+                }
+                else if(p='7'){ //LOS PORCENTAJES DE LA CLASIFICACION DE LA LLUVIA
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, plc);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    placeList->printPercentageRain(year,plc,placeList);
+                }
+                else if(p='8'){ // DIAS DE LLUVIA EN UN LUGAR
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, plc);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    placeList->printRainyDays(year,plc,placeList);
 
-
+                }
+                else if(p='9'){//EXTREMOS DE TEMPERATURA DE UN LUGAR
+                    cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
+                    getline(cin>>ws, plc);
+                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cin>>year;
+                    placeList->extremeTemp(year,plc,placeList);
+                }
             }
+
             else if(c=='0'){ //SALIR
                 system("cls");
                 cout << "\n\t\t       GRACIAS POR USAR ESTE SISTEMA"<<endl;
                 cout <<endl;
                 cout <<"\n\t\t   PROYECTO 1  ESTRUCTURAS DIAMICAS LINEALES\n";
-                cout<<"\n\t\t\   =========================================\n";
-                cout<<"\n\t\t\   MIEMBROS DEL GRUPO (DESARROLLADORES)";
+                cout<<"\n\t\t\t   =========================================\n";
+                cout<<"\n\t\t\t   MIEMBROS DEL GRUPO (DESARROLLADORES)";
                 cout << "\n\n";
-                cout << "\n\t\t\   NOMBRE                        CARNET\n\n";
-                cout << "\n\t\t\   1. lEINER ALVARADO           202200000\n\n";
-                cout << "\n\t\t\   2. KARINA URBINA             208460025\n\n";
-                cout<<"\n\t\t\   =========================================\n";
-                cout<<"\n\t\t\   START DATE: 12/09/2022\n";
-                cout<<"\n\t\t\   END DATE: 07/10/2022 ";
+                cout << "\n\t\t\t   NOMBRE                        CARNET\n\n";
+                cout << "\n\t\t\t   1. lEINER ALVARADO           202200000\n\n";
+                cout << "\n\t\t\t   2. KARINA URBINA             208460025\n\n";
+                cout<<"\n\t\t\t   =========================================\n";
+                cout<<"\n\t\t\t   START DATE: 12/09/2022\n";
+                cout<<"\n\t\t\t   END DATE: 07/10/2022 ";
                 cout << "\n\n";
                 break;
 
             }
 
+            year=0;
+            year2=0;
+            plc= nullptr;
+            idReg= nullptr;
+            idPerson= nullptr;
+            idRain= nullptr;
+            month=0;
+            day=0;
+            registrationDate=0;
         }
-*/
+
     return 0;
 
 }

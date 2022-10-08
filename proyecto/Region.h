@@ -4,7 +4,14 @@
 #include "Place.h"
 using namespace std;
 
+/*
+    Autor: Karina Urbina
+    Iniciado: 12/09/2022
+    Ultima modificacion: 7/10/2022
 
+*/
+
+//Clase que contiene los atributos y métodos de las regiones.
 class Region
 {
     public:
@@ -37,9 +44,9 @@ class Region
         //Metodos de sublista
         NodoSubPlace* linkendPlaceRegion(string,string,Place*,Region*);
         void printSublistPlace(string,Region*);
-        //void dataLoadSublist(Region*);
 
-        void MonthlyRain(int ,string,Region* );
+
+        void monthlyRain(int ,string,Region* );
 
         //Puntero
         Region * next = NULL;
@@ -52,7 +59,8 @@ class Region
         string location;
 };
 
-class NodoSubPlace{ //sublista de lugares para una region
+//Una sublista de lugares para una región.
+class NodoSubPlace{
     public:
         NodoSubPlace* next = NULL;
         Place* linkPlace = NULL;

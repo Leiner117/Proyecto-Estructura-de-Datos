@@ -4,7 +4,22 @@
 #include <iostream>
 using namespace std;
 
+/*
+    Autor: Karina Urbina
+    Iniciado: 12/09/2022
+    Ultima modificacion: 7/10/2022
 
+*/
+
+/**
+ * Esta función es un constructor que inicializa el nombre, población, metros cuadrados, next y timeRegiSublist de un
+ * objeto Place.
+ *
+ * Args:
+ *   n (string): nombre del lugar
+ *   p (int): población
+ *   meters (float): los metros cuadrados del lugar
+ */
 Place::Place(string n,int p,float meters){
 
     setName(n);
@@ -16,74 +31,87 @@ Place::Place(string n,int p,float meters){
 }
 
 
-//------------------- Metodos set-----------------------------------------
+
+/**
+ * Esta función establece el nombre del lugar.
+ *
+ * Args:
+ *   n (string): El nombre del lugar.
+ */
 void Place::setName(string n){
     name=n;
 }
 
+/**
+ *
+ * Esta función establece la población del objeto Place.
+ *
+ * Args:
+ *   p (int): La población del lugar
+ */
 void Place::setPopulation(int p){
     population= p;
 }
 
+/**
+ * Esta función establece lo metros cuadrados de un lugar.
+ *
+ * Args:
+ *   meters (float): Los metros cuadrados del lugar.
+ */
 void Place::setSquareMeters(float meters){
     squareMeters= meters;
 }
-/*void Place::setTimeRegis(TimeRegis*newList){
-    timeRegSublist = newList;
-}*/
 
 
-
-//------------------- Metodos get-----------------------------------------
+/**
+ * Esta función devuelve el nombre del Lugar.
+ *
+ * Returns:
+ *   El nombre del lugar.
+ */
 string Place::getName(){
     return name;
 }
 
+/**
+ * Funcion que devuelve la población del lugar.
+ *
+ * Returns:
+ *   La población del lugar.
+ */
 int Place::getPopulation(){
     return population;
 }
 
+/**
+ * Esta función devuelve los metros cuadrados del lugar
+ *
+ * Returns:
+ *   Los metros cuadrados del lugar.
+ */
 float Place::getSquareMeters(){
     return squareMeters;
 }
 
-/*TimeRegis* Place::getTimeRegis(){
-    return timeRegSublist;
-}*/
-
-
-
-
-
 //************************** Funciones de la lista ******************
 
 
-//Verifica si el elemento a agregar ya existe en la lista
-bool Place::validate(string n,Place* placeList){
-
-    if(placeList == NULL)
-        return false;
-    else{
-        if(placeList->getName() == n){//es el primero de la lista
-            return true;
-        }
-        else{
-            Place*temp = placeList;
-            do{
-                if (placeList->getName() != n)
-                    temp= temp->next;
-            } while(temp!= placeList);
-            return false;
-        }
-    }
-}
-
-//Agregar al Inicio
+/**
+ * Añade un nuevo lugar a la lista de lugares
+ *
+ * Args:
+ *   n (string): Nombre del lugar
+ *   p (int): Poblacion del lugar
+ *   meters (float): Metros cuadrados del lugar .
+ *   placeList (Place): Lista de lugares
+ *
+ * Returns:
+ *   Lista de lugares.
+ */
 Place* Place::add(string n,int p,float meters,Place* placeList){
 
-    bool duplicate= validate(n,placeList);
-
-    if(duplicate==NULL){
+    if(searchPlace(n,placeList)==NULL){
 
         Place* newNodo = new Place(n,p,meters);
 
@@ -92,32 +120,40 @@ Place* Place::add(string n,int p,float meters,Place* placeList){
             newNodo->next = placeList;
         }
         else{
-
             newNodo->next =placeList;
-            //buscar el ultimo para que apunte al nuevo nodo
             Place* temp = placeList;
             while(temp->next != placeList)
                 temp = temp->next;
-
             temp->next = newNodo;
             placeList = newNodo;
-
         }
+        cout << "\n\t\t-- LOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LUGARES --"<<endl;
     }
     else{
-        cout<<"\n+++ Advertencia: El nombre ingresado ya esta en la lista +++\n";
+        cout<<"\n\t+++ Advertencia: El nombre ingresado ya esta en la lista +++\n";
     }
     return placeList;
 }
 
-//Modificar
+
+/**
+ * Modifica un lugar en la lista
+ *
+ * Args:
+ *   data (string): El nombre del lugar que desea modificar.
+ *   n (string): Nuevo nombre del lugar
+ *   p (int): Nueva poblacion
+ *   m (float): Nuevos metros cuadrados
+ *   placeList (Place): Lista de lugares
+ *
+ * Returns:
+ *   La lista de lugares
+ */
 Place* Place::modify(string data, string n,int p, float m,Place*placeList){
 
-    bool duplicate= validate(n,placeList);
-
-     if(duplicate==NULL){
+     if(searchPlace(n,placeList)==NULL){
         if(placeList== NULL)
-            cout<<"\nLa lista no tiene datos.....";
+            cout<<"\n\tLA LISTA DE LUGARES ESTA VACIA";
         else{
             Place*temp = placeList;
             while (temp != NULL){
@@ -125,12 +161,11 @@ Place* Place::modify(string data, string n,int p, float m,Place*placeList){
                     temp->setName(n);
                     temp->setPopulation(p);
                     temp->setSquareMeters(m);
-                    cout<<"\nSe modifico correctamente"<<endl;
                     return placeList;//me salgo de la fucnion
                 }
                 temp = temp->next;
             }
-            cout<<"\nNO se encontro el dato.";
+            cout<<"\n\tNO SE ENCONTRO EL DATO";
         }
     }
     else{
@@ -139,8 +174,19 @@ Place* Place::modify(string data, string n,int p, float m,Place*placeList){
     return placeList;
 }
 
-//Borra UN ELEMENTO de la lista
+
+/**
+ * Funcion que elimina un lugar de la lista de lugares
+ *
+ * Args:
+ *   n (string): El nombre del lugar que se va a eliminar.
+ *   placeList (Place): La lista de lugares.
+ *
+ * Returns:
+ *   Lista de lugares.
+ */
 Place* deletePlace(string n,Place* placeList){
+
     if(placeList == NULL)
         cout<<"\nLista vacia, no se puede borrar....";
     else{
@@ -163,89 +209,78 @@ Place* deletePlace(string n,Place* placeList){
     return placeList;
 }
 
-//Borra toda la lista
-Place* deleteAllPlace(Place* placeList) {
-    if(placeList != NULL) {
-        Place *temp, *current;
-        current = placeList->next;
-        while(current != placeList) {
-            temp = current->next;
-            free(current);
-            current = temp;
-        }
-        free(placeList);
-        placeList = NULL;
-    }
-    cout<<"Todos los nodos han sido eliminados correctamente.\n";
-    return placeList;
-}
 
-
-//Buscar Nodo Place
-
-
+/**
+ * Esta función busca un lugar en la lista de lugares
+ *
+ * Args:
+ *   n (string): El nombre del lugar que desea buscar.
+ *   placeList (Place): La lista de lugares
+ *
+ * Returns:
+ *   El lugar en la lista de punteros si encuentra el lugar o null si no lo encuentra
+ */
 Place* Place::searchPlace(string n, Place* placeList){
-     Place *temp;
-     if(placeList !=NULL){
-          temp = placeList;
 
-          do
-          {
-               if(temp->getName() == n)
-               {
+     Place *temp;
+     if(placeList != NULL){
+          temp = placeList;
+          do{
+               if(temp->getName() == n){
                    return temp;
                }
-               else
-               {
+               else{
                    temp = temp->next;
                }
-          }while(temp!=placeList);
-
-          //cout<<"\n\n\Lugar no encontrado..!"<<endl;
-
+          }while(temp!= placeList);
      }
      else
         return NULL;
-         cout<<"\n\n\tLista vacia...!"<<endl;
 }
 
 
-//Imprime la lista completa
 
+/**
+ * Imprime la lista de lugares
+ *
+ * Args:
+ *   placeList (Place): Lista de lugares
+ */
 void Place:: print(Place* placeList){
 
     if(placeList== NULL)
-        cout<<"\nLista circular vacia......\n";
+        cout<<"\n\t-- LA LISTA DE LUGARES ESTA VACIA --\n";
     else{
         Place*temp = placeList;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||          LISTA DE LUGARES           ||\n";
+        cout<<"\t   =========================================\n";
         do{
-            cout<<temp->getName()<<" | "<<temp->getPopulation()<<" | "<<temp->getSquareMeters()<<endl;
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
+            cout<<"\n\tPOBLACION: "<<temp->getPopulation()<<endl;
+            cout<<"\n\tMETROS CUADRADOS: "<<temp->getSquareMeters()<<endl;
             temp= temp->next;
         } while(temp!= placeList);
-
     }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 }
 
-//Se reciben datos de entrada
-void Place::askData(){
 
-    string n;
-    int p;
-    float mc;
-
-    cout<<"\nIngrese el nombre del lugar: ";
-    getline(cin>>ws, n);
-    cout<<"\nIngrese la poblacion total del lugar: ";
-    cin>>p;
-    cout<<"\nIngrese los metros cuadrados del lugar: ";
-    cin>>mc;
-
- }
-
-//Cargar datos quemados
+/**
+ * Crea una lista de lugares y la retorna.
+ *
+ * Args:
+ *   placeList (Place): La lista de lugares.
+ *
+ * Returns:
+ *   Lista de lugares.
+ */
 Place* Place::dataLoad(Place* placeList){
 
-    //Datos preestablecidos en lista lugar
     placeList=add("San Carlos",163745,3347.98,placeList);
     placeList=add("Upala",43953,1.581,placeList);
     placeList=add("Naranjo",42713,126.6,placeList);
@@ -258,25 +293,35 @@ Place* Place::dataLoad(Place* placeList){
     placeList=add("Talamanca",30712,504.2,placeList);
     placeList=add("Guatuso",15508,1580.67,placeList);
 
-    cout<<"\n---Se cargaron los datos correctamente---\n";
-
     return placeList;
 
 }
 
 //---------------------------------SUBLISTA DE REGISTROS DEL TIEMPO----------------------------
 
+/**
+ * *Funcion que enlaza registros del tiempo con un lugar determinado
+ *
+ * Args:
+ *   namePlace (string): Nombre del lugar
+ *   date (long int): Fecha del registro del tiempo
+ *   timeList (TimeRegis): Lista de registros del tiempo
+ *   placeList (Place): Lista de lugares
+ *
+ * Returns:
+ *   Sublista de registros tiempo de un lugar.
+ */
 NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* timeList,Place* placeList){
 
     Place* plc = plc->searchPlace(namePlace,placeList);
     TimeRegis* timeR = timeR->searchTime(date,timeList);
 
     if(plc == NULL){
-        cout<<"\nNo existe el lugar"<<endl;
+        cout<<"\n\tNO EXISTE EL LUGAR"<<endl;
         return NULL;
     }
     if(timeR == NULL){
-        cout<<"\nNo existe el registro del tiempo"<<endl;
+        cout<<"\n\tNO EXISTE EL REGISTRO DEL TIEMPO"<<endl;
         return NULL;
     }
 
@@ -297,9 +342,6 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
             ant = temp;
             temp = temp->next;
         }
-
-
-
         ant->next = newNodo;
         if (temp != NULL){
             newNodo->next = temp;
@@ -310,12 +352,20 @@ NodoSubTime* Place::linkendTimePlace(string namePlace, long int date,TimeRegis* 
 
 
 
+/**
+ * Esta función imprime los registros del tiempo de un lugar.
+ *
+ * Args:
+ *   namePlace (string): Nombre del lugar
+ *   placeList (Place): Lista de lugares
+ *
+ */
 void Place::printSubTimePlace(string namePlace,Place* placeList){
 
     Place * plc = plc->searchPlace(namePlace,placeList);
 
     if(plc == NULL){
-        cout<<"\nNo existe el lugar";
+        cout<<"\n\tNO EXISTE EL LUGAR";
         return;
     }
     else{
@@ -354,10 +404,16 @@ void Place::printSubTimePlace(string namePlace,Place* placeList){
 
 
 
-//New code
 
-
-void Place::MonthlyRain(int year,string namePlace,Place* placeList){
+/**
+ * Imprime la precipitación media mensual de un año determinado
+ *
+ * Args:
+ *   year (int): El año en el que desea ver la precipitación mensual promedio de un lugar.
+ *   namePlace (string): El nombre del lugar.
+ *   placeList (Place): lista de lugares
+ */
+void Place::monthlyRain(int year,string namePlace,Place* placeList){
 
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
@@ -369,7 +425,7 @@ void Place::MonthlyRain(int year,string namePlace,Place* placeList){
     float totalPrecip = 0;
 
         cout<<"\n\t   =========================================\n";
-        cout<<"\t   ||   Precipitacion Mensual Promedio    ||\n";
+        cout<<"\t   ||   PRECIPITACION MENSUAL PROMEDIO    ||\n";
         cout<<"\t   ||         "<<plc->getName()<<" "<<year<<"             ||\n";
         cout<<"\t   =========================================\n";
 
@@ -390,9 +446,8 @@ void Place::MonthlyRain(int year,string namePlace,Place* placeList){
                     totalPrecip = totalPrecip + time->linkTime->getPrecip();
                     days++;
                     cout<<"\n\t________________________________________________\n";
-                    cout<<"\n\tMes: "<<months[month-1]<<endl;
-                    //cout<<"\n\tDIAS:  "<<days<<endl;
-                    cout<<"\n\tPrecipitacion Promedio: "<<(totalPrecip/days)<<endl;
+                    cout<<"\n\tMES: "<<months[month-1]<<endl;
+                    cout<<"\n\tPRECIPITACION PROMEDIO: "<<(totalPrecip/days)<<endl;
                     totalPrecip=0;
                     days=0;
                 }
@@ -401,15 +456,19 @@ void Place::MonthlyRain(int year,string namePlace,Place* placeList){
         time = time->next;
     }
     cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
     cin.get();
 }
 
-// Nuevo codigo
-
-//void printVarWeather()
-
+/**
+ * Imprime el porcentaje de cada condicion climatica por cada mes de un año dado
+ *
+ * Args:
+ *   year (int): El año que desea imprimir el porcentaje de la condicion climatica.
+ *   namePlace (string): El nombre del lugar.
+ *   pList (Place): Lista de lugares
+ */
 void Place::printPercentageRain(int year,string namePlace,Place*pList){
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
@@ -455,16 +514,15 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
                                 else if (rainList->linkRain->getName() == "Lluvioso"){
                                     promRainy++;
                                 }
-
                             }
                         }
                         cout<<"\n\t________________________________________________\n";
-                        cout<<"\n\tMes: "<<months[month-1]<<endl;
-                        cout<<"\n\tExtremo lluvioso: "<<(promExtremeRain*100)/cont<<"%"<<endl;
-                        cout<<"\n\tLluvioso: "<<(promRainy*100)/cont<<"%"<<endl;
-                        cout<<"\n\tNormal: "<<(promNormal*100)/cont<<"%"<<endl;
-                        cout<<"\n\tSeco: "<<(promDry*100)/cont<<"%"<<endl;
-                        cout<<"\n\tExtremo seco: "<<(promExtremeDry*100)/cont<<"%"<<endl;
+                        cout<<"\n\tMES: "<<months[month-1]<<endl;
+                        cout<<"\n\tEXTREMO LLUVIOSO: "<<(promExtremeRain*100)/cont<<"%"<<endl;
+                        cout<<"\n\tLLUVIOSO: "<<(promRainy*100)/cont<<"%"<<endl;
+                        cout<<"\n\tNORMAL: "<<(promNormal*100)/cont<<"%"<<endl;
+                        cout<<"\n\tSECO: "<<(promDry*100)/cont<<"%"<<endl;
+                        cout<<"\n\tEXTREMO SECO : "<<(promExtremeDry*100)/cont<<"%"<<endl;
                         month = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR())->tm_mon;
                         if(timeList->next != NULL){
                             if( (timeList->next->linkTime->next->unixDateToDate(timeList->linkTime->getDateR())->tm_mon!=timeList->linkTime->next->unixDateToDate(timeList->linkTime->getDateR())->tm_mon)&&flag ==1){
@@ -520,12 +578,19 @@ void Place::printPercentageRain(int year,string namePlace,Place*pList){
         timeList = timeList->next;
     }
     cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
     cin.get();
 }
 
 
+/**
+ * Lista simple que almacena los extremos del clima
+ * @property {int} month - Mes del año
+ * @property {int} extremeRain - Mayor cantidad de lluvia en un mes
+ * @property {int} extremeDry - Mayor cantidad de extremos secos en un mes
+ * @property {tempList} next - Puntero al siguiente nodo en la lista
+ */
 struct tempList{
     int month;
     int extremeRain;
@@ -538,71 +603,75 @@ struct tempList{
         next = NULL;
     }
 };
-tempList*searchtempList(tempList*list1,int month){
-    if (list1 == NULL){
-        return NULL;
 
-    }
-    tempList*temp = list1;
-    while(temp!=NULL){
-        if (month == temp->month){
-            return temp;
-        }
-    }
-    return NULL;
-}
+/**
+ * Esta función busca un mes en la lista y devuelve el puntero al nodo si lo encuentra
+ *
+ * Args:
+ *   list1 (tempList): Lista que desea buscar
+ *   month (int): Mes que desea buscar
+ *
+ * Returns:
+ *   Lista con los extremos del clima
+ */
+
+
+/**
+ * Imprime la cantidad de extremos del clima de lugar determinado para un año especifico.
+ *
+ * Args:
+ *   placeName (string): El nombre del lugar que desea buscar.
+ *   year (int): El año en el que se desea buscar los extremos del clima.
+ *   pList (Place): Lista de lugares
+ */
 void Place::monthlyRainfallExtremes(string placeName,int year,Place*pList){
+
     Place*localPlace = pList->searchPlace(placeName,pList);
     NodoSubTime*listTime = localPlace->timeRegiSublist;
+
     int month = 0;
     int extremeRain = 0;
     int extremeDry = 0;
     tempList*finalList = NULL;
     bool flag = false;
+
     while(listTime != NULL){
-        tm*date =listTime->linkTime->unixDateToDate(listTime->linkTime->getDateR());
-        if (date->tm_year == year){
+        tm*date1 = listTime->linkTime->unixDateToDate(listTime->linkTime->getDateR());
+        if(date1->tm_year== year){
             if (listTime->linkTime->getRained()){
+                int localMonth = date1->tm_mon;
+                NodoSubTime*tmpList = listTime;
+                while(tmpList !=NULL){
+                    if(tmpList->linkTime->unixDateToDate(tmpList->linkTime->getDateR())->tm_year == year){
+                        if(localMonth == tmpList->linkTime->unixDateToDate(tmpList->linkTime->getDateR())->tm_mon){
+                            if(tmpList->linkTime->getRained()){
 
-                if (month == 0){
-                    month = date->tm_mon;
-
-                }
-                if (month == date->tm_mon){
-                    if (listTime->linkTime->rainSublist !=NULL){
-                        if (listTime->linkTime->rainSublist->linkRain->getName() == "Extremo lluvioso"){
-                            extremeRain++;
+                                    if(tmpList->linkTime->rainSublist->linkRain->getName() == "Extremo lluvioso"){
+                                        extremeRain++;
+                                 }
+                                    if(tmpList->linkTime->rainSublist->linkRain->getName() == "Extremo Seco"){
+                                        extremeDry++;
+                                }
+                            }
                         }
-                        if (listTime->linkTime->rainSublist->linkRain->getName() == "Extremo seco"){
-                            extremeDry++;
-                        }
-
                     }
+                    tmpList = tmpList->next;
                 }
-                if ((month != date->tm_mon)||(listTime->next==NULL)){
-                    tempList*newNodo = new tempList(month,extremeRain,extremeDry);
-                    if (finalList == NULL){
-                        finalList = newNodo;
-                    }
-                    else{
-                        month = date->tm_mon;
-                        newNodo->next = finalList;
-                        finalList = newNodo;
-
-                        extremeDry = 0;
-                        extremeRain = 0;
-                    }
-
-
-
-
+                tempList*newMonth = new tempList(localMonth, extremeRain, extremeDry);
+                if(finalList == NULL){
+                    finalList = newMonth;
+                    extremeRain = 0;
+                    extremeDry = 0;
+                }else{
+                    newMonth->next = finalList;
+                    finalList = newMonth;
+                    extremeRain = 0;
+                    extremeDry = 0;
                 }
-
             }
         }
         listTime = listTime->next;
     }
-
     tempList*finalRain = NULL;
     tempList*finalDry = NULL;
     tempList*tempList = finalList;
@@ -620,38 +689,58 @@ void Place::monthlyRainfallExtremes(string placeName,int year,Place*pList){
         finalList = finalList->next;
     }
     bool flagRain = false,flagDry = false;
+
+    cout<<"\n\t   =========================================\n";
+    cout<<"\t   ||   MESES CON MAS EXTREMOS DEL CLIMA    ||\n";
+    cout<<"\t   =========================================\n";
    while(tempList !=NULL){
+
        if(finalRain->extremeRain>0){
            if (finalRain->extremeRain == tempList->extremeRain){
-               cout<<"Mes: "<<tempList->month<<" con "<<tempList->extremeRain<<" Extremos lluviosos"<<endl;
+               cout<<"\n\t________________________________________________\n";
+               cout<<"\tMES: "<<tempList->month<<endl;
+               cout<<"\tEXTREMOS LLUVIOSOS: "<<tempList->extremeRain;
+               cout<<"\n\t________________________________________________\n";
                 flagRain = true;
            }
        }
 
        if(finalDry->extremeDry>0){
            if(finalDry->extremeDry == tempList->extremeDry){
-               cout<<"Mes: "<<tempList->month<<" con "<<tempList->extremeDry<<" Extremos secos"<<endl;
-                flagDry = true;
+               cout<<"\n\t________________________________________________\n";
+               cout<<"\tMES: "<<tempList->month<<endl;
+               cout<<"\tEXTREMOS SECOS: "<<tempList->extremeDry;
+               cout<<"\n\t________________________________________________\n";
+               flagDry = true;
            }
        }
        tempList = tempList->next;
 
    }
    if(!flagRain){
-       cout<<"No hay registros de extremos lluviosos"<<endl;
+       cout<<"\n\tNO HAY REGISTRO DE EXTREMOS LLUVIOSOS"<<endl;
 
    }
    if(!flagDry){
-       cout<<"No hay registros de extremos secos"<<endl;
+       cout<<"\n\tNO HAY REGISTRO DE EXTREMOS SECOS"<<endl;
    }
-
-
-
-
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 }
 
 
 
+
+/**
+ * Imprime el número de días de lluvia en un año determinado para un lugar especifico
+ *
+ * Args:
+ *   year (int): El año que desea buscar.
+ *   namePlace (string): El nombre del lugar que desea buscar.
+ *   pList (Place): Lista de lugares
+ */
 void Place::printRainyDays(int year,string namePlace,Place*pList){
     string months[] = {"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"};
     int month =0;
@@ -679,8 +768,8 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                     int flag = 1;
                     while(flag !=0){
                         cout<<"\n\t________________________________________________\n";
-                        cout<<"\n\tMes: "<<months[month-1]<<endl;
-                        cout<<"\n\tDias lluviosos: "<<days<<endl;
+                        cout<<"\n\tMES: "<<months[month-1]<<endl;
+                        cout<<"\n\tDIAS LLUVIOSOS: "<<days<<endl;
                         int month1 = month;
                         month = time->linkTime->unixDateToDate(time->linkTime->getDateR())->tm_mon;
                         days = 1;
@@ -695,7 +784,6 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                             if(month != month1){
                                 if (flag == 1){
                                     flag = flag+1;
-
                                 }
                                 else{
                                     flag = 0;
@@ -709,16 +797,75 @@ void Place::printRainyDays(int year,string namePlace,Place*pList){
                     flag = 1;
 
                 }
-                //NodoSubRain*rainList= time->linkTime->rainSublist;
-                //days++;
             }
         }
         time = time->next;
     }
     cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
     cin.get();
+}
+
+/**
+ * Busca la temperatura máxima y mínima de un año determinado en un lugar determinado
+ *
+ * Args:
+ *   year (int): El año que desea buscar.
+ *   namePlace (string): El nombre del lugar que desea buscar.
+ *   placeList (Place): Lista de lugares
+ */
+void Place::extremeTemp(int year,string namePlace,Place*placeList){
+    Place*place = placeList->searchPlace(namePlace,placeList);
+    NodoSubTime*timeList = place->timeRegiSublist;
+    int month = 0;
+    float temp1 = 0,temp2 = 0;
+    while(timeList != NULL){
+        if(timeList->linkTime->getRained()){
+            tm*date = timeList->linkTime->unixDateToDate(timeList->linkTime->getDateR());
+            if(date->tm_year == year){
+
+                month = date->tm_mon;
+                NodoSubTime*tempList = timeList;
+                while(tempList !=NULL){
+                    tm*date2 = tempList->linkTime->unixDateToDate(tempList->linkTime->getDateR());
+                    if(timeList->linkTime->getRained()){
+                        if(date->tm_year==year){
+                            if(date->tm_mon>=date2->tm_mon){
+                                if(date->tm_mon == date2->tm_mon){
+                                    if(temp1 ==0 && temp2 == 0){
+                                        temp1 = tempList->linkTime->getMaxTemp();
+                                        temp2 = tempList->linkTime->getMinTemp();
+
+                                    }else{
+                                        if(temp1 < tempList->linkTime->getMaxTemp()){
+                                            temp1 = tempList->linkTime->getMaxTemp();
+                                        }
+                                        if(temp2 < tempList->linkTime->getMinTemp()){
+                                            temp2 = tempList->linkTime->getMinTemp();
+                                        }
+                                    }
+                                }else{
+                                    if(date->tm_mon < date2->tm_mon){
+                                        break;
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                    tempList = tempList->next;
+                }
+            }
+        }
+        if(month !=0){
+            cout<<month<<endl;
+            cout<<"TEMPERATURA MAXIMA: "<<temp1<<endl;
+            cout<<"TEMPERATURA MINIMA: "<<temp2<<endl;
+        }
+
+        timeList = timeList->next;
+    }
 }
 
 

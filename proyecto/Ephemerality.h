@@ -8,10 +8,9 @@
  */
 
 using namespace std;
+
+//Clase que contiene los atributos y métodos de efimeridad.
 class Ephemerality
-
-
-
 {
     public:
         //Constructor

@@ -10,7 +10,17 @@
 
 using namespace std;
 
-//Constructor
+
+/**
+ * Esta función es un constructor de la clase Personas. Inicializa las variables de la clase.
+ *
+ * Args:
+ *   n (string): nombre de la persona
+ *   id (string): la identificación de la persona
+ *   age (short): la edad de la persona
+ *   place (string): el lugar de residencia
+ *   year (string): el año de ingreso de la persona
+ */
 People::People(string n,string id,short age,string place,string year)
 {
     setName(n);
@@ -22,60 +32,129 @@ People::People(string n,string id,short age,string place,string year)
     timeSublist=NULL;
 
 }
-//Setters
+
+
+/**
+ * Esta función establece el nombre de la persona.
+ *
+ * Args:
+ *   n (string): el nombre de la persona
+ */
 void People::setName(string n){
     name = n;
 }
 
+/**
+ * Esta función establece la identificación de la persona.
+ *
+ * Args:
+ *   i (string): La identificación de la persona
+ */
 void People::setId(string i){
     id = i;
 }
+
+/**
+ * La función asigna a la variable edad, la edad de la persona.
+ *
+ * Args:
+ *   ag (short): La edad de la persona.
+ */
 void People::setAge(short ag){
     age = ag;
 }
+
+/**
+ * Esta función establece el lugar de residencia de la persona.
+ *
+ * Args:
+ *   place (string): El lugar de residencia de la persona.
+ */
 void People::setPlaceResidence(string place){
     placeResidence = place;
 }
-void People::setYearIncome(string year){
 
+/**
+ * Esta función asigna a la variable yearIncome el parámetro de year.
+ *
+ * Args:
+ *   year (string): el año de ingreso de la persona
+ */
+void People::setYearIncome(string year){
     yearIncome = year;
 }
 
 //Getters
 
+/**
+ * Esta función devuelve el id de la persona.
+ *
+ * Returns:
+ *   La identificación de la persona.
+ */
 string People::getId(){
     return id;
 }
+/**
+ * Esta función devuelve el nombre de la persona.
+ *
+ * Returns:
+ *   El nombre de la persona.
+ */
 string People::getName(){
     return name;
 }
 
+/**
+ * Esta función devuelve el valor de la edad
+ *
+ * Returns:
+ *   La edad de la persona.
+ */
 short People::getAge(){
     return age;
 }
+
+/**
+ * Esta función devuelve el lugar de residencia de la persona.
+ *
+ * Returns:
+ *   El lugar de residencia de la persona.
+ */
 string People::getPlaceResidence(){
     return placeResidence;
 }
 
+/**
+ * Esta función devuelve el año de ingreso de la persona.
+ *
+ * Returns:
+ *   Se devuelve la variable yearIncome.
+ */
 string People::getYearIncome(){
     return yearIncome;
 }
 
 // Funciones
 
-/*
-Funcion agregar personas
-Se encarga de agregar nodos personas a la lista doble
-*/
-/*
-Funcion agregar personas
-Se encarga de agregar nodos personas a la lista doble
-*/
+
+/**
+ * Agrega una nueva persona a la lista de personas
+ *
+ * Args:
+ *   name (string): Nombre de la persona.
+ *   id (string): Identificacion de la persona a agregar.
+ *   age (short): Edad de la persona.
+ *   place (string): Lugar donde vive la persona.
+ *   year (string): Año en el que la persona ingresa.
+ *   peopleList (People): Lista de personas.
+ *
+ * Returns:
+ *   la lista de personas.
+ */
 People*People::addPeople(string name,string id,short age,string place,string year,People*peopleList){
 
   if (searchPeople(peopleList,id) == NULL){
-
-
       People*newPeople = new People(name,id,age,place,year);
         if(peopleList == NULL)
             peopleList = newPeople;
@@ -98,29 +177,33 @@ People*People::addPeople(string name,string id,short age,string place,string yea
                 newPeople->next = temp;
 
         }
+        cout << "\n\t\t-- SUS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE PERSONAS --"<<endl;
+    }
+    else{
+        cout<<"\n\t\t+++ ERROR: EL ID INGRESADO YA SE ENCUENTRA EN LA LISTA +++\n";
+
     }
     return peopleList;
 }
 
-/*
-Funcion imprimir lista personas
-Recorre la lista y imprime la informacion de cada personas
-*/
 
+
+/**
+ * Esta función imprime la lista de personas
+ *
+ * Args:
+ *   pList (People): es la lista de personas
+ */
 void People::printPeopleList(People*pList){
 
-
     if(pList == NULL){
-        cout<< "\nLista Doble vacia..\n";
-
+        cout<< "\n\t-- LA LISTA DE PERSONA ESTA VACIA --\n";
     }
     else{
         People*temp = pList;
         cout<<"\n\t   =========================================\n";
-        cout<<"\t   ||          Lista de Personas          ||\n";
+        cout<<"\t   ||          LISTA DE PERSONAS          ||\n";
         cout<<"\t   =========================================\n";
-        //cout<< "Lista de Personas"<<endl;
-        //cout<<"*******************************"<<endl;
         while(temp != NULL){
             cout<<"\n\t________________________________________________\n";
             cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
@@ -131,19 +214,25 @@ void People::printPeopleList(People*pList){
         }
     }
     cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPresione cualquier tecla para regresar al menu...";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
     cin.get();
 }
 
-/*
-Funcion buscar personas
-Recorre la lista y compara el id de cada nodo, cuando encuentra en buscado lo retorna
-*/
+
+/**
+ * Esta función busca una persona en la lista de personas
+ *
+ * Args:
+ *   pList (People): La lista de personas para buscar.
+ *   id (string): el id de la persona que se quiere buscar
+ *
+ * Returns:
+ *   Un puntero a un objeto Personas.
+ */
 People*People::searchPeople(People*pList,string id){
 
     if(pList == NULL){
-
         return NULL;
     }
     People*temp = pList;
@@ -157,15 +246,22 @@ People*People::searchPeople(People*pList,string id){
     return NULL;
 }
 
-/*
-Funcion borrar persona
-Se encarga de de borrar el nodo persona seleccionado
-*/
+
+/**
+ * Funcion que elimina una persona de la lista de personas
+ *
+ * Args:
+ *   pList (People): la lista de personas
+ *   id (string): la identificación de las personas que desea eliminar
+ *
+ * Returns:
+ *   El puntero al encabezado de la lista.
+ */
 People*People::deletePeople(People*pList,string id){
 
     People*dPeople = searchPeople(pList,id);
+
     if(dPeople == NULL){
-        cout<< "\n No se puede borrar \n";
         return pList;
     }
     else{
@@ -181,88 +277,127 @@ People*People::deletePeople(People*pList,string id){
                 dPeople->next->pre = dPeople->pre;
                 }
             }
-
     }
-    cout<< "\n Se puede borrar \n";
     return pList;
 }
-/*
-Funcion modificar nombre
-Busca el nodo persona solicitado y modifica el atributo nombre
-*/
+
+/**
+ * Modifica el nombre de una persona en la lista
+ *
+ * Args:
+ *   id (string): la identificación de las personas que desea modificar
+ *   newName (string): el nuevo nombre de la persona
+ *   pList (People): la lista de personas
+ */
 void People::modName(string id,string newName,People*pList){
     People*people = searchPeople(pList,id);
     people->setName(newName);
+
 }
-/*
-Funcion modificar ID
-Busca el nodo persona solicitado y modifica el atributo id
-*/
+
+/**
+ * Modifica el id de una persona en la lista
+ *
+ * Args:
+ *   id (string): el id de la persona que se quiere modificar
+ *   newId (string): la nueva identificación de la persona
+ *   pList (People): la lista de personas
+ */
 void People::modId(string id,string newId,People*pList){
     People*people = searchPeople(pList,id);
     people->setId(newId);
 }
-/*
-Funcion modificar edad
-Busca el nodo persona solicitado y modifica el atributo edad
-*/
+
+/**
+ * Funcion que modifica la edad de una persona
+ *
+ * Args:
+ *   id (string): el id de la persona que se quiere modificar
+ *   newAge (short): la nueva edad de la persona
+ *   pList (People): la lista de personas
+ */
 void People::modAge(string id,short newAge,People*pList){
     People*people = searchPeople(pList,id);
     people->setAge(newAge);
 }
-/*
-Funcion modificar lugar de residencia
-Busca el nodo persona solicitado y modifica el atributo lugar de residencia
-*/
+
+/**
+ * Modifica el lugar de residencia de una persona
+ *
+ * Args:
+ *   id (string): El id de la persona que se quiere modificar.
+ *   newPlace (string): el nuevo lugar de residencia
+ *   pList (People): la lista de personas
+ */
 void People::modPlaceResidence(string id,string newPlace,People*pList){
     People*people = searchPeople(pList,id);
     people->setPlaceResidence(newPlace);
 }
-/*
-Funcion modificar ano de ingreso
-Busca el nodo persona solicitado y modifica el atributo ano de ingreso
-*/
+
+
+/**
+ * Esta función se utiliza para modificar el año de ingreso de una persona
+ *
+ * Args:
+ *   id (string): el id de la persona que se quiere modificar
+ *   newYear (string): nuevo año de ingreso
+ *   pList (People): lista de personas
+ */
 void People::modYearIncome(string id,string newYear,People*pList){
     People*people = searchPeople(pList,id);
     people->setYearIncome(newYear);
 }
 
-//Cargar datos quemados
+
+/**
+ * Carga una lista de personas y la retorna.
+ *
+ * Args:
+ *   peopleList (People): La lista de personas a las que se agregará.
+ *
+ * Returns:
+ *   La lista de personas.
+ */
 People* People::dataLoad(People* peopleList){
 
-    //Datos preestablecidos en lista lugar
-    //peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
-    //peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
-    //peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
+    peopleList=addPeople("Ernesto","202201",15,"Upala","2020",peopleList);
+    peopleList=addPeople("Maria","202202",17,"La Tigra","2012",peopleList);
+    peopleList=addPeople("Adrian","202203",23,"Santa Clara","2010",peopleList);
     peopleList=addPeople("Leiner","202204",20,"Bajo Rodriguez","2022",peopleList);
     peopleList=addPeople("Sara","202205",39,"Ciudad Quesada","2021",peopleList);
     peopleList=addPeople("Tommy","202206",57,"Los Chiles","2019",peopleList);
     peopleList=addPeople("Karina","202207",18,"Los Angeles","2022",peopleList);
-    //peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
-    //peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
-    //peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
-
-    cout<<"\n---Se cargaron los datos correctamente---\n";
+    peopleList=addPeople("Alex","202208",25,"Moravia","2013",peopleList);
+    peopleList=addPeople("Rose","202209",41,"Coronado","2015",peopleList);
+    peopleList=addPeople("Ana","2022010",70,"San Miguel","2004",peopleList);
 
     return peopleList;
-
 }
 
 
 
 //---------------------------------SUBLISTA DE LUGARES----------------------------
 
+/**
+ * *Relaciona un lugar con una persona*
+ *
+ * Args:
+ *   idPerson (string): El ID de la persona que desea vincular a la hora.
+ *   dateR (long int): es la fecha del registro
+ *   timeList (TimeRegis): es una lista de objetos TimeRegis
+ *   peopleList (People): es una lista de personas
+ */
 NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis* timeList,People* peopleList){
 
     People* pers = pers->searchPeople(peopleList,idPerson);
     TimeRegis* timeR = timeR->searchTime(dateR,timeList);
 
     if(pers == NULL){
-        cout<<"\nNo existe la persona";
+        cout<<"\n\tNO EXISTE LA PERSONA";
         return NULL;
     }
     if(timeR == NULL){
-        cout<<"\nNo hay registro en esa fecha";
+        cout<<"\n\tNO HAY REGISTRO EN ESA FECHA";
         return NULL ;
     }
 
@@ -271,11 +406,18 @@ NodoSubTime* People::linkendTimePeople(string idPerson, long int dateR,TimeRegis
     newNodo->next = pers->timeSublist;
     pers->timeSublist = newNodo;
     return pers->timeSublist;
-
 }
 
-//NEW CODE
-//Calcula cuantos nodos tiene una lista
+
+/**
+ * Devuelve el tamaño de la lista.
+ *
+ * Args:
+ *   a (NodoSubTime): El cabeza de lista
+ *
+ * Returns:
+ *   El tamaño de la lista.
+ */
 int People::getSize(NodoSubTime* a)
 {
     int sz = 0;
@@ -286,7 +428,15 @@ int People::getSize(NodoSubTime* a)
     return sz;
 }
 
-//Calcula cual persona tiene mas registros del tiempo
+
+/**
+ * Es una función que obtiene el tamaño de la sublista de una persona y luego la compara con el tamaño de la sublista de la
+ * siguiente persona, hasta que encuentrar a la persona con la sublista más grande.
+ *
+ * Args:
+ *   peopleList (People): es la lista de personas
+ */
+
 void* People::getSizeSublist(People* peopleList){
 
     People * pers= peopleList;
@@ -316,12 +466,22 @@ void* People::getSizeSublist(People* peopleList){
 
 
 
+/**
+ * Imprime la sublista de una persona
+ *
+ * Args:
+ *   id (string): El id de la persona que se quiere imprimir la sublista.
+ *   peopleList (People): es la lista de personas
+ *
+ * Returns:
+ *   un puntero al primer nodo de la lista.
+ */
 void People::printSublistTime(string id,People* peopleList){
 
     People * pers = pers->searchPeople(peopleList,id);
 
     if(pers == NULL){
-        cout<<"\nNo existe la persona";
+        cout<<"\n\tNO EXISTE LA PERSONA";
         return;
     }
     else{

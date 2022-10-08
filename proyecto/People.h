@@ -9,6 +9,9 @@ using namespace std;
  Creado: 16/09/2022 ultima mod: 19/09/2022
  Autor: Leiner Alvarado
  */
+
+
+//Clase que contiene los atributos y métodos de las personas.
 class People
 {
     public:

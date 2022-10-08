@@ -9,10 +9,14 @@
 
 using namespace std;
 
-
-
-//Constructor
-
+/**
+ * Esta función es un constructor que inicializa el código de la lluvia, el nombre y el rango promedio de un objeto Rain.
+ *
+ * Args:
+ *   rainCode (string): Código que se utilizará para identificar la lluvia.
+ *   name (string): El nombre de la lluvia.
+ *   averageRange (int): El rango promedio de la lluvia.
+ */
 Rain::Rain(string rainCode, string name,int averageRange)
 {
     setRainCode(rainCode);
@@ -20,29 +24,66 @@ Rain::Rain(string rainCode, string name,int averageRange)
     setAverageRange(averageRange);
 }
 
-//Setters
+
+/**
+ * Esta función establece a la variable rainCode el valor del parámetro code.
+ *
+ * Args:
+ *   code (string): El código para la condición climática.
+ */
 void Rain::setRainCode(string code){
     rainCode = code;
 }
-void Rain::setName(string n){
 
+/**
+ * Esta función establece el nombre del objeto Lluvia.
+ *
+ * Args:
+ *   n (string): El nombre de la lluvia.
+ */
+void Rain::setName(string n){
     name = n;
 }
 
+/**
+ * Esta función establece el rango promedio de la lluvia.
+ *
+ * Args:
+ *   average (int): La cantidad promedio de lluvia que cae en un día determinado.
+ */
 void Rain::setAverageRange(int average){
     averageRange = average;
 }
 
-//Getters
 
+
+/**
+ * Esta función devuelve el código de lluvia.
+ *
+ * Returns:
+ *   Se devuelve el código de lluvia.
+ */
 string Rain::getRainCode(){
     return rainCode;
 }
 
+/**
+ * Esta función devuelve el nombre del objeto Rain.
+ *
+ * Returns:
+ *   El nombre de la condicion climatica.
+ */
 string Rain::getName(){
     return name;
 
 }
+
+/**
+ * Esta función devuelve el rango promedio de la lluvia
+ *
+ * Returns:
+ *   El rango promedio de la caída de lluvia.
+ */
 int Rain::getAverageRange(){
 
     return averageRange;
@@ -51,50 +92,75 @@ int Rain::getAverageRange(){
 
 //Funciones
 
-
-/*
-Funcion agregar lluvia
-Se encarga de relacionar los nodos lluvia en una lista simple
-*/
-
+/**
+ * Esta función agrega un elemento lluvia a la lista de lluvias
+ *
+ * Args:
+ *   code (string): Código de la lluvia.
+ *   n (string): Nombre de condicion cliamtica
+ *   average (int): Promedio de la lluvia
+ *   oldRain (Rain): Lista de lluvia.
+ *
+ * Returns:
+ *   Lista de lluvia
+ */
 Rain*Rain::addRain(string code,string n,int average,Rain*oldRain){
+
     if (searchRain(oldRain,code)== NULL){
         Rain*newRain = new Rain(code,n,average);
         newRain->next = oldRain;
         oldRain = newRain;
+        cout << "\n\t\t-- LOS DATOS SE HAN AGRUEGADO EXITOSAMENTE A LA LISTA DE LLUVIA -- ";
     }
     else{
-        cout<< "La lluvia ya existe";
+        cout<< "\n\tLA LLUVIA YA ESXISTE EN LA LISTA";
     }
     return oldRain;
 
 }
 
-/*
-Funcion Imprimir lista de Lluvia
-*/
+
+/**
+ * Imprime la lista de lluvias
+ *
+ * Args:
+ *   r (Rain): Lista de lluvias.
+ */
 void Rain::printRainList(Rain*r){
 
-    Rain*temp =r;
-    cout<< "Lista de Lluvia"<<endl;
-    cout<<"*******************************"<<endl;
-    while(temp != NULL){
-
-        cout<<temp->getRainCode()<<endl;
-        cout<<temp->getName()<<endl;
-        cout<<temp->getAverageRange()<<endl;
-        cout<<"*******************************"<<endl;
-        temp = temp->next;
-
+    if(r== NULL)
+        cout<< "\n\t-- La lista de lluvias esta vacia --\n";
+    else{
+        Rain*temp =r;
+        cout<<"\n\t   =========================================\n";
+        cout<<"\t   ||          LISTA DE LLUVIAS           ||\n";
+        cout<<"\t   =========================================\n";
+        while(temp != NULL){
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tCODIGO: "<<temp->getRainCode()<<endl;
+            cout<<"\n\tNOMBRE: "<<temp->getName()<<endl;
+            cout<<"\n\tRANGO PROMEDIO: "<<temp->getAverageRange()<<endl;
+            temp = temp->next;
+        }
     }
+    cout<<"\n\t________________________________________________\n";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+    cin.ignore();
+    cin.get();
 
 }
 
-/*
 
-Funcion buscar nodo lluvia
-Se encarga de recorrer la lista de punteros y retornar el nodo buscado
-*/
+/**
+ * Esta función busca un objeto de lluvia en la lista de lluvia
+ *
+ * Args:
+ *   rainList (Rain): Lista de objetos de lluvia.
+ *   code (string): Código de la lluvia que se quiere buscar
+ *
+ * Returns:
+ *   Un puntero al objeto Rain que conincide con el codigo buscado.
+ */
 Rain*Rain::searchRain(Rain*rainList,string code){
     Rain*temp =rainList;
     while(temp != NULL){
@@ -108,13 +174,16 @@ Rain*Rain::searchRain(Rain*rainList,string code){
 }
 
 
-/*
-Funcion borrar lluvia
-Se encarga de borrar el nodo lluvia seleccionado
-*/
-void Rain::deleteRain(Rain*rList,string code){
+/**
+ * *Funcion que elimina un elemento lluvia de la lista de lluvias
+ *
+ * Args:
+ *   rList (Rain): Lista de lluvias
+ *   code (string): Código de la lluvia a borrar.
+ */
+Rain* Rain::deleteRain(Rain*rList,string code){
         if(rList == NULL){
-        cout<<"\nLista vacia...";
+        cout<<"\n\tLA LISTA DE LLUVIA ESTA VACIA";
 
     }else{
         if(rList->rainCode ==code){
@@ -128,18 +197,36 @@ void Rain::deleteRain(Rain*rList,string code){
                 temp = temp->next;
             }
             if(temp == NULL){
-                cout<<"\nNo se encontro el nodo";
+                cout<<"\n\tNO SE ENCONTRO EL NODO";
             }else{
                 previ->next = temp ->next;
             }
         }
     }
+   return rList;
 }
+
+/**
+ * Modifica el nombre de un objeto de lluvia.
+ *
+ * Args:
+ *   rainList (Rain): La lista de lluvias.
+ *   newName (string): El nuevo nombre de la lluvia.
+ *   rainCode (string): El código de la lluvia que se quiere modificar.
+ */
 void Rain::modName(Rain*rainList,string newName,string rainCode){
     Rain*rain = searchRain(rainList,rainCode);
     rain->setName(newName);
 }
 
+/**
+ * Modifica el código de una condición de climatica
+ *
+ * Args:
+ *   rainList (Rain): Lista de lluvia
+ *   newRainCode (string): El nuevo código para la condición climatica.
+ *   rainCode (string): El código de la condición climatica a modificar.
+ */
 void Rain::modRainCode(Rain*rainList,string newRainCode,string rainCode){
 
     if (searchRain(rainList,newRainCode)== NULL){
@@ -147,19 +234,35 @@ void Rain::modRainCode(Rain*rainList,string newRainCode,string rainCode){
         rain->setRainCode(newRainCode);
     }
     else{
-        cout<< "El codigo ya existe";
+        cout<<"\n\tEL CODIGO DE LA CONDICION CLIMATICA YA EXISTE";
     }
-
 }
+/**
+ * Modifica el rango promedio de un objeto de lluvia.
+ *
+ * Args:
+ *   rainList (Rain): La lista de lluvias.
+ *   newAverage (int): el nuevo rango promedio
+ *   rainCode (string): El código de la lluvia que se quiere modificar.
+ */
+
 void Rain::modAverageRange(Rain*rainList,int newAverage,string rainCode){
     Rain*rain = searchRain(rainList,rainCode);
     rain->setAverageRange(newAverage);
 }
 
-//Cargar datos quemados
+
+/**
+ * Crea una lista de lluvia y la retorna
+ *
+ * Args:
+ *   rainList (Rain): La lista de objetos de lluvia.
+ *
+ * Returns:
+ *   La lista de lluvias.
+ */
 Rain* Rain::dataLoad(Rain* rainList){
 
-    //Datos preestablecidos en lista lugar
     rainList=addRain("1","Extremo lluvioso",3347,rainList);
     rainList=addRain("2","Seco",1581,rainList);
     rainList=addRain("3","Normal",1266,rainList);
@@ -172,10 +275,7 @@ Rain* Rain::dataLoad(Rain* rainList){
     rainList=addRain("10","Seco",502,rainList);
     rainList=addRain("11","Lluvioso",1567,rainList);
 
-    cout<<"\n---Se cargaron los datos correctamente---\n";
-
     return rainList;
-
 }
 
 

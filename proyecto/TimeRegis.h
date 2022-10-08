@@ -5,8 +5,15 @@
 
 using namespace std;
 
-// Aqu� se declaran las variables,constantes y las funciones
+/*
+    Autor: Karina Urbina
+    Iniciado: 12/09/2022
+    Ultima modificacion: 7/10/2022
 
+*/
+
+
+//Clase que contiene los atributos y métodos de los registros del tiempo.
 class TimeRegis
 {
     public:
@@ -37,7 +44,7 @@ class TimeRegis
         class NodoSubRain* getRainList();
 
         //Metodos
-        bool validate(long int , TimeRegis* );
+
         TimeRegis* add(long int  ,int ,float ,float ,int , int ,int ,bool , TimeRegis* );
         TimeRegis* deleteTime(long  ,TimeRegis* );
         TimeRegis* deleteAllTime(TimeRegis* );
@@ -49,11 +56,7 @@ class TimeRegis
         string dateToString(tm*);// Convierte de formato fecha a string para imprimir
         tm*unixDateToDate(long int);//Convierte de formato UnixDate a estructura date
 
-        //void extremeRainMonth(TimeRegis *, int , string ,Place*);
-        //Metodos de sublista
 
-        //NodoSubRain* linkendRainTime(string, long int,Rain*,TimeRegis*);
-        //void printSubRain(long int,TimeRegis*);
         void periodInYear(int , TimeRegis*);
 
         NodoSubRain *linkendRainTime(string , long , Rain *, TimeRegis *);

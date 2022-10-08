@@ -8,8 +8,8 @@
  */
 using namespace std;
 
-class Rain
-{
+//Clase que contiene los atributos y métodos de la lluvia.
+class Rain{
     public:
         //Constructor
         Rain(string,string,int);
@@ -33,7 +33,7 @@ class Rain
         void modRainCode(Rain*,string,string);//Modificar atributo lluvia
         void modName(Rain*,string,string);// Modificar atributo nombre
         void modAverageRange(Rain*,int,string);//Modificar atributo Rango promedio
-        void deleteRain(Rain*,string);//
+        Rain* deleteRain(Rain*,string);//
 
         Rain* dataLoad(Rain*);
         Rain* next;// Siguiente
