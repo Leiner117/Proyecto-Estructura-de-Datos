@@ -172,7 +172,7 @@ People*People::addPeople(string name,string id,short age,string place,string yea
 
             }
             previ->next = newPeople;
-            newPeople->pre = temp;
+            newPeople->pre = previ;
             if(temp != NULL)
                 newPeople->next = temp;
 

@@ -44,7 +44,7 @@ class Ephemerality
         tm* unixDateToDate(long int);// Convierte de formado Unix timestamps a fecha
         long int dateToUnixDate(int,short,short);// Convierte la fecha en formato Unix timestamps
         void diffDepartureTime(int,Ephemerality*);// Diferencia entre las horas de salida
-        int timeToSeconds(short,short);// Convierte la hora en segundos
+        int timeToSeconds(int,int);// Convierte la hora en segundos
         string secondsToTime(int);// convierte los segundos en formato de horas y minutos para imprimir
         string dateToString(tm*); // Convierte la fecha en string para imprimir
         void timeReportYear(Ephemerality*,int);// Reporte de horas de salida y ocultamiento por anos

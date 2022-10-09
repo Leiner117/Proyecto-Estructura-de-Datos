@@ -141,7 +141,7 @@ Ephemerality*Ephemerality::addEphemerality(string name,long int date,int departu
 
             }
             previ->next = newEphemerality;
-            newEphemerality->pre = temp;
+            newEphemerality->pre = previ;
             if(temp != NULL)
                 newEphemerality->next = temp;
 
@@ -447,7 +447,7 @@ void Ephemerality::printEphemeralityList(Ephemerality*eList){
         }
     }
     cout<<"\n\t________________________________________________\n";
-    cout<<"\n\tPRESIONE C...";
+    cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
     cin.get();
 
@@ -510,11 +510,11 @@ long int Ephemerality::dateToUnixDate(int year,short month,short day){
  * Returns:
  *   El numero de segundos en el tiempo dado.
  */
-int Ephemerality::timeToSeconds(short hour,short minutes){
-    int seconds;
+int Ephemerality::timeToSeconds(int hour,int minutes){
+    int seconds = 0;
     hour = hour*3600;
     minutes = minutes*60;
-    seconds = hour+minutes;
+    seconds = hour + minutes;
     return seconds;
 }
 
@@ -551,10 +551,11 @@ string Ephemerality::secondsToTime(int seconds){
  void Ephemerality::diffDepartureTime(int year,Ephemerality*eList){
 
 
-    int diff,diff2;
+    int diff = 0,diff2 = 0;
     struct tm*date;
     string finalDate2;
     string finalDate;
+    bool flag2= false,flag3 = false;
     short flag = 2;
     cout<<"\n\t   =============================================\n";
     cout<<"\t   || FECHAS CON MAYOR DIFERENCIA DE HORAS ||\n";
@@ -564,37 +565,59 @@ string Ephemerality::secondsToTime(int seconds){
             Ephemerality*temp = eList;
             while(temp !=NULL){
                 date = temp->unixDateToDate(temp->getDate());
-                int localDiff;
+                int localDiff = 0;
                 if (date->tm_year == year){
-
+                    flag2 = true;
                     localDiff = (temp->getHideTime()-temp->getDepartureTime())/60;
-                }
-                if (flag == 2){
-
-
-                    if (localDiff > diff){
-                        diff = localDiff;
+                    if (flag == 2){
                         finalDate = dateToString(date);
 
-                    }
+                        if (localDiff > diff){
+                            diff = localDiff;
+                            finalDate = dateToString(date);
 
-                }
-                else{
-                    if ((localDiff > diff2 )&& (localDiff != diff)){
-                        diff2 = localDiff;
-                        finalDate2 = dateToString(date);
+                        }
+
+                    }
+                    else{
+
+                        if ((localDiff > diff2 )&& (localDiff != diff)){
+                            diff2 = localDiff;
+                            finalDate2 = dateToString(date);
+
+                        }else{
+                            if(finalDate2 ==""){
+                                finalDate2 = dateToString(date);
+                            }
+
+
+
+                        }
+
                     }
                 }
+
             temp = temp->next;
             }
             flag = flag-1;
 
         }
-        cout<<"\n\t________________________________________________\n";
-        cout<<"\n\tLAS FECHAS CON MAYOR DIFERENCIA SON: "<<finalDate<<" CON "<<diff<<" MINUTOS"<<" , "<<finalDate2<<" CON "<<diff2<<" MINUTOS"<<endl;
-        cout<<"\n\t________________________________________________\n";
-    }
+        if(flag2){
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tLAS FECHAS CON MAYOR DIFERENCIA SON: "<<endl;
+            cout<<"\n\t"+finalDate<<" CON "<<diff<<" MINUTOS"<<endl;
+            cout<<"\n\t"+finalDate2<<" CON "<<diff2<<" MINUTOS"<<endl;
+        }else{
+            cout<<"\n\t________________________________________________\n";
+            cout<<"\n\tNO HAY EFIMERIDAD EN ESE YEAR"<<endl;
+        }
 
+
+    }
+     cout<<"\n\t________________________________________________\n";
+     cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+     cin.ignore();
+     cin.get();
 
  }
 
@@ -643,7 +666,10 @@ string Ephemerality::secondsToTime(int seconds){
         }
 
 
-
+     cout<<"\n\t________________________________________________\n";
+     cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+     cin.ignore();
+     cin.get();
  }
 
 
@@ -658,9 +684,9 @@ string Ephemerality::secondsToTime(int seconds){
     int departureTime = 0,hideTime = 0;
     Ephemerality*selectTemp;
     Ephemerality*selectTemp2;
-    cout<<"\n\t   =============================================\n";
-    cout<<"\t   || SALIDA DEL SOL MAS TEMPRANA Y OCULTAMIENTO MAS TARDIO ||\n";
-    cout<<"\t   =============================================\n";
+    cout<<"\n\t===========================================================\n";
+    cout<<"\t|| SALIDA DEL SOL MAS TEMPRANA Y OCULTAMIENTO MAS TARDIO ||\n";
+    cout<<"\t===========================================================\n";
      while (temp != NULL){
         if (temp->getDepartureTime()<=departureTime || departureTime == 0) {
 
@@ -681,7 +707,7 @@ string Ephemerality::secondsToTime(int seconds){
     cout<<"\n\tLOS DIAS CON LA SALIDA DEL SOL MAS TEMPRANA SON : "<<endl;
      while(tempList != NULL){
          if (tempList->getDepartureTime() == selectTemp->getDepartureTime()){
-             cout<<dateToString(unixDateToDate(tempList->getDate()))<<endl;
+             cout<<"\n\t"+dateToString(unixDateToDate(tempList->getDate()))<<endl;
 
          }
 
@@ -692,14 +718,17 @@ string Ephemerality::secondsToTime(int seconds){
      cout<<"\n\tLOS DIAS CON EL OCULTAMIENTO DEL SOL MAS TARDE : "<<endl;
      while (tempList2 != NULL){
          if (tempList2->getHideTime() == selectTemp2->getHideTime()){
-             cout<<dateToString(unixDateToDate(tempList2->getDate()))<<endl;
+             cout<<"\n\t"+dateToString(unixDateToDate(tempList2->getDate()))<<endl;
          }
          tempList2 = tempList2->next;
      }
       cout<<"\n\t________________________________________________\n";
 
 
-
+     cout<<"\n\t________________________________________________\n";
+     cout<<"\n\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+     cin.ignore();
+     cin.get();
  }
 /**
  * Esta función comprueba si la hora es válida
@@ -715,7 +744,7 @@ string Ephemerality::secondsToTime(int seconds){
  */
 bool Ephemerality::valTime(int hourDeparture,int minutesDeparture,int hoursHide,int minutesHide){
      bool flag = false;
-     if ((hourDeparture <=24 && hourDeparture>0)&&(hoursHide <=24 && hoursHide>0)&&(minutesDeparture <=60 && minutesDeparture >0)&&(minutesHide <=60 && minutesHide >0)){
+     if ((hourDeparture <=24 && hourDeparture>0)&&(hoursHide <=24 && hoursHide>0)&&(minutesDeparture <=60 && minutesDeparture >=0)&&(minutesHide <=60 && minutesHide >=0)){
          flag =true;
 
      }

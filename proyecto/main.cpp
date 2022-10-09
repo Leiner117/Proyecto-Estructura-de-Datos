@@ -185,11 +185,11 @@ void modifyTimeRegis(){
  * Funcion para modificar los datos de una efimeridad en la lista de efimeridades
  */
 void modEphemerality(){
-    short year,month,day;
+    short year = 0,month = 0,day = 0;
     string name;
     long int date;
-    int departureTime,hideTime;
-    int hour,minutes;
+    int departureTime = 0,hideTime = 0;
+    int hour = 0,minutes = 0;
     cout << "\n\t\tINGRESE EL YEAR DE LA FECHA QUE DESEA MODIFICAR: ";
     cin>>year;
     cout << "\n\t\tINGRESE EL MES DE LA FECHA QUE DESEA MODIFICAR: ";
@@ -209,7 +209,7 @@ void modEphemerality(){
         cout << "\n\t\tINGRESE EL NUEVO MES DE LA FECHA QUE DESEA MODIFICAR: ";
         cin>>day;
         date = ephemeralityList->dateToUnixDate(year,month,day);
-        Ephemerality*ephemerality = ephemeralityList->searchEphemerality(date,ephemeralityList);
+
         if(ephemeralityList->searchEphemerality(date,ephemeralityList) == NULL){
             cout << "\n\t\tINGRESE EL NUEVO NOMBRE DE LA EFIMERIDAD: ";
             getline(cin>>ws,name);
@@ -228,8 +228,9 @@ void modEphemerality(){
             ephemerality->setDepartureTime(departureTime);
             ephemerality->setHideTime(hideTime);
             ephemerality->setName(name);
+            cout<<"\n\t\tLA PERSONA SE MODIFICO CORRECTAMENTE";
         }else{
-            cout<<"\n\tLA NUEVA FECHA YA SE ENCUENTRA REGISTRADA";
+            cout<<"\n\t\tLA NUEVA FECHA YA SE ENCUENTRA REGISTRADA";
         }
     }
     cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
@@ -241,16 +242,17 @@ void modEphemerality(){
  * Funcion para modificar los datos de una persona en la lista de personas
  */
 void modPeople(){
+    system("cls");
     string name;
     string id,newId;
     short age;
     string place;
     string yearIncome;
 
-    cout<<"\n\t INGRESE LA ID DE LA PERSONA QUE DESEA MODIFICAR: ";
+    cout<<"\n\t\tINGRESE LA ID DE LA PERSONA QUE DESEA MODIFICAR: ";
     getline(cin>>ws,id);
-    if(peopleList->searchPeople(peopleList,id) ==NULL){
-        cout << "\n\t\tINGRESE EL NUEVO NOMBRE";
+    if(peopleList->searchPeople(peopleList,id) !=NULL){
+        cout << "\n\t\tINGRESE EL NUEVO NOMBRE: ";
         getline(cin>>ws,name);
         cout << "\n\t\tINGRESE LA NUEVA ID: ";
         getline(cin>>ws,newId);
@@ -269,7 +271,11 @@ void modPeople(){
             p1->setAge(age);
 
 
+        }else{
+            cout<<"\n\t\tLA ID INGRESADA YA SE ENCUENTRA REGISTRADA";
         }
+    }else{
+        cout<<"\n\tLA PERSONA INGRESADA NO ESTA EN EL REGISTRO";
     }
     cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
@@ -280,14 +286,14 @@ void modPeople(){
  * Funcion para modificar los datos de una condicion climatica en la lista de lluvia
  */
 void modifyRain(){
-
+    system("cls");
     string data,nameRain,rainCode;
     int averageRange,opc;
 
     cout << "\n\t\tINGRESE EL CODIGO DEL ESCENARIO CLIMATICO QUE DESEA MODIFICAR: ";
     cin>>data;
-
-    if(rainList->searchRain(rainList,rainCode) == NULL){
+    Rain*tempRain = rainList->searchRain(rainList,data);
+    if(tempRain != NULL){
 
         cout<<"\t\t CLASIFICACION DE ESCENARIOS CLIMATICOS"<<endl;
         cout<<"\t\t  1.Extremo lluvioso "<<endl;
@@ -300,23 +306,40 @@ void modifyRain(){
         cout << "\n\t\tELIGA EL NUEVO ESCENARIO CLIMATICO: ";
         cin>>opc;
 
-        switch(opc){
+        if(opc ==1){
+            nameRain="Extremo lluvioso";
+        }else if(opc ==2){
+            nameRain="Lluvioso";
+        }else if(opc ==3){
+            nameRain="Normal";
+        }else if(opc ==4){
+            nameRain="Seco";
+        }else if(opc ==5){
+            nameRain="Extremo seco";
+        }else{
+            cout<<"\n\t\tNO INGRESO UN ESCENARIO VALIDO";
+        }
 
-            case 1:
-                nameRain="Extremo lluvioso";
-            case 2:
-                nameRain="Lluvioso";
-            case 3:
-                nameRain="Normal";
-            case 4:
-                nameRain="Seco";
-            case 5:
-                nameRain="Extremo seco";
+        if(opc >0 && opc<6){
+            cout<<"\n\t\tINGRESE EL NUEVO CODIGO DE LLUVIA: ";
+            cin>>rainCode;
+            if(rainList->searchRain(rainList,rainCode) == NULL){
+                cout<<"\n\t\tINGRESE EL RANGO PROMEDIO: ";
+                cin>>averageRange;
+                tempRain->modName(rainList,nameRain,data);
+                tempRain->modAverageRange(rainList,averageRange,data);
+                tempRain->modRainCode(rainList,rainCode,data);
+            cout<<"\n\t\tLA LLUVIA SE MODIFICO CORRECTAMENTE";
+
+            }else{
+                cout<<"\n\t\tEL CODIGO DE LLUVIA YA SE ENCUENTRA REGISTRADO";
+            }
         }
 
 
 
-
+    }else{
+        cout<<"\n\t\t EL CODIGO DE LLUVIA NO SE ENCUENTRA REGISTRADO";
     }
     cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
     cin.ignore();
@@ -337,7 +360,7 @@ void userLogin(){
     short age;
 
     cout << "\n\t\tINGRESE SU NOMBRE: ";
-    cin>>namePerson;
+    getline(cin>>ws,namePerson);
 
     cout << "\n\t\tINGRESE SU CEDULA: ";
     cin>>idPerson;
@@ -488,11 +511,11 @@ void ephemeralityLogin(){
     system("cls");
     cout<<"\t\t======================================================"<<endl;
     cout<<"\t\t\t\t  LISTA DE EFIMERIDADES    "<<endl;
-    cout<<"\t\t\t======================================================"<<endl;
+    cout<<"\t\t======================================================="<<endl;
     cout<<endl;
 
     string nameEp;
-    short hourDeparture,minutesDeparture,hourHide,minutesHide,month,day;
+    int hourDeparture,minutesDeparture,hourHide,minutesHide,month,day;
     long int date;
     int year,departureTime,hideTime;
 
@@ -525,7 +548,7 @@ void ephemeralityLogin(){
         cout << "\t\tMINUTOS (mm): ";
         cin>>minutesHide;
 
-    }while(ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
+    }while(!ephemeralityList->valTime(hourDeparture,minutesDeparture,hourHide,minutesHide));
 
     departureTime=ephemeralityList->timeToSeconds(hourDeparture,minutesDeparture);
     hideTime=ephemeralityList->timeToSeconds(hourHide,minutesHide);
@@ -807,6 +830,8 @@ int main()
 
                     if(p=='1'){ // AGREGAR EN LISTA PERSONA
                         userLogin();
+
+
                     }
                     else if(p=='2'){ // AGREGAR EN LISTA LLUVIA
                         rainLogin();
@@ -1040,10 +1065,10 @@ int main()
 
             year=0;
             year2=0;
-            plc= nullptr;
-            idReg= nullptr;
-            idPerson= nullptr;
-            idRain= nullptr;
+            plc= "";
+            idReg= "";
+            idPerson= "";
+            idRain= "";
             month=0;
             day=0;
             registrationDate=0;
