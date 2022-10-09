@@ -3,7 +3,7 @@
 #include <iostream>
 
 /*
- Creado: 16/09/2022 ultima mod: 16/09/2022
+ Creado: 16/09/2022 ultima mod: 08/10/2022
  Autor: Leiner Alvarado
  */
 

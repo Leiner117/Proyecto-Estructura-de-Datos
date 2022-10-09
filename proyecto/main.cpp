@@ -12,7 +12,7 @@
 /*
     Autores: Karina Urbina y Leiner Alvarado
     Iniciado: 12/09/2022
-    Ultima modificacion: 07/10/2022
+    Ultima modificacion: 08/10/2022
 */
 
 using namespace std;
@@ -1060,7 +1060,7 @@ int main()
                 cout << "\n\t\t\t   2. KARINA URBINA             2022038549\n\n";
                 cout<<"\n\t\t\t   =========================================\n";
                 cout<<"\n\t\t\t   START DATE: 12/09/2022\n";
-                cout<<"\n\t\t\t   END DATE: 07/10/2022 ";
+                cout<<"\n\t\t\t   END DATE: 08/10/2022 ";
                 cout << "\n\n";
                 break;
 

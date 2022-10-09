@@ -3,7 +3,7 @@
 #include <string>
 #include <time.h>
 /*
- Creado: 16/09/2022 ultima mod: 26/09/2022
+ Creado: 16/09/2022 ultima mod: 08/10/2022
  Autor: Leiner Alvarado
  */
 

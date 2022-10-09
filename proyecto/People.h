@@ -6,7 +6,7 @@
 using namespace std;
 
 /*
- Creado: 16/09/2022 ultima mod: 19/09/2022
+ Creado: 16/09/2022 ultima mod: 08/10/2022
  Autor: Leiner Alvarado
  */
 
