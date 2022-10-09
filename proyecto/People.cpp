@@ -461,7 +461,7 @@ void* People::getSizeSublist(People* peopleList){
             cont=pers;
         }
     }
-    cout<<"\n\t\t"<<cont->getName()<<" es la persona con mas registros del tiempo";;
+    cout<<"\n\t\t"<<cont->getName()<<" ES LA PERSONA CON MAS REGISTROS DEL TIEMPO\n";
 }
 
 
@@ -487,7 +487,7 @@ void People::printSublistTime(string id,People* peopleList){
     else{
         NodoSubTime* temSub = pers->timeSublist;
         if(temSub==NULL){
-            cout<<"\n\t"<<pers->getName()<<" no tiene registros del tiempo\n";
+            cout<<"\n\t"<<pers->getName()<<" NO TIENE REGISTROS DEL TIEMPO\n";
         }
         else{
             cout<<"\n\t   =========================================\n";
@@ -516,6 +516,7 @@ void People::printSublistTime(string id,People* peopleList){
         }
 
     }
+
 }
 
 

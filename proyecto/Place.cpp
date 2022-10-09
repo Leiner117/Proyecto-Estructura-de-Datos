@@ -693,6 +693,7 @@ void Place::monthlyRainfallExtremes(string placeName,int year,Place*pList){
     cout<<"\n\t   =========================================\n";
     cout<<"\t   ||   MESES CON MAS EXTREMOS DEL CLIMA    ||\n";
     cout<<"\t   =========================================\n";
+
    while(tempList !=NULL){
 
        if(finalRain->extremeRain>0){

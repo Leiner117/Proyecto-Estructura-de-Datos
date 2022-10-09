@@ -758,7 +758,7 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
     timeList->linkendRainTime("6",1603065600,rainList,timeList);// 18 / 10 / 2020
     timeList->linkendRainTime("7",1605852000,rainList,timeList);// 20 / 11 / 2020
     timeList->linkendRainTime("10",1607493600,rainList,timeList); //09 / 12 / 2020
-
+    timeList->linkendRainTime("10",1662444000,rainList,timeList); //
     //Enlace de la sublista registros del tiempo de lugares
     placeList->linkendTimePlace("San Carlos",1607493600,time,place); //09 / 12 / 2020
     placeList->linkendTimePlace("San Carlos",1605852000,time,place); // 20 / 11 / 2020
@@ -936,19 +936,22 @@ int main()
                 }
                 else if(p=='2'){ // VER DIFERENCIAS EN LA SALIDA DEL SOL
 
-                    cout<<"\n\t\tINGRESE EL AÑO EN LA QUE DESEA VER LAS DIFERENCIAS DE FECHAS: ";
+                    cout<<"\n\t\tINGRESE EL YEAR EN LA QUE DESEA VER LAS DIFERENCIAS DE FECHAS: ";
                     cin>>year;
                     ephemeralityList->diffDepartureTime(year,ephemeralityList);
                 }
                 else if(p=='3'){ // VER MES CON MAS EXTREMOS CLIMATICOS
                     cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, plc);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     placeList->monthlyRainfallExtremes(plc,year,placeList);
                 }
                 else if(p=='4'){ // VER PERSONA CON MAS REGISTROS
                     peopleList->getSizeSublist(peopleList);
+                    cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
+                    cin.ignore();
+                    cin.get();
                 }
             }
             else if(c=='5'){//VER REPORTES
@@ -1053,8 +1056,8 @@ int main()
                 cout<<"\n\t\t\t   MIEMBROS DEL GRUPO (DESARROLLADORES)";
                 cout << "\n\n";
                 cout << "\n\t\t\t   NOMBRE                        CARNET\n\n";
-                cout << "\n\t\t\t   1. lEINER ALVARADO           202200000\n\n";
-                cout << "\n\t\t\t   2. KARINA URBINA             208460025\n\n";
+                cout << "\n\t\t\t   1. lEINER ALVARADO           2022437759\n\n";
+                cout << "\n\t\t\t   2. KARINA URBINA             2022038549\n\n";
                 cout<<"\n\t\t\t   =========================================\n";
                 cout<<"\n\t\t\t   START DATE: 12/09/2022\n";
                 cout<<"\n\t\t\t   END DATE: 07/10/2022 ";
