@@ -397,7 +397,7 @@ void Region::printVarWeather(string idReg,int year1, int year2,Region*listReg){
     }
 
     cout<<"\n\t   =========================================================================\n";
-    cout<<"\t   ||    PROMEDIO DE LAS VARIABLES CLIMATOLOGICAS EN "<<reg->getName()<<" ||\n";
+    cout<<"\t   ||    PROMEDIO DE LAS VARIABLES CLIMATOLOGICAS EN " <<reg->getName()<<"           ||\n";
     cout<< "           ||                    En el periodo de "<<year1<<" a "<<year2<<"                     ||\n";
     cout<<"\t   =========================================================================\n";
 

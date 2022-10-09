@@ -796,9 +796,11 @@ void dataLoadSublist(Place*place,Region*region,People*people,TimeRegis*time,Rain
  */
 int main()
 {
-    int year,year2;
+    int year=0;
+    int year2=0;
     string plc,idReg,idPerson,idRain;
-    short month,day;
+    short month=0;
+    short day;
     long int registrationDate;
 
     char c; //OPCION DEL MENU PREINCIPAL
@@ -828,26 +830,24 @@ int main()
                 cout<<"\n\t\tELIGA UNA OPCION:";
                 cin>>p;
 
-                    if(p=='1'){ // AGREGAR EN LISTA PERSONA
-                        userLogin();
-
-
-                    }
-                    else if(p=='2'){ // AGREGAR EN LISTA LLUVIA
-                        rainLogin();
-                    }
-                    else if(p=='3'){ // AGREGAR EN LISTA REGIONES
-                        regionLogin();
-                    }
-                    else if(p=='4'){ // AGREGAR EN LISTA LUGARES
-                        placeLogin();
-                    }
-                    else if(p=='5'){ // AGREGAR EN LISTA EFEMERIDAD
-                        ephemeralityLogin();
-                    }
-                    else if(p=='6'){ // AGREGAR EN LISTA EFEMERIDAD
-                        timeLogin();
-                    }
+                if(p=='1'){ // AGREGAR EN LISTA PERSONA
+                    userLogin();
+                }
+                else if(p=='2'){ // AGREGAR EN LISTA LLUVIA
+                    rainLogin();
+                }
+                else if(p=='3'){ // AGREGAR EN LISTA REGIONES
+                    regionLogin();
+                }
+                else if(p=='4'){ // AGREGAR EN LISTA LUGARES
+                    placeLogin();
+                }
+                else if(p=='5'){ // AGREGAR EN LISTA EFEMERIDAD
+                    ephemeralityLogin();
+                }
+                else if(p=='6'){ // AGREGAR EN LISTA EFEMERIDAD
+                    timeLogin();
+                }
             }
             else if(c=='2'){//MODIFICAR EN LAS LISTA
                 optionListSublis();
@@ -872,7 +872,6 @@ int main()
                 else if(p=='6'){ // MODIFICAR EN LISTA REGISTROS DEL TIEMPO
                     modifyTimeRegis();
                 }
-
             }
             else if(c=='3'){//BORARR NODO EN LAS LISTAS
                 optionListSublis();
@@ -987,61 +986,61 @@ int main()
                         timeList->print(timeList);
                     }
                 }
-                else if(p='2'){//HORARIOS DE LA SALIDA Y PUESTA DEL SOL
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                else if(p=='2'){//HORARIOS DE LA SALIDA Y PUESTA DEL SOL
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     ephemeralityList->timeReportYear(ephemeralityList,year);
                 }
-                else if(p='3'){// PRECIPITACION MENSUAL DE UN LUGAR
+                else if(p=='3'){// PRECIPITACION MENSUAL DE UN LUGAR
                     cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, plc);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     placeList->monthlyRain(year,plc,placeList);
                 }
-                else if(p='4'){// PRECIPITACION MENSUAL DE UN LUGAR
+                else if(p=='4'){// PRECIPITACION MENSUAL DE UN LUGAR
                     cout<<"\n\t\tINGRESE EL ID DE LA REGION QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, idReg);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     regionList->monthlyRain(year,idReg,regionList);
 
                 }
-                else if(p='5'){// VARIABLES CLIAMATOLOGICAS DE UNA REGION
+                else if(p=='5'){// VARIABLES CLIAMATOLOGICAS DE UNA REGION
                     cout<<"\n\t\tINGRESE EL ID DE LA REGION QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, idReg);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE INICIA EL RANGO: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE INICIA EL RANGO: ";
                     cin>>year;
-                    cout<<"\n\t\tINGRESE EL AÑO QUE FINALIZA EL RANGO: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE FINALIZA EL RANGO: ";
                     cin>>year2;
                     regionList->printVarWeather(idReg,year,year2,regionList);
                 }
-                else if(p='6'){// PERIODOS DEL CLIMA
+                else if(p=='6'){// PERIODOS DEL CLIMA
                     system("cls");
-                    cout<<"\n\t\tESTA FUNCION POR EL MOMENTO NO ESTA DISPONIBLE :): ";
+                    cout<<"\n\t\tESTA FUNCION POR EL MOMENTO NO ESTA DISPONIBLE :)\n";
                     cout<<"\n\t\tPRESIONE CUALQUIER TECLA PARA REGRESAR AL MENU...";
                     cin.ignore();
                     cin.get();
                 }
-                else if(p='7'){ //LOS PORCENTAJES DE LA CLASIFICACION DE LA LLUVIA
+                else if(p=='7'){ //LOS PORCENTAJES DE LA CLASIFICACION DE LA LLUVIA
                     cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, plc);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     placeList->printPercentageRain(year,plc,placeList);
                 }
-                else if(p='8'){ // DIAS DE LLUVIA EN UN LUGAR
+                else if(p=='8'){ // DIAS DE LLUVIA EN UN LUGAR
                     cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, plc);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     placeList->printRainyDays(year,plc,placeList);
 
                 }
-                else if(p='9'){//EXTREMOS DE TEMPERATURA DE UN LUGAR
+                else if(p=='9'){//EXTREMOS DE TEMPERATURA DE UN LUGAR
                     cout<<"\n\t\tINGRESE EL NOMBRE DEL LUGAR QUE DESEA CONSULTAR: ";
                     getline(cin>>ws, plc);
-                    cout<<"\n\t\tINGRESE EL AÑO QUE DESEA CONSULTAR: ";
+                    cout<<"\n\t\tINGRESE EL YEAR QUE DESEA CONSULTAR: ";
                     cin>>year;
                     placeList->extremeTemp(year,plc,placeList);
                 }
